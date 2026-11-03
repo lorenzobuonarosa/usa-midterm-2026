@@ -14,7 +14,7 @@
       "from": "2026-11-06T00:00:00Z",
       "to": null,
       "every_minutes": 1440,
-      "county_detail": false
+      "county_detail": true
     }
   ],
   "before_start": "manual_only",
