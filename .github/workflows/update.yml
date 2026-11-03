@@ -4,7 +4,7 @@ name: update
 # quindi nessun limite orario dei build di Pages e nessun commit a ogni giro).
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       mode:

@@ -1,10 +1,17 @@
 {
-  "_nota": "Calendario di polling applicato da scripts/fetch_results.py (la Action parte ogni 30 minuti).",
-  "auto_updates_from": "2026-11-04T06:00:00Z",
+  "_nota": "Calendario di polling applicato da scripts/fetch_results.py (la Action parte ogni 15 minuti, lo script decide se è il momento). Orari in UTC: 23:00Z del 3 novembre = mezzanotte italiana del 4 novembre; 07:00Z = 08:00 italiane.",
+  "auto_updates_from": "2026-11-03T23:00:00Z",
   "windows": [
     {
-      "name": "notte_elettorale",
-      "from": "2026-11-04T06:00:00Z",
+      "name": "notte_ogni_15_minuti",
+      "from": "2026-11-03T23:00:00Z",
+      "to": "2026-11-04T07:00:00Z",
+      "every_minutes": 15,
+      "county_detail": true
+    },
+    {
+      "name": "dalle_8_ogni_30_minuti",
+      "from": "2026-11-04T07:00:00Z",
       "to": "2026-11-06T00:00:00Z",
       "every_minutes": 30,
       "county_detail": true

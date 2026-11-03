@@ -13,7 +13,7 @@ Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lore
 ## Fatto ma non verificato
 - **Sito pubblicato con dati reali**: la prova `smoke` (Chromium sul sito vero, branch `smoke`) a **1200 px** è passata: 4 embed caricati, altezze coerenti, nessun errore, 435/35/36. A 768 e 375 px la prova era caduta per un timeout dello script (non del sito); lo script è corretto ma l'esito pulito non l'ho letto. Lorenzo ha controllato a mano `/viz/all/`: ok.
 - **Backtest** della regola automatica (workflow `backtest`, branch `backtest` → `docs/auto_calls_backtest.md`): solo gare di giugno/maggio; vedi il file se presente.
-- **Cron delle 07:00**: il workflow gira ogni 30 minuti; prima delle 06:00 UTC del 4 novembre lo script salta il giro (verificato con test di calendario). Non verificato dal vivo (la prima occasione è domattina).
+- **Cron e calendario**: il workflow gira ogni 15 minuti; lo script decide (`config/schedule.json`): nessun giro automatico prima delle 23:00 UTC del 3 novembre (**mezzanotte italiana**); poi **ogni 15 minuti fino alle 07:00 UTC (08:00 italiane)**; poi **ogni 30 minuti** fino al 6 novembre 00:00 UTC; poi una volta al giorno. Verificato con test di calendario; il primo giro pianificato vero sarà quello di mezzanotte (GitHub può ritardare i cron di diversi minuti).
 - Incorporamento nel sito QN (lo verifichi tu con la pagina di prova).
 
 ## Lista dei distretti su mobile: scroll e altezza fissa (3 novembre, sera)

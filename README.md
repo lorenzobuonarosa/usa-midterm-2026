@@ -8,11 +8,11 @@ Fonte dei dati: **civicAPI (civicapi.org)** – attribuzione obbligatoria, prese
 ## Come funziona
 
 ```
-civicAPI ──► scripts/fetch_results.py (GitHub Action ogni 30 minuti) ──► data/*.json ──► GitHub Pages ──► iframe nel sito QN
+civicAPI ──► scripts/fetch_results.py (GitHub Action ogni 15 minuti) ──► data/*.json ──► GitHub Pages ──► iframe nel sito QN
 ```
 
-- `.github/workflows/update.yml` parte ogni 30 minuti; lo script decide se è il momento (`config/schedule.json`):
-  nessun aggiornamento automatico prima delle **07:00 italiane del 4 novembre** (06:00 UTC); poi ogni 30 minuti fino al 6 novembre 00:00 UTC; poi una volta al giorno.
+- `.github/workflows/update.yml` parte ogni 15 minuti; lo script decide se è il momento (`config/schedule.json`):
+  nessun aggiornamento automatico prima della **mezzanotte italiana del 4 novembre** (23:00 UTC del 3); poi **ogni 15 minuti fino alle 08:00 italiane** (07:00 UTC); poi **ogni 30 minuti** fino al 6 novembre 00:00 UTC; poi una volta al giorno.
 - Richieste a civicAPI per giro: 2 ricerche (Senato, governatori) + 1 per tutta la Camera (la gara aggregata `87524` contiene i 435 distretti) + il dettaglio solo per le gare chiave
   (`config/key_races.json`, più quelle con margine sotto i 5 punti e almeno il 20% di scrutinio) e per quelle candidate all'assegnazione automatica. User-Agent `RadarQN-midterms-2026`, backoff su 429/5xx.
 - Lo stato tra un giro e l'altro (`data/normalized.json`, `timeline.json`…) si recupera dal sito Pages già pubblicato. Una volta al giorno uno snapshot va sul branch `archive`.

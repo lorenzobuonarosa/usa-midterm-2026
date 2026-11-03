@@ -1,4 +1,4 @@
-"""Calendario di polling: la Action parte ogni 30 minuti, lo script decide se è il momento."""
+"""Calendario di polling: la Action parte ogni 15 minuti, lo script decide se è il momento (config/schedule.json)."""
 import random
 from .util import parse_iso
 
@@ -20,7 +20,7 @@ def decide(now, sched, last_ok, manual=False):
     if manual:
         return True, "manual", "giro manuale: calendario ignorato", w
     if now < start:
-        return False, "pre_count", "prima delle 07:00 italiane del 4 novembre: nessun aggiornamento automatico", None
+        return False, "pre_count", "prima dell'avvio degli aggiornamenti automatici (mezzanotte italiana del 4 novembre): nessun giro automatico", None
     if w is None:
         return False, "idle", "fuori da ogni finestra di polling", None
     if last_ok is None:
