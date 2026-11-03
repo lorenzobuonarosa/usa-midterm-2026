@@ -33,10 +33,11 @@ export function statusText(r) {
 export function partyTag(p) { return `<span class="party-tag party-${p || 'O'}">${p || '?'}</span>`; }
 
 // Blocco HTML di una gara per il tooltip
-export function raceTooltipBlock(r, { showName = true } = {}) {
+export function raceTooltipBlock(r, { showName = true, label = '' } = {}) {
   const pr = r.percent_reporting;
   let h = `<div class="t-race">`;
   if (showName) h += `<div class="t-title">${esc(r.name)}${r.rcv ? ' <span class="t-muted">· prime preferenze</span>' : ''}</div>`;
+  else { const bits = [label, r.rcv ? 'prime preferenze' : ''].filter(Boolean).join(' · '); if (bits) h += `<div class="t-muted" style="margin-bottom:2px">${esc(bits)}</div>`; }
   if (!hasVotes(r)) {
     h += `<div class="t-muted">Nessun voto scrutinato</div>`;
     (r.candidates || []).slice(0, 8).forEach(c => { h += `<div class="t-row"><span class="nm">${partyTag(c.party)}${esc(c.name)}</span></div>`; });

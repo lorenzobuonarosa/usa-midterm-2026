@@ -44,4 +44,4 @@ button, [role="tab"], select, input, summary { min-height: 44px; }
 .party-D { color: var(--c-dem-text); } .party-R { color: var(--c-rep-text); } .party-I, .party-O { color: var(--c-ind-text); }
 
 /* Contorno di evidenziazione al passaggio: disegnato sopra tutti gli altri poligoni, così si vede per intero (anche i lati in comune) */
-.hover-outline { fill: none; stroke: var(--c-text); stroke-width: 2.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; display: none; }
+.hover-outline { fill: none; stroke: var(--c-text); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; display: none; }

@@ -4,7 +4,7 @@
 .map-wrap { position: relative; width: 100%; aspect-ratio: 960 / 600; min-height: 220px; }
 .map-wrap svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
 .st { stroke: #fff; stroke-width: .8; cursor: pointer; transition: fill .3s; }
-.st:focus-visible { outline: none; }
+.st, .st:focus, .st:focus-visible, .st:active { outline: none; -webkit-tap-highlight-color: transparent; }  /* niente riquadro del browser: l'evidenziazione è il solo contorno dello stato */
 .st.sel { stroke: var(--c-text); stroke-width: 1.8; }
 .st-label { font-size: 10px; font-weight: 700; fill: var(--c-text); pointer-events: none; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: rgba(255,255,255,.75); stroke-width: 2.5px; }
 .st-label.on-dark { fill: #fff; stroke: none; }

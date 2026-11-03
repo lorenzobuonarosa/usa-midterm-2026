@@ -70,7 +70,8 @@ function showTip(f, rs, ev) {
   let h = `<div class="t-kicker"><span>${st} · ${tab_.kicker}</span><span class="num">${rs.length ? pctText(rs) : ''}</span></div>`;
   h += `<div class="t-title">${esc(STATE_NAMES[f.id])}</div>`;
   if (!rs.length) h += `<div class="t-muted">Nessuna gara in palio nel 2026</div>`;
-  else rs.forEach(r => { h += raceTooltipBlock(r, { showName: rs.length > 1 || r.special || true }); });
+  // il nome dello stato è già il titolo: la gara si descrive solo se serve a distinguerla (speciale / ordinaria), mai ripetendo "Florida … Florida US Senate"
+  else rs.forEach(r => { h += raceTooltipBlock(r, { showName: false, label: r.special ? 'Elezione speciale' : (rs.length > 1 ? 'Elezione ordinaria' : '') }); });
   tip.show(h, ...pos(ev));
 }
 const pctText = (rs) => { const r = primaryRace(rs); const p = r.percent_reporting; return (p == null ? 0 : Math.round(p)) + '% scrutinato'; };

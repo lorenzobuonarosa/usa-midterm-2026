@@ -6,6 +6,7 @@
 .reset[hidden] { display: none; }
 .map-wrap { position: relative; width: 100%; aspect-ratio: 960 / 600; min-height: 220px; overflow: hidden; }
 .map-wrap svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+.dist, .dist:focus { outline: none; -webkit-tap-highlight-color: transparent; }
 .dist { stroke: #fff; stroke-width: .6; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill .3s; }
 .hint { font-size: 12px; color: var(--c-muted); margin: 12px 0 0; }
 .tally { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--c-border); }
