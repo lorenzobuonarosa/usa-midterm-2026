@@ -1,6 +1,6 @@
 # STATUS – Radar QN midterm 2026
 
-Ultimo aggiornamento: 3 novembre 2026, ~17:10 (ora italiana). Sito: https://lorenzobuonarosa.github.io/usa-midterm-2026/
+Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lorenzobuonarosa.github.io/usa-midterm-2026/
 
 ## Fatto e verificato
 - **Pages**: deploy via Actions funzionante (nessuna impostazione da rifare). Verifica con richiesta reale dal runner: `viz/_test/` risponde 200, **nessun `X-Frame-Options`**, `cache-control: max-age=600`.
@@ -11,10 +11,16 @@ Ultimo aggiornamento: 3 novembre 2026, ~17:10 (ora italiana). Sito: https://lore
 - **Dataviz** `balance`, `map-states`, `house-list`, `map-house`, `viz/all`: test con Chromium headless su 1200/1000/999/768/470/469/375/320 px: **182/182 controlli** (nessuno scroll orizzontale, `postMessage` di altezza coerente con l'altezza reale, tooltip dentro l'iframe, nessun errore in console, nessun 100vh) più integrazione con due iframe e un solo `parent.js` (cambio scheda, riga espansa, "Mostra altri 25", filtro). Screenshot in `tests/screenshots/`. I test locali usano dati simulati.
 
 ## Fatto ma non verificato
-- **Il sito pubblicato con dati reali** non è stato aperto da un browser: dal sandbox `github.io` è bloccato. Workflow `smoke` (Actions → smoke) lo fa girare con Chromium sul sito vero e salva screenshot sul branch `smoke`.
+- **Sito pubblicato con dati reali**: la prova `smoke` (Chromium sul sito vero, branch `smoke`) a **1200 px** è passata: 4 embed caricati, altezze coerenti, nessun errore, 435/35/36. A 768 e 375 px la prova era caduta per un timeout dello script (non del sito); lo script è corretto ma l'esito pulito non l'ho letto. Lorenzo ha controllato a mano `/viz/all/`: ok.
 - **Backtest** della regola automatica (workflow `backtest`, branch `backtest` → `docs/auto_calls_backtest.md`): solo gare di giugno/maggio; vedi il file se presente.
 - **Cron delle 07:00**: il workflow gira ogni 30 minuti; prima delle 06:00 UTC del 4 novembre lo script salta il giro (verificato con test di calendario). Non verificato dal vivo (la prima occasione è domattina).
 - Incorporamento nel sito QN (lo verifichi tu con la pagina di prova).
+
+## Modifiche al frontend richieste da Lorenzo (3 novembre, pomeriggio)
+- Tabella dei distretti: sotto i 500 px scorre in orizzontale in un contenitore (820 px sotto i 500, 700 px tra 500 e 999) con avviso "Scorri la tabella in orizzontale".
+- Contorno completo al passaggio (stato in `map-states`, distretto in `map-house`) con un tracciato sovrapposto (`.hover-outline`), non più bordo del singolo poligono.
+- `map-house`: tolti i bordi marcati degli stati; confini dei distretti più visibili (0,6 px). Per ripristinare i bordi degli stati vedi la storia git del commit 778a9db.
+- Più spazio sotto mappe e legende (margini in `map-states.css`, `map-house.css`, `.notice` in `_shared/base.css`).
 
 ## Manca / non fatto
 - Nessun embed disegna le contee (non richiesto): i dati per contea delle gare chiave sono in `data/races/<id>.json`.
