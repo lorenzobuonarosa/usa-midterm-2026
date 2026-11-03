@@ -124,6 +124,7 @@ jobs:
         run: |
           rm -rf _site && mkdir -p _site
           for d in viz embed assets vendor data config; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
+          rm -rf _site/assets/geo/src
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3

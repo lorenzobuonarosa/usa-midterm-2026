@@ -1,0 +1,5 @@
+{
+  "_nota": "Assegnazioni manuali. Esempio: {\"race_id\":\"12345\",\"winner\":\"Nome Cognome\",\"party\":\"D\",\"method\":\"manual\",\"note\":\"fonte\"}. 'hold' sospende l'automatico per quei race_id.",
+  "calls": [],
+  "hold": []
+}

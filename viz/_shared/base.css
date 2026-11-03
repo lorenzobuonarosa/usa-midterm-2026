@@ -1,0 +1,41 @@
+/* Stile di base condiviso dagli embed. I colori reali arrivano da config/branding.json (branding.js) */
+:root {
+  --c-dem: #00AEF3; --c-dem-text: #1E4080; --c-dem-1: #B8E6FB; --c-dem-2: #6FCFF7; --c-dem-3: #00AEF3;
+  --c-rep: #E81B23; --c-rep-text: #B5121B; --c-rep-1: #F8C4C6; --c-rep-2: #F08A8E; --c-rep-3: #E81B23;
+  --c-ind: #7A828E; --c-ind-text: #4B5260; --c-other: #9AA1AB;
+  --c-none: #EEF0F3; --c-border: #D5D9DF; --c-border-strong: #8A919C;
+  --c-text: #1A1D23; --c-muted: #5B6470; --c-bg: #FFFFFF; --c-warn: #8A5A00; --c-warn-bg: #FFF6DD; --c-accent: #1E4080;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+/* Nessun 100vh/100vw: l'altezza segue il contenuto. html e body senza overflow visibile. */
+html, body { margin: 0; padding: 0; overflow: hidden; background: var(--c-bg); color: var(--c-text);
+  font-family: var(--font); font-size: 15px; line-height: 1.4; -webkit-text-size-adjust: 100%; }
+body { position: relative; }
+.num, .tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.embed { padding: 16px 16px 12px; max-width: 100%; }
+.embed h1, .embed h2, .embed h3 { margin: 0; font-weight: 600; letter-spacing: -.01em; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+button { font: inherit; color: inherit; }
+button, [role="tab"], select, input, summary { min-height: 44px; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 4px; }
+.dem-text { color: var(--c-dem-text); } .rep-text { color: var(--c-rep-text); } .ind-text { color: var(--c-ind-text); }
+
+/* Note e avvisi sotto ogni dataviz */
+.foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--c-border); font-size: 12px; color: var(--c-muted); }
+.foot p { margin: 0 0 4px; }
+.notice { margin: 0 0 12px; padding: 8px 12px; border-radius: 6px; font-size: 13px; background: var(--c-none); color: var(--c-text); border: 1px solid var(--c-border); }
+.notice.warn { background: var(--c-warn-bg); color: var(--c-warn); border-color: #E8D49A; }
+.empty { padding: 32px 16px; text-align: center; color: var(--c-muted); border: 1px dashed var(--c-border); border-radius: 8px; }
+
+/* Tooltip: posizionato dentro l'area dell'iframe (vedi tooltip.js) */
+.tip { position: absolute; z-index: 20; max-width: 280px; pointer-events: none; background: #fff; border: 1px solid var(--c-border-strong);
+  border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.35; box-shadow: 0 1px 4px rgba(0,0,0,.12); display: none; }
+.tip .t-kicker { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--c-muted); display: flex; justify-content: space-between; gap: 12px; }
+.tip .t-title { font-weight: 600; font-size: 14px; margin: 2px 0 4px; }
+.tip .t-row { display: flex; justify-content: space-between; gap: 12px; }
+.tip .t-row .nm { overflow-wrap: anywhere; }
+.tip .t-muted { color: var(--c-muted); }
+.tip .t-race + .t-race { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--c-border); }
+.party-tag { font-weight: 700; margin-right: 6px; }
+.party-D { color: var(--c-dem-text); } .party-R { color: var(--c-rep-text); } .party-I, .party-O { color: var(--c-ind-text); }

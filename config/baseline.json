@@ -1,0 +1,39 @@
+{
+  "_nota": "Seggi non in palio e soglie. Valori del mockup di Lorenzo; verificati per logica (vedi 'verifica'): da confrontare con senate.gov e NGA.",
+  "house": {
+    "seats": 435,
+    "up": 435,
+    "not_up": {
+      "D": 0,
+      "R": 0,
+      "I": 0
+    },
+    "majority": 218
+  },
+  "senate": {
+    "seats": 100,
+    "up": 35,
+    "not_up": {
+      "D": 32,
+      "R": 31,
+      "I": 2
+    },
+    "majority": 51,
+    "tie_note": "In caso di 50-50 decide il voto del vicepresidente (JD Vance, repubblicano): i repubblicani controllerebbero il Senato con 50 seggi.",
+    "tie_vp_party": "R"
+  },
+  "governors": {
+    "seats": 50,
+    "up": 36,
+    "not_up": {
+      "D": 6,
+      "R": 8,
+      "I": 0
+    },
+    "majority": null
+  },
+  "verifica": {
+    "senate": "non ancora verificato con senate.gov",
+    "governors": "coerente con il calendario elettorale: D (KY, NJ, VA, DE, NC, WA) = 6; R (LA, MS, IN, MO, MT, ND, UT, WV) = 8; da confrontare con NGA"
+  }
+}

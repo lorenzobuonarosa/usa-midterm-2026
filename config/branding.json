@@ -1,0 +1,37 @@
+{
+  "_nota": "Tutti i colori e il font in un punto solo. I colori diventano variabili CSS (--c-...) via viz/_shared/branding.js.",
+  "font": {
+    "family": "Inter",
+    "fallback": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+    "googleCss": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+  },
+  "colors": {
+    "dem": "#00AEF3",
+    "demText": "#1E4080",
+    "demTint1": "#B8E6FB",
+    "demTint2": "#6FCFF7",
+    "demTint3": "#00AEF3",
+    "rep": "#E81B23",
+    "repText": "#B5121B",
+    "repTint1": "#F8C4C6",
+    "repTint2": "#F08A8E",
+    "repTint3": "#E81B23",
+    "ind": "#7A828E",
+    "indText": "#4B5260",
+    "other": "#9AA1AB",
+    "none": "#EEF0F3",
+    "border": "#D5D9DF",
+    "borderStrong": "#8A919C",
+    "text": "#1A1D23",
+    "textMuted": "#5B6470",
+    "bg": "#FFFFFF",
+    "warn": "#8A5A00",
+    "warnBg": "#FFF6DD",
+    "accent": "#1E4080"
+  },
+  "marginBands": {
+    "_nota": "Fasce di margine (punti percentuali) per l'intensità del colore",
+    "band1": 5,
+    "band2": 15
+  }
+}

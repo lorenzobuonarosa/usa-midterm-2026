@@ -1,0 +1,26 @@
+{
+  "_nota": "Calendario di polling applicato da scripts/fetch_results.py (la Action parte ogni 30 minuti).",
+  "auto_updates_from": "2026-11-04T06:00:00Z",
+  "windows": [
+    {
+      "name": "notte_elettorale",
+      "from": "2026-11-04T06:00:00Z",
+      "to": "2026-11-06T00:00:00Z",
+      "every_minutes": 30,
+      "county_detail": true
+    },
+    {
+      "name": "dopo",
+      "from": "2026-11-06T00:00:00Z",
+      "to": null,
+      "every_minutes": 1440,
+      "county_detail": false
+    }
+  ],
+  "before_start": "manual_only",
+  "jitter_seconds": [
+    2,
+    9
+  ],
+  "stale_after_minutes": 75
+}

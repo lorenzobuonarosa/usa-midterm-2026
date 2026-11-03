@@ -1,0 +1,27 @@
+{
+  "_nota": "Regola prudente di assegnazione automatica. Le soglie le decide Lorenzo: non modificarle in base ai backtest.",
+  "enabled": true,
+  "min_percent_reporting": 80,
+  "margin_factor": 1.5,
+  "max_source_age_hours": 3,
+  "unopposed": {
+    "enabled": true,
+    "after_polls_close": true
+  },
+  "no_auto_states_below_50": {
+    "GA": "ballottaggio (1 dicembre)",
+    "AK": "voto ordinato per preferenze",
+    "ME": "voto ordinato per preferenze"
+  },
+  "runoff_states": {
+    "GA": {
+      "threshold_pct": 50,
+      "runoff_date": "2026-12-01"
+    }
+  },
+  "rcv_states": [
+    "AK",
+    "ME"
+  ],
+  "rcv_threshold_pct": 50
+}
