@@ -138,8 +138,12 @@ function renderResults() {
   document.getElementById('matches').textContent = `Corrispondenze: ${fmtInt(list.length)} su ${fmtInt(races.length)}`;
   const part = list.slice(0, shown);
   const el = document.getElementById('results');
-  if (!list.length) { el.innerHTML = '<div class="empty">Nessun distretto corrisponde ai filtri.</div>'; return; }
-  let h = view === 'cards' ? renderCards(part) : renderTable(part);
+  // "Le tue sfide": si riempie contrassegnando i distretti con la stellina ☆
+  const mineHint = f.chip === 'mine'
+    ? `<p class="mine-hint">${memStore.size ? `Stai vedendo i distretti che hai contrassegnato con la stellina ★ (${fmtInt(memStore.size)}). Tocca la stella accanto a un distretto per aggiungerlo o toglierlo.` : 'Per usare «Le tue sfide» tocca la stellina ☆ accanto a un distretto: i distretti contrassegnati compariranno qui.'}</p>`
+    : '';
+  if (!list.length) { el.innerHTML = mineHint + (f.chip === 'mine' && !memStore.size ? '' : '<div class="empty">Nessun distretto corrisponde ai filtri.</div>'); return; }
+  let h = mineHint + (view === 'cards' ? renderCards(part) : renderTable(part));
   if (list.length > shown) h += `<button class="more" type="button" id="more">Mostra altri ${Math.min(pageSize(), list.length - shown)}</button>`;
   el.innerHTML = h;
 }
@@ -223,7 +227,7 @@ function shell() {
     </div>
   </details>
   <div class="chips" id="chips" role="group" aria-label="Filtri rapidi">
-    ${[['all', 'Tutte'], ['close', 'Sfide combattute'], ['called', 'Eletto'], ['open', 'Non assegnato'], ['mine', 'Le tue sfide']].map(([k, t]) => `<button class="chip" type="button" data-chip="${k}" aria-pressed="${f.chip === k}">${t}</button>`).join('')}
+    ${[['all', 'Tutte'], ['close', 'Sfide combattute'], ['called', 'Eletto'], ['open', 'Non assegnato'], ['mine', 'Le tue sfide']].map(([k, t]) => `<button class="chip" type="button" data-chip="${k}" aria-pressed="${f.chip === k}"${k === 'mine' ? ' title="Contrassegna i distretti con la stellina ☆ per vederli qui"' : ''}>${t}</button>`).join('')}
     <span class="matches" id="matches" aria-live="polite"></span></div>
   <div class="results" id="results"></div><div id="foot"></div>`;
 }
