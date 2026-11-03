@@ -12,7 +12,7 @@ BASE = "https://civicapi.org/api/v2"
 UA = "RadarQN-midterms-2026"
 
 
-def fetch(path, params, timeout=60):
+def fetch(path, params, timeout=180):
     url = path if path.startswith("http") else BASE + path
     if params:
         url += ("&" if "?" in url else "?") + urllib.parse.urlencode(params)

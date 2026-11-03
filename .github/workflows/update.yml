@@ -143,3 +143,12 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verifica intestazioni della pagina pubblicata (X-Frame-Options, ecc.)
+        run: |
+          sleep 15
+          URL="${{ steps.deployment.outputs.page_url }}viz/_test/"
+          echo "URL: $URL"
+          curl -sS -I -A "RadarQN-midterms-2026" "$URL" | tee /tmp/headers.txt || true
+          { echo '### Intestazioni di '"$URL"; echo '```'; cat /tmp/headers.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          if grep -qi '^x-frame-options' /tmp/headers.txt; then echo "ATTENZIONE: X-Frame-Options presente"; else echo "OK: nessun X-Frame-Options"; fi
