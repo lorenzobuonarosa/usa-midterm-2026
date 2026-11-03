@@ -1,7 +1,7 @@
 /* Stile di base condiviso dagli embed. I colori reali arrivano da config/branding.json (branding.js) */
 :root {
-  --c-dem: #00AEF3; --c-dem-text: #1E4080; --c-dem-1: #B8E6FB; --c-dem-2: #6FCFF7; --c-dem-3: #00AEF3;
-  --c-rep: #E81B23; --c-rep-text: #B5121B; --c-rep-1: #F8C4C6; --c-rep-2: #F08A8E; --c-rep-3: #E81B23;
+  --c-dem: #00AEF3; --c-dem-text: #1E4080; --c-dem-1: #B8E6FB; --c-dem-2: #6FCFF7; --c-dem-3: #4DC4F5;
+  --c-rep: #E81B23; --c-rep-text: #B5121B; --c-rep-1: #F8C4C6; --c-rep-2: #F08A8E; --c-rep-3: #EE5A60;
   --c-ind: #7A828E; --c-ind-text: #4B5260; --c-other: #9AA1AB;
   --c-none: #EEF0F3; --c-border: #D5D9DF; --c-border-strong: #8A919C;
   --c-text: #1A1D23; --c-muted: #5B6470; --c-bg: #FFFFFF; --c-warn: #8A5A00; --c-warn-bg: #FFF6DD; --c-accent: #1E4080;
