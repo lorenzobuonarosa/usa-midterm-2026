@@ -16,7 +16,7 @@ civicAPI ──► scripts/fetch_results.py (GitHub Action ogni 30 minuti) ─�
 - Richieste a civicAPI per giro: 2 ricerche (Senato, governatori) + 1 per tutta la Camera (la gara aggregata `87524` contiene i 435 distretti) + il dettaglio solo per le gare chiave
   (`config/key_races.json`, più quelle con margine sotto i 5 punti e almeno il 20% di scrutinio) e per quelle candidate all'assegnazione automatica. User-Agent `RadarQN-midterms-2026`, backoff su 429/5xx.
 - Lo stato tra un giro e l'altro (`data/normalized.json`, `timeline.json`…) si recupera dal sito Pages già pubblicato. Una volta al giorno uno snapshot va sul branch `archive`.
-- Il deploy è via Actions (`upload-pages-artifact` + `deploy-pages`): non crea commit a ogni giro e non è soggetto al limite orario dei build da branch.
+- Il deploy è via Actions (`upload-pages-artifact` + `deploy-pages`): non crea commit a ogni giro. Verificato nella [documentazione ufficiale dei limiti di GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits): il limite morbido di 10 build all'ora **non si applica** a chi pubblica con un workflow personalizzato di GitHub Actions (restano 1 GB di sito, 100 GB al mese di banda e timeout di 10 minuti per il deploy).
 - Dati vecchi o errori: mai sovrascrivere gli ultimi dati buoni. Se un giro fallisce `meta.status = "stale"` e le dataviz mostrano un avviso dopo 75 minuti.
 
 ### Assegnazione delle gare
@@ -42,7 +42,7 @@ Ogni modifica a `config/**` fa ripartire il workflow in modalità `rebuild` (non
    ```
    `race_id` è nel file `data/summary.json` (campo `id`; per la Camera è l'id del distretto). `winner` deve coincidere con il nome del candidato nel dato.
    Il file è validato a ogni giro: se è sbagliato si usa l'ultima versione valida e l'errore compare nei log e in `data/quality.json`.
-3. `config/key_races.json` – gare con il dettaglio per contea: liste di sigle per `senate` e `governor`, e `house` come `"AZ-01"` (`"WY-00"` non serve: per gli stati con un solo distretto basta la sigla `"WY-AL"` oppure l'id in `race_ids`).
+3. `config/key_races.json` – gare con il dettaglio per contea: liste di sigle per `senate` e `governor`, e `house` come `"AZ-01"` (per gli stati con un solo distretto: `"WY-AL"`). In alternativa gli id in `race_ids`.
 4. `config/baseline.json` – seggi non in palio e soglie (218 Camera, 51 Senato). `config/branding.json` – tutti i colori e il font in un solo punto.
 
 ## Lanciare un giro a mano
