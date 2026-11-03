@@ -84,7 +84,7 @@ def normalize_race(raw, now_iso=None):
         "id": str(raw["id"]), "chamber": chamber, "state": prov, "state_name": STATES[prov][0], "district": dd,
         "geoid": geoid(prov, dd) if chamber == "house" else None,
         "name": display_name(chamber, prov, dd, name_raw, special), "election_name": name_raw, "special": special,
-        "region": STATE_REGION.get(prov), "rcv": prov in RCV_STATES and chamber in ("senate", "house", "governor"),
+        "region": STATE_REGION.get(prov), "rcv": prov in RCV_STATES and not (prov == "ME" and chamber == "governor"),  # in Maine il governatore si elegge a maggioranza semplice
         "percent_reporting": pr, "total_votes": total, "candidates": cands, "flags": [],
         "unopposed": len(cands) == 1,
     }

@@ -304,7 +304,7 @@
   {
    "name": "map-states@768: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 726, contenuto 726"
+   "extra": "iframe 743, contenuto 743"
   },
   {
    "name": "map-states@768: nessun 100vh (altezza non legata alla finestra)",
@@ -314,7 +314,7 @@
   {
    "name": "map-states@768: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":137,\"t\":305,\"r\":353.359375,\"b\":384.28125,\"W\":768,\"H\":725.765625}"
+   "extra": "{\"l\":137,\"t\":305,\"r\":353.359375,\"b\":384.28125,\"W\":768,\"H\":742.5625}"
   },
   {
    "name": "map-states@768: nessun errore in console",
@@ -394,7 +394,7 @@
   {
    "name": "map-states@375: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 578, contenuto 578"
+   "extra": "iframe 600, contenuto 600"
   },
   {
    "name": "map-states@375: nessun 100vh (altezza non legata alla finestra)",
@@ -404,7 +404,7 @@
   {
    "name": "map-states@375: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":80,\"t\":192,\"r\":296.359375,\"b\":271.28125,\"W\":375,\"H\":577.140625}"
+   "extra": "{\"l\":80,\"t\":192,\"r\":296.359375,\"b\":271.28125,\"W\":375,\"H\":599.9375}"
   },
   {
    "name": "map-states@375: nessun errore in console",
@@ -424,7 +424,7 @@
   {
    "name": "map-states@320: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 617, contenuto 617"
+   "extra": "iframe 640, contenuto 640"
   },
   {
    "name": "map-states@320: nessun 100vh (altezza non legata alla finestra)",
@@ -434,7 +434,7 @@
   {
    "name": "map-states@320: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":72,\"t\":176,\"r\":288.359375,\"b\":255.28125,\"W\":320,\"H\":616.734375}"
+   "extra": "{\"l\":72,\"t\":176,\"r\":288.359375,\"b\":255.28125,\"W\":320,\"H\":639.53125}"
   },
   {
    "name": "map-states@320: nessun errore in console",

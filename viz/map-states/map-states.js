@@ -50,7 +50,7 @@ function draw() {
       if (isFinite(c[0])) {
         const dark = r && r.called;
         const t = labels.append('text').attr('class', 'st-label' + (dark ? ' on-dark' : '')).attr('x', c[0]).attr('y', c[1]).text(st);
-        if (r && r.called) labels.append('text').attr('class', 'st-check').attr('x', c[0]).attr('y', c[1] + 11).text('✓').attr('fill', '#fff').style('fill', '#fff');
+        if (r && r.called) labels.append('text').attr('class', 'st-check').attr('x', c[0]).attr('y', c[1] + 11).text(r.called.method === 'manual' ? '✓' : '✓*').style('fill', '#fff');
       }
     }
   });
@@ -72,10 +72,16 @@ function showTip(f, rs, ev) {
 }
 const pctText = (rs) => { const r = primaryRace(rs); const p = r.percent_reporting; return (p == null ? 0 : Math.round(p)) + '% scrutinato'; };
 
+function renderNote() {
+  const rcv = tab === 'senate' ? ['AK', 'ME'] : ['AK'];
+  document.getElementById('mapnote').innerHTML = 'Tinta più scura = margine più ampio. ' + rcv.map(a => `<span class="badge">${a}</span>`).join(' ') +
+    ' voto ordinato per preferenze (prime preferenze): i conteggi sono solo prime preferenze.';
+}
+
 function renderTabs() {
   const el = document.getElementById('tabs');
   el.innerHTML = TABS.map(t => `<button role="tab" type="button" aria-selected="${t.key === tab}" data-k="${t.key}">${t.label}</button>`).join('');
-  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { tab = b.dataset.k; renderTabs(); draw(); tip.hide(); scheduleHeight(); }));
+  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { tab = b.dataset.k; renderTabs(); renderNote(); draw(); tip.hide(); scheduleHeight(); }));
 }
 
 async function main() {
@@ -94,13 +100,13 @@ async function main() {
     <div class="legend" aria-label="Legenda">
       <span class="grp">Democratici <i class="d1"></i><i class="d2"></i><i class="d3"></i></span>
       <span class="grp">Repubblicani <i class="r1"></i><i class="r2"></i><i class="r3"></i></span>
-      <span class="grp"><i class="dc"></i><i class="rc"></i> Assegnata ✓</span>
+      <span class="grp"><i class="dc"></i><i class="rc"></i> Assegnata ✓ (* automatica)</span>
       <span class="grp"><i class="n"></i> Non in palio o senza voti</span>
     </div>
-    <p class="map-note">Tinta più scura = margine più ampio. <span class="badge">AK</span> <span class="badge">ME</span> voto ordinato per preferenze: i conteggi sono solo prime preferenze.</p>
+    <p class="map-note" id="mapnote"></p>
     <div id="foot"></div>`;
   tip = createTooltip();
-  renderTabs(); draw();
+  renderTabs(); renderNote(); draw();
   renderFooter(document.getElementById('foot'), summary, { showAutoNote: true });
   let lastW = 0;
   new ResizeObserver(() => { const w = document.getElementById('mapwrap').clientWidth; if (Math.abs(w - lastW) > 1) { lastW = w; draw(); scheduleHeight(); } }).observe(document.getElementById('mapwrap'));
