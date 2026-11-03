@@ -91,6 +91,40 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     await page.screenshot({ path: path.join(SHOTS, 'integrazione-due-iframe.png'), fullPage: true });
     await ctx.close();
   }
+  // ---- Mobile: vista a 10 righe, area scorrevole, scroll di riserva, altezza fissa
+  {
+    const ctx = await browser.newContext({ viewport: { width: 375, height: 800 }, hasTouch: true, isMobile: true });
+    const page = await ctx.newPage(); const errors = [];
+    page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); }); page.on('pageerror', e => errors.push(e.message));
+    await page.goto(`http://localhost:${port}/viz/house-list/index.html`); await page.waitForTimeout(2200);
+    await page.click('button[data-view="table"]'); await page.waitForTimeout(300);
+    const m = await page.evaluate(() => { const w = document.querySelector('.tbl-wrap'); return { rows: document.querySelectorAll('table.hl tbody tr').length, h: w.clientHeight, sw: w.scrollWidth, cw: w.clientWidth, htmlOv: getComputedStyle(document.documentElement).overflowY, doc: document.body.getBoundingClientRect().height, vh: innerHeight }; });
+    ok('mobile: tabella a 10 righe iniziali', m.rows === 10, JSON.stringify(m));
+    ok('mobile: area dei risultati con altezza massima fissa (<= 830 px)', m.h <= 831);
+    ok('mobile: la tabella scorre in orizzontale dentro il contenitore', m.sw > m.cw);
+    ok('mobile: aperta direttamente, la pagina è scorrevole (scroll di riserva)', m.htmlOv === 'auto' && m.doc > m.vh);
+    await page.click('#more'); await page.waitForTimeout(300);
+    ok('mobile: "Mostra altri 10" aggiunge 10 righe', (await page.evaluate(() => document.querySelectorAll('table.hl tbody tr').length)) === 20);
+    ok('mobile: nessun errore in console', errors.length === 0, errors.join('|'));
+    await ctx.close();
+    // iframe ad altezza fissa senza parent.js: il contenuto resta raggiungibile
+    const c2 = await browser.newContext({ viewport: { width: 375, height: 900 }, hasTouch: true, isMobile: true });
+    const p2 = await c2.newPage();
+    await p2.route('**/host_fixed.html', r => r.fulfill({ contentType: 'text/html', body: '<style>body{margin:0}iframe{width:100%;border:0;display:block}</style><iframe id=a style="height:700px" src="/viz/house-list/index.html"></iframe><iframe id=b data-radar-fixed-height style="height:640px" src="/viz/house-list/index.html"></iframe><iframe id=c style="height:300px" src="/viz/balance/index.html"></iframe><script src="/embed/parent.js"></script>' }));
+    await p2.goto(`http://localhost:${port}/host_fixed.html`); await p2.waitForTimeout(3800);
+    const hs = await p2.evaluate(() => ['a', 'b', 'c'].map(i => Math.round(document.getElementById(i).getBoundingClientRect().height)));
+    ok('data-radar-fixed-height: l\'iframe resta a 640 px', hs[1] === 640, JSON.stringify(hs));
+    ok('senza l\'attributo l\'altezza si adatta al contenuto', hs[2] !== 300 && hs[0] !== 700, JSON.stringify(hs));
+    await c2.close();
+    const c3 = await browser.newContext({ viewport: { width: 375, height: 900 }, hasTouch: true, isMobile: true });
+    const p3 = await c3.newPage();
+    await p3.setContent(`<style>body{margin:0}iframe{width:100%;border:0;display:block;height:700px}</style><iframe id="f" src="http://localhost:${port}/viz/house-list/index.html"></iframe>`);
+    await p3.waitForTimeout(3500);
+    const fr = await (await p3.$('#f')).contentFrame();
+    const fx = await fr.evaluate(() => ({ ov: getComputedStyle(document.documentElement).overflowY, sh: document.documentElement.scrollHeight, ch: document.documentElement.clientHeight }));
+    ok('iframe fisso 700 px senza script: contenuto scorrevole nell\'iframe', fx.ov === 'auto' && fx.sh > fx.ch, JSON.stringify(fx));
+    await c3.close();
+  }
   await browser.close(); server.close();
   fs.writeFileSync(path.join(SHOTS, '_risultati.json'), JSON.stringify({ failures, results }, null, 1));
   console.log(`\n${results.length - failures}/${results.length} controlli superati`);

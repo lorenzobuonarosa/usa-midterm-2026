@@ -36,10 +36,25 @@ Senza JavaScript l'iframe resta usabile con l'altezza minima indicata.
 Tutte e quattro insieme, per provare: `https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/all/`.
 Pagina di prova con altezza variabile (non collegata da altre pagine): `…/viz/_test/`.
 
+## Altezza fissa (per la lista dei distretti su mobile)
+
+Di norma `parent.js` adatta l'altezza dell'iframe al contenuto. Se in redazione serve un'**altezza fissa** (per esempio una colonna di layout che non deve cambiare), aggiungi l'attributo `data-radar-fixed-height` all'iframe: lo script lo lascia com'è.
+
+Sotto i 500 px la lista dei distretti mostra **10 righe alla volta** in un'area con altezza massima fissa (circa 810 px) che scorre in verticale e in orizzontale al suo interno;
+"Mostra altri 10" aggiunge righe dentro l'area **senza cambiare l'altezza dell'embed**. Altezze misurate con i filtri chiusi (vista Tabella e vista Schede, 320-414 px di larghezza, anche dopo "Mostra altri 10"): da 1.410 a 1.450 px; a 499 px fino a 1.511 px.
+
+```html
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/house-list/" title="Midterm USA 2026: risultati per distretto della Camera" loading="lazy" data-radar-fixed-height style="width:100%;border:0;display:block;height:1520px"></iframe>
+```
+- Con il pannello dei filtri aperto il contenuto cresce di circa 440 px: se l'iframe è più basso del contenuto, **l'embed diventa scorrevole al suo interno** (scroll di riserva), quindi nulla resta irraggiungibile.
+  Lo stesso vale se si apre l'indirizzo dell'embed direttamente, o se `parent.js` manca o JavaScript è disattivato.
+- Su desktop e tablet non serve altezza fissa: lascia l'adattamento automatico (snippet senza l'attributo).
+- A fine corsa dell'area scorrevole, il gesto passa alla pagina (niente "trappola" di scroll).
+
 ## Cosa fa `parent.js`
 - IIFE senza globali, nessun CSS iniettato.
 - Accetta solo messaggi con `event.origin` uguale all'origine da cui è servito lo script stesso, con forma `{source: 'radar-midterm', type: 'height', height: <intero>}`.
-- Trova l'iframe confrontando `event.source` con `iframe.contentWindow` e imposta solo `iframe.style.height`.
+- Trova l'iframe confrontando `event.source` con `iframe.contentWindow` e imposta solo `iframe.style.height` (tranne sugli iframe con `data-radar-fixed-height`).
 
 ## Nota per il team di sviluppo QN
 - Il sito deve consentire l'origine `https://lorenzobuonarosa.github.io` nella policy **`frame-src`** (o `child-src`) della Content-Security-Policy, e `script-src` per `parent.js`.

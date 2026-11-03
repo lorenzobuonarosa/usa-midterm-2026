@@ -29,6 +29,8 @@
     var frames = document.getElementsByTagName('iframe');
     for (var i = 0; i < frames.length; i++) {
       if (frames[i].contentWindow === event.source) {
+        // altezza fissa voluta dal redattore: l'attributo data-radar-fixed-height sull'iframe disattiva l'adattamento
+        if (frames[i].hasAttribute('data-radar-fixed-height')) return;
         frames[i].style.height = h + 'px';
         return;
       }

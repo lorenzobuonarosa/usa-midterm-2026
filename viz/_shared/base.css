@@ -9,9 +9,12 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 /* Nessun 100vh/100vw: l'altezza segue il contenuto. html e body senza overflow visibile. */
-html, body { margin: 0; padding: 0; overflow: hidden; background: var(--c-bg); color: var(--c-text);
+html, body { margin: 0; padding: 0; background: var(--c-bg); color: var(--c-text);
   font-family: var(--font); font-size: 15px; line-height: 1.4; -webkit-text-size-adjust: 100%; }
-body { position: relative; }
+/* html senza scroll; body con overflow-x: clip (nessuno scroll orizzontale ma, a differenza di hidden, NON è un contenitore di scroll:
+   così un gesto che arriva a fine corsa di un'area scorrevole interna passa alla pagina invece di fermarsi sul body) */
+html { overflow: hidden; }
+body { position: relative; overflow-x: clip; }
 .num, .tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
 .embed { padding: 16px 16px 12px; max-width: 100%; }
 .embed h1, .embed h2, .embed h3 { margin: 0; font-weight: 600; letter-spacing: -.01em; }

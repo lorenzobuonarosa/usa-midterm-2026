@@ -114,7 +114,7 @@
   {
    "name": "balance@470: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 879, contenuto 879"
+   "extra": "iframe 862, contenuto 862"
   },
   {
    "name": "balance@470: nessun 100vh (altezza non legata alla finestra)",
@@ -554,7 +554,7 @@
   {
    "name": "house-list@470: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 2177, contenuto 2177"
+   "extra": "iframe 1291, contenuto 1291"
   },
   {
    "name": "house-list@470: nessun 100vh (altezza non legata alla finestra)",
@@ -579,7 +579,7 @@
   {
    "name": "house-list@469: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 5404, contenuto 5404"
+   "extra": "iframe 1333, contenuto 1333"
   },
   {
    "name": "house-list@469: nessun 100vh (altezza non legata alla finestra)",
@@ -604,7 +604,7 @@
   {
    "name": "house-list@375: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 5560, contenuto 5560"
+   "extra": "iframe 1410, contenuto 1410"
   },
   {
    "name": "house-list@375: nessun 100vh (altezza non legata alla finestra)",
@@ -629,7 +629,7 @@
   {
    "name": "house-list@320: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 5968, contenuto 5968"
+   "extra": "iframe 1427, contenuto 1427"
   },
   {
    "name": "house-list@320: nessun 100vh (altezza non legata alla finestra)",
@@ -884,32 +884,77 @@
   {
    "name": "integrazione: altezze iniziali corrette (due iframe)",
    "ok": true,
-   "extra": "{\"a\":718,\"b\":2246}"
+   "extra": "{\"a\":718,\"b\":2263}"
   },
   {
    "name": "integrazione: cambio scheda (Senato -> Governatori) mantiene altezza coerente",
    "ok": true,
-   "extra": "{\"a\":718,\"b\":2246}"
+   "extra": "{\"a\":718,\"b\":2263}"
   },
   {
    "name": "integrazione: apertura riga espansa cambia l'altezza e resta coerente",
    "ok": true,
-   "extra": "2246 -> 2488"
+   "extra": "2263 -> 2521"
   },
   {
    "name": "integrazione: \"Mostra altri 25\" aumenta l'altezza e resta coerente",
    "ok": true,
-   "extra": "2488 -> 4182"
+   "extra": "2521 -> 4215"
   },
   {
    "name": "integrazione: filtro di ricerca riduce l'altezza e resta coerente",
    "ok": true,
-   "extra": "2488 -> 2244"
+   "extra": "2521 -> 2244"
   },
   {
    "name": "integrazione: nessun errore in console",
    "ok": true,
    "extra": ""
+  },
+  {
+   "name": "mobile: tabella a 10 righe iniziali",
+   "ok": true,
+   "extra": "{\"rows\":10,\"h\":809,\"sw\":820,\"cw\":341,\"htmlOv\":\"auto\",\"doc\":1414.21875,\"vh\":800}"
+  },
+  {
+   "name": "mobile: area dei risultati con altezza massima fissa (<= 830 px)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "mobile: la tabella scorre in orizzontale dentro il contenitore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "mobile: aperta direttamente, la pagina è scorrevole (scroll di riserva)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "mobile: \"Mostra altri 10\" aggiunge 10 righe",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "mobile: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "data-radar-fixed-height: l'iframe resta a 640 px",
+   "ok": true,
+   "extra": "[2054,640,778]"
+  },
+  {
+   "name": "senza l'attributo l'altezza si adatta al contenuto",
+   "ok": true,
+   "extra": "[2054,640,778]"
+  },
+  {
+   "name": "iframe fisso 700 px senza script: contenuto scorrevole nell'iframe",
+   "ok": true,
+   "extra": "{\"ov\":\"auto\",\"sh\":2053,\"ch\":700}"
   }
  ]
 }

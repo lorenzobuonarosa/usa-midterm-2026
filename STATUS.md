@@ -16,6 +16,12 @@ Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lore
 - **Cron delle 07:00**: il workflow gira ogni 30 minuti; prima delle 06:00 UTC del 4 novembre lo script salta il giro (verificato con test di calendario). Non verificato dal vivo (la prima occasione è domattina).
 - Incorporamento nel sito QN (lo verifichi tu con la pagina di prova).
 
+## Lista dei distretti su mobile: scroll e altezza fissa (3 novembre, sera)
+- Sotto i 500 px: vista a **10 righe**; area dei risultati con altezza massima fissa (830 px) che scorre in verticale e orizzontale; intestazione della tabella fissa; "Mostra altri 10" aggiunge righe dentro l'area (altezza dell'embed stabile, 1.410-1.450 px).
+- **Scroll di riserva** in tutti gli embed: se l'iframe è più basso del contenuto (altezza fissa nel CMS, script assente, indirizzo aperto direttamente) l'embed diventa scorrevole. Prima, con `html`/`body` su `overflow: hidden`, la parte sotto era irraggiungibile.
+- `parent.js` rispetta l'attributo `data-radar-fixed-height`. Snippet e altezze in `docs/embed.md`.
+- Verificato con gesti touch emulati (pagina, dentro la tabella, a fine corsa, orizzontale). **Non** provato su un telefono vero.
+
 ## Irrobustimento ai formati inattesi (3 novembre, sera)
 - Numeri come stringhe o con separatori (`"1,234"`, `"1.234.567"`, `"45,5%"`), valori nulli, `winner: "false"`, candidati o gare non validi: letti con parser tolleranti (`to_int`, `to_float`, `to_bool` in `scripts/radar/util.py`).
 - Una gara illeggibile viene scartata e si tiene il suo dato precedente (voce `gare_scartate_formato_inatteso` in `quality.json`); un errore su una gara non ferma più il giro. Lo stesso per i dettagli di contea e per le assegnazioni (un'assegnazione esistente non si toglie per un errore di lettura).

@@ -15,6 +15,8 @@
 .matches { margin-left: auto; font-size: 13px; color: var(--c-muted); }
 .results { margin-top: 12px; }
 .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-bottom: 1px solid var(--c-border); }
+/* intestazione della tabella sempre visibile quando si scorre dentro il contenitore */
+table.hl thead th { position: sticky; top: 0; z-index: 2; }
 .scroll-hint { display: none; font-size: 12px; color: var(--c-muted); margin: 0 0 6px; }
 table.hl { width: 100%; min-width: 680px; border-collapse: separate; border-spacing: 0; font-size: 14px; table-layout: fixed; }
 table.hl th { white-space: nowrap; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 10px 8px; border-bottom: 3px solid var(--c-border); background: #fff; }
@@ -49,7 +51,16 @@ tr.detail td { background: #FAFBFC; padding: 12px 16px; }
 .card .row .k { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; flex: 0 0 auto; }
 .card .row .v { text-align: right; overflow-wrap: anywhere; }
 @media (min-width: 470px) and (max-width: 999px) { .cards { grid-template-columns: 1fr 1fr; } table.hl .c-oth { display: none; } table.hl { min-width: 700px; } }
-@media (max-width: 499px) { .scroll-hint { display: block; } table.hl { min-width: 820px; } }
+/* Mobile (< 500 px): vista a 10 righe. L'area dei risultati ha altezza massima fissa (10 righe ≈ 810 px), con scorrimento verticale e
+   orizzontale al suo interno; "Mostra altri 10" aggiunge righe dentro l'area senza cambiare l'altezza dell'embed.
+   overscroll-behavior-y: auto -> a fine corsa lo scorrimento passa alla pagina (niente "trappola" di scroll). */
+@media (max-width: 499px) {
+  .scroll-hint { display: block; }
+  table.hl { min-width: 820px; }
+  .tbl-wrap, .cards { max-height: 830px; overflow: auto; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; overscroll-behavior-x: contain; overscroll-behavior-y: auto; }
+  .tbl-wrap { border: 1px solid var(--c-border); border-radius: 8px; }
+  .cards { padding: 2px; }
+}
 @media (max-width: 469px) {
   .filters > summary { display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; list-style: none; }
   .f-grid { grid-template-columns: 1fr; margin-top: 10px; }

@@ -6,7 +6,8 @@ import { renderFooter, renderError } from '../_shared/notices.js';
 import { hasVotes, statusText } from '../_shared/races.js';
 
 const app = document.getElementById('app');
-const PAGE = 25;
+const MOBILE_MAX = 499;                       // sotto i 500 px: vista a 10 righe con area scorrevole
+const pageSize = () => (window.innerWidth <= MOBILE_MAX ? 10 : 25);
 const REGIONS = { northeast: 'Nord-est', midwest: 'Medio Ovest', south: 'Sud', west: 'Ovest' };
 const REGION_OF = {
   northeast: 'CT ME MA NH RI VT NJ NY PA', midwest: 'IL IN MI OH WI IA KS MN MO NE ND SD',
@@ -23,7 +24,7 @@ function loadStars() {
 }
 function saveStars() { try { localStorage.setItem(LS_KEY, JSON.stringify([...memStore])); } catch (e) { /* ripiego in memoria */ } }
 
-let races = [], summary, view = 'table', shown = PAGE, expanded = new Set();
+let races = [], summary, view = 'table', shown = pageSize(), expanded = new Set();
 const f = { q: '', region: '', sort: 'district', margin: '', rep: '', lead: '', chip: 'all' };
 
 const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -139,7 +140,7 @@ function renderResults() {
   const el = document.getElementById('results');
   if (!list.length) { el.innerHTML = '<div class="empty">Nessun distretto corrisponde ai filtri.</div>'; return; }
   let h = view === 'cards' ? renderCards(part) : renderTable(part);
-  if (list.length > shown) h += `<button class="more" type="button" id="more">Mostra altri ${Math.min(PAGE, list.length - shown)}</button>`;
+  if (list.length > shown) h += `<button class="more" type="button" id="more">Mostra altri ${Math.min(pageSize(), list.length - shown)}</button>`;
   el.innerHTML = h;
 }
 
@@ -170,7 +171,7 @@ function shell() {
 
 function bind() {
   const on = (id, ev, fn) => document.getElementById(id).addEventListener(ev, fn);
-  const reset = () => { shown = PAGE; renderResults(); };
+  const reset = () => { shown = pageSize(); renderResults(); };
   on('q', 'input', (e) => { f.q = e.target.value; reset(); });
   ['region', 'sort', 'margin', 'rep', 'lead'].forEach(id => on(id, 'change', (e) => { f[id] = e.target.value; reset(); }));
   app.addEventListener('click', (e) => {
@@ -179,7 +180,7 @@ function bind() {
     else if (t.dataset.chip) { f.chip = t.dataset.chip; app.querySelectorAll('[data-chip]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.chip === f.chip))); reset(); }
     else if (t.dataset.star) { const id = t.dataset.star; memStore.has(id) ? memStore.delete(id) : memStore.add(id); saveStars(); renderResults(); const nb = app.querySelector(`[data-star="${CSS.escape(id)}"]`); if (nb) nb.focus(); }
     else if (t.dataset.xp) { const id = t.dataset.xp; expanded.has(id) ? expanded.delete(id) : expanded.add(id); renderResults(); const nb = app.querySelector(`[data-xp="${CSS.escape(id)}"]`); if (nb) nb.focus(); }
-    else if (t.id === 'more') { shown += PAGE; renderResults(); }
+    else if (t.id === 'more') { shown += pageSize(); renderResults(); }
   });
 }
 
@@ -193,6 +194,9 @@ async function main() {
   if (window.innerWidth < 470) view = 'cards';
   app.innerHTML = shell();
   bind(); renderResults();
+  // se la larghezza attraversa la soglia dei 500 px si ricalcola la pagina (10 su mobile, 25 altrove)
+  let wasMobile = window.innerWidth <= MOBILE_MAX;
+  window.addEventListener('resize', () => { const m = window.innerWidth <= MOBILE_MAX; if (m !== wasMobile) { wasMobile = m; shown = pageSize(); renderResults(); } });
   renderFooter(document.getElementById('foot'), summary, { showAutoNote: true });
 }
 main();

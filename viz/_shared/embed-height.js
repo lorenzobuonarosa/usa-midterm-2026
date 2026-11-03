@@ -21,10 +21,22 @@ function send() {
   if (last !== null && Math.abs(h - last) < 2) return;
   if (h === last) return;
   last = h;
+  fallbackScroll();
   try {
     // '*' perché l'origine della pagina ospite (sito QN) non è nota; il messaggio contiene solo un intero
     window.parent.postMessage({ source: SOURCE, type: 'height', height: h }, '*');
   } catch (e) { /* nessun genitore raggiungibile: non è un errore */ }
+}
+
+// Riserva: se l'iframe NON viene adattato dal genitore (altezza fissa nel CMS, script mancante, JavaScript disattivato)
+// e il contenuto è più alto della finestra, si abilita lo scorrimento verticale dell'embed, altrimenti la parte
+// sotto resterebbe irraggiungibile (html/body hanno overflow hidden). Con l'altezza adattata il contenuto entra
+// esattamente e lo scorrimento resta spento. Si valuta dopo 1,5 s dal caricamento per non far comparire barre transitorie.
+let fallbackArmed = false;
+function fallbackScroll() {
+  if (!fallbackArmed) return;
+  const h = measure();
+  document.documentElement.style.overflowY = (h > window.innerHeight + 2) ? 'auto' : '';
 }
 
 export function scheduleHeight() {
@@ -34,14 +46,15 @@ export function scheduleHeight() {
 }
 
 export function startHeightReporting() {
-  if (window.parent === window) return; // non in iframe: niente da inviare
+  const inFrame = window.parent !== window;
   if (typeof ResizeObserver !== 'undefined') {
-    const ro = new ResizeObserver(scheduleHeight);
-    ro.observe(document.body);
+    new ResizeObserver(() => { if (inFrame) scheduleHeight(); fallbackScroll(); }).observe(document.body);
   }
-  window.addEventListener('load', scheduleHeight);
-  window.addEventListener('resize', scheduleHeight);
-  scheduleHeight();
+  window.addEventListener('load', () => { if (inFrame) scheduleHeight(); });
+  window.addEventListener('resize', () => { if (inFrame) scheduleHeight(); fallbackScroll(); });
+  // vale anche aprendo l'embed direttamente in una scheda (fuori da un iframe): senza questo la pagina non scorrerebbe
+  setTimeout(() => { fallbackArmed = true; fallbackScroll(); }, 1500);
+  if (inFrame) scheduleHeight();
 }
 
 // Utile ai test: ultima altezza inviata
