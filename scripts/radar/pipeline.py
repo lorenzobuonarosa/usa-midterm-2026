@@ -102,7 +102,12 @@ def run(args, cfg, issues):
     protect_from_regression(races, prev_races, quality_checks)
 
     metas = dict(prev.get("metas", {}))
-    detail_info = fetch_details(client, races, metas, cfg, acfg, calls_cfg, now, out_dir, quality_checks, ccfg)
+    try:
+        detail_info = fetch_details(client, races, metas, cfg, acfg, calls_cfg, now, out_dir, quality_checks, ccfg)
+    except Exception as e:  # i dettagli sono un di più: un errore qui non deve far perdere il giro
+        log(f"Errore nei dettagli di gara (si prosegue con i dati in blocco): {e}")
+        quality_checks.append({"name": "dettagli_di_gara", "status": "warn", "detail": f"errore: {e}"})
+        detail_info = {"error": str(e)}
     pc_for = lambda r: (metas.get(r["id"], {}) or {}).get("polls_close") or cfg["polls_close"].get("polls_close", {}).get(r["state"])
     for r in races.values():  # orario di chiusura anche per le gare senza dettaglio
         metas.setdefault(r["id"], {}).setdefault("polls_close", cfg["polls_close"].get("polls_close", {}).get(r["state"]))
@@ -198,7 +203,13 @@ def fetch_details(client, races, metas, cfg, acfg, calls_cfg, now, out_dir, chec
     geo_ids = load_county_ids()
     done = 0
     key_summaries = []
+    t_start = time.time()
+    budget = ccfg.get("max_detail_seconds", 360)
     for rid in order:
+        if time.time() - t_start > budget:
+            log(f"Budget di tempo per i dettagli esaurito ({budget}s): mi fermo a {done} richieste")
+            checks.append({"name": "dettagli_di_gara", "status": "warn", "detail": f"budget di tempo esaurito dopo {done} dettagli su {len(order)}"})
+            break
         try:
             d = client.race(rid)
         except ApiError as e:

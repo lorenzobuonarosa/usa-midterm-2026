@@ -33,5 +33,6 @@
       "race_id": 87524
     }
   ],
-  "max_auto_key_races": 100
+  "max_auto_key_races": 100,
+  "max_detail_seconds": 360
 }
