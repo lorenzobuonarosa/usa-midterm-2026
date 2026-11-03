@@ -1,0 +1,20 @@
+name: geo-probe
+# Sonda una tantum dei file dei distretti (il sandbox di sviluppo non raggiunge census.gov)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/geo_probe.py
+      - name: Salva il rapporto sul branch discovery-geo
+        run: |
+          git config user.name "radar-bot"; git config user.email "radar-bot@users.noreply.github.com"
+          cp -r discovery/geo /tmp/geo
+          git checkout --orphan discovery-geo-tmp && git rm -rf -q . 2>/dev/null || true
+          mkdir -p geo && cp -r /tmp/geo/. geo/ && git add geo
+          git commit -qm "geo probe $(date -u +%FT%TZ)" && git push -f origin discovery-geo-tmp:discovery-geo
