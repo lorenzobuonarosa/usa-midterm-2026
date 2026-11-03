@@ -1,0 +1,39 @@
+{
+  "_nota": "Parametri di civicAPI scoperti in Fase 0 (docs/discovery.md). Tre ricerche in blocco, nessun filtro sul tipo di gara oltre a quelle elencate.",
+  "base": "https://civicapi.org/api/v2",
+  "timeout_seconds": 180,
+  "pause_seconds": 0.4,
+  "max_details_per_run": 450,
+  "queries": [
+    {
+      "chamber": "house",
+      "params": {
+        "type": "US House",
+        "limit": 1000,
+        "country": "US",
+        "startDate": "2026-11-03",
+        "endDate": "2026-11-03"
+      }
+    },
+    {
+      "chamber": "senate",
+      "params": {
+        "type": "US Senate",
+        "limit": 200,
+        "country": "US",
+        "startDate": "2026-11-03",
+        "endDate": "2026-11-03"
+      }
+    },
+    {
+      "chamber": "governor",
+      "params": {
+        "type": "Governor",
+        "limit": 200,
+        "country": "US",
+        "startDate": "2026-11-03",
+        "endDate": "2026-11-03"
+      }
+    }
+  ]
+}
