@@ -1,0 +1,74 @@
+[
+ {
+  "name": "house_nov3",
+  "url": "https://civicapi.org/api/v2/race/search?type=US+House&limit=1000&country=US&startDate=2026-11-03&endDate=2026-11-03",
+  "status": 200,
+  "bytes": 22,
+  "seconds": 15.99,
+  "content_type": "application/json; charset=utf-8",
+  "file": "house_nov3.json"
+ },
+ {
+  "name": "senate_nov3",
+  "url": "https://civicapi.org/api/v2/race/search?type=US+Senate&limit=200&country=US&startDate=2026-11-03&endDate=2026-11-03",
+  "status": 200,
+  "bytes": 29533,
+  "seconds": 32.66,
+  "content_type": "application/json; charset=utf-8",
+  "file": "senate_nov3.json"
+ },
+ {
+  "name": "gov_nov3",
+  "url": "https://civicapi.org/api/v2/race/search?type=Governor&limit=200&country=US&startDate=2026-11-03&endDate=2026-11-03",
+  "status": 200,
+  "bytes": 33236,
+  "seconds": 14.66,
+  "content_type": "application/json; charset=utf-8",
+  "file": "gov_nov3.json"
+ },
+ {
+  "name": "agg_house_87524",
+  "url": "https://civicapi.org/api/v2/race/87524",
+  "status": 200,
+  "bytes": 286671,
+  "seconds": 0.19,
+  "content_type": "application/json; charset=utf-8",
+  "file": "agg_house_87524.json"
+ },
+ {
+  "name": "agg_house_87524_testdata",
+  "url": "https://civicapi.org/api/v2/race/87524?testdata=",
+  "status": 200,
+  "bytes": 295490,
+  "seconds": 2.41,
+  "content_type": "application/json; charset=utf-8",
+  "file": "agg_house_87524_testdata.json"
+ },
+ {
+  "name": "ok_senate_testdata",
+  "url": "https://civicapi.org/api/v2/race/87526?testdata=",
+  "status": 200,
+  "bytes": 75374,
+  "seconds": 1.49,
+  "content_type": "application/json; charset=utf-8",
+  "file": "ok_senate_testdata.json"
+ },
+ {
+  "name": "hist_snapshot_light",
+  "url": "https://civicapi.org/api/v2/race/83266/history/2026-06-16T23:29:04.977Z?light=",
+  "status": 200,
+  "bytes": 891,
+  "seconds": 0.49,
+  "content_type": "application/json; charset=utf-8",
+  "file": "hist_snapshot_light.json"
+ },
+ {
+  "name": "hist_snapshot_full",
+  "url": "https://civicapi.org/api/v2/race/83266/history/2026-06-17T01:05:18.202Z",
+  "status": 200,
+  "bytes": 71097,
+  "seconds": 3.06,
+  "content_type": "application/json; charset=utf-8",
+  "file": "hist_snapshot_full.json"
+ }
+]
