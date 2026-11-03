@@ -1,0 +1,41 @@
+name: chain
+# Il cron di GitHub è "al meglio possibile" e salta molti slot (osservato: un giro ogni ~50-60 minuti invece di 15).
+# Questo workflow rilancia `update` da solo alla cadenza di config/schedule.json: alla fine di ogni giro aspetta il prossimo
+# multiplo di 15 (poi 30) minuti e lo rilancia con il permesso del repository (nessuna chiave esterna).
+# Il cron di `update` resta come riserva; i duplicati si annullano da soli (concurrency).
+on:
+  workflow_run:
+    workflows: [update]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: radar-chain
+  cancel-in-progress: true
+
+jobs:
+  next:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Calcola l'attesa
+        id: wait
+        run: |
+          W=$(python3 scripts/next_run.py)
+          echo "attesa: $W"
+          echo "seconds=$W" >> "$GITHUB_OUTPUT"
+
+      - name: Aspetta e rilancia l'aggiornamento
+        if: steps.wait.outputs.seconds != 'stop'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep "${{ steps.wait.outputs.seconds }}"
+          gh workflow run update.yml --ref main -f mode=normal
+          echo "rilanciato update alle $(date -u +%T)Z"
