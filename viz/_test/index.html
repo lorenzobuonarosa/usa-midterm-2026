@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prova altezza iframe</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; overflow: hidden; background: #fff; color: #1a1a1a;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .box { padding: 16px; min-height: 160px; }
+  h1 { font-size: 1.1rem; margin: 0 0 8px; }
+  p { margin: 0 0 12px; line-height: 1.45; }
+  button { font: inherit; min-height: 44px; padding: 0 18px; border: 1px solid #c8ccd2; background: #fff;
+    border-radius: 8px; cursor: pointer; }
+  button:focus-visible { outline: 2px solid #1E4080; outline-offset: 2px; }
+  #extra { display: none; margin-top: 14px; }
+  #extra div { border: 1px solid #e3e6ea; border-radius: 8px; padding: 14px; margin-bottom: 8px; }
+  #h { font-variant-numeric: tabular-nums; color: #5b6470; font-size: .85rem; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Radar QN – prova di altezza</h1>
+  <p>Questa pagina serve a verificare che l'iframe si adatti all'altezza del contenuto.
+     Premi il pulsante: il contenuto cresce e l'iframe deve seguirlo, senza barre di scorrimento interne.</p>
+  <button id="toggle" type="button" aria-expanded="false">Espandi contenuto</button>
+  <div id="extra"></div>
+  <div id="h">Ultima altezza inviata: –</div>
+</div>
+<script type="module">
+  import { startHeightReporting, scheduleHeight, lastSentHeight } from '../_shared/embed-height.js';
+  const extra = document.getElementById('extra');
+  for (let i = 1; i <= 12; i++) {
+    const d = document.createElement('div');
+    d.textContent = 'Riga di prova ' + i + ' – contenuto di altezza variabile.';
+    extra.appendChild(d);
+  }
+  const btn = document.getElementById('toggle');
+  const info = document.getElementById('h');
+  btn.addEventListener('click', () => {
+    const open = extra.style.display === 'block';
+    extra.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? 'Espandi contenuto' : 'Riduci contenuto';
+    btn.setAttribute('aria-expanded', String(!open));
+    setTimeout(() => { info.textContent = 'Ultima altezza inviata: ' + (lastSentHeight() ?? '–') + ' px'; }, 100);
+  });
+  startHeightReporting();
+  setTimeout(() => { info.textContent = 'Ultima altezza inviata: ' + (lastSentHeight() ?? '–') + ' px'; }, 300);
+</script>
+</body>
+</html>

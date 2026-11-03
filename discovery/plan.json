@@ -1,0 +1,228 @@
+[
+ {
+  "name": "status",
+  "path": "/status",
+  "params": {}
+ },
+ {
+  "name": "ga_gov_known",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "province": "GA",
+   "type": "Governor",
+   "limit": 10
+  }
+ },
+ {
+  "name": "filt_electionDate",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "electionDate": "2026-11-03"
+  }
+ },
+ {
+  "name": "filt_election_date",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "election_date": "2026-11-03"
+  }
+ },
+ {
+  "name": "filt_date",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "date": "2026-11-03"
+  }
+ },
+ {
+  "name": "filt_year",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "year": "2026"
+  }
+ },
+ {
+  "name": "filt_electionYear",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "electionYear": "2026"
+  }
+ },
+ {
+  "name": "filt_election_year",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "election_year": "2026"
+  }
+ },
+ {
+  "name": "filt_election_type",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "election_type": "General"
+  }
+ },
+ {
+  "name": "filt_electionType",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "electionType": "General"
+  }
+ },
+ {
+  "name": "type_0_Senate",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Senate",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_1_US_Senate",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "U.S. Senate",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_2_US_Senate",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "US Senate",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_3_House",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "House",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_4_US_House",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "U.S. House",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_5_US_House",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "US House",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_6_Representative",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Representative",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_7_Congress",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Congress",
+   "limit": 3
+  }
+ },
+ {
+  "name": "type_8_President",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "President",
+   "limit": 3
+  }
+ },
+ {
+  "name": "meta_dates",
+  "path": "/getElectionDates",
+  "params": {}
+ },
+ {
+  "name": "meta_years",
+  "path": "/getElectionYears",
+  "params": {}
+ },
+ {
+  "name": "meta_dates2",
+  "path": "/election/dates",
+  "params": {}
+ },
+ {
+  "name": "meta_elections",
+  "path": "/elections",
+  "params": {}
+ },
+ {
+  "name": "race_83266",
+  "path": "/race/83266",
+  "params": {}
+ },
+ {
+  "name": "race_69257",
+  "path": "/race/69257",
+  "params": {}
+ },
+ {
+  "name": "race_83266_history",
+  "path": "/race/83266/history",
+  "params": {}
+ },
+ {
+  "name": "test_data",
+  "path": "/race/search",
+  "params": {
+   "country": "US",
+   "type": "Governor",
+   "limit": 5,
+   "testdata": "true"
+  }
+ },
+ {
+  "name": "docs_page",
+  "path": "https://www.civicapi.org/api-documentation",
+  "params": {}
+ }
+]

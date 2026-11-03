@@ -1,0 +1,144 @@
+name: update
+
+# Aggiornamento dati e pubblicazione su GitHub Pages (deploy via Actions: nessun build da branch,
+# quindi nessun limite orario dei build di Pages e nessun commit a ogni giro).
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Modalità'
+        type: choice
+        default: normal
+        options: [normal, discover, force, rebuild]
+  push:
+    branches: [main]
+    paths:
+      - 'config/**'
+      - 'viz/**'
+      - 'embed/**'
+      - 'assets/**'
+      - 'vendor/**'
+      - 'scripts/**'
+      - 'discovery/trigger.txt'
+      - '.github/workflows/update.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: radar-update
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    outputs:
+      mode: ${{ steps.mode.outputs.mode }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Determina la modalità
+        id: mode
+        run: |
+          MODE=normal
+          case "${{ github.event_name }}" in
+            workflow_dispatch) MODE="${{ github.event.inputs.mode }}" ;;
+            schedule) MODE=normal ;;
+            push)
+              MODE=rebuild
+              if git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -qx 'discovery/trigger.txt'; then MODE=discover; fi
+              ;;
+          esac
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Modalità: $MODE"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Esplorazione civicAPI (discover)
+        if: steps.mode.outputs.mode == 'discover'
+        run: |
+          python scripts/discover.py --plan discovery/plan.json --out discovery/out || true
+          git config user.name "radar-bot"
+          git config user.email "radar-bot@users.noreply.github.com"
+          rm -rf /tmp/disc && mkdir -p /tmp/disc && cp -r discovery/out/. /tmp/disc/
+          git checkout --orphan discovery-tmp
+          git rm -rf --quiet . 2>/dev/null || true
+          mkdir -p discovery && cp -r /tmp/disc/. discovery/
+          date -u +%FT%TZ > discovery/_run_at.txt
+          git add discovery
+          git commit -qm "discovery: risposte grezze $(date -u +%FT%TZ)"
+          git push -f origin discovery-tmp:discovery
+
+      - name: Recupera lo stato precedente dal sito Pages
+        if: steps.mode.outputs.mode != 'discover'
+        run: |
+          mkdir -p data/races
+          BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data"
+          for f in summary.json timeline.json normalized.json calls_log.json quality.json fetch_state.json; do
+            curl -fsSL --max-time 30 -A "RadarQN-midterms-2026" "$BASE/$f" -o "data/$f" || { rm -f "data/$f"; echo "stato precedente assente: $f"; }
+          done
+
+      - name: Aggiorna i dati
+        if: steps.mode.outputs.mode != 'discover'
+        run: |
+          if [ -f scripts/fetch_results.py ]; then
+            case "${{ steps.mode.outputs.mode }}" in
+              force) python scripts/fetch_results.py --force ;;
+              rebuild) python scripts/fetch_results.py --rebuild ;;
+              *) python scripts/fetch_results.py ;;
+            esac
+          else
+            echo "scripts/fetch_results.py non ancora presente: salto l'aggiornamento"
+          fi
+
+      - name: Snapshot giornaliero su branch archive
+        if: steps.mode.outputs.mode == 'normal' && github.event_name == 'schedule'
+        run: |
+          # una volta al giorno (primo giro dopo le 05:00 UTC)
+          H=$(date -u +%H); M=$(date -u +%M)
+          if [ "$H" = "05" ] && [ "$M" -lt 30 ] && [ -f data/summary.json ]; then
+            D=$(date -u +%F)
+            git config user.name "radar-bot"; git config user.email "radar-bot@users.noreply.github.com"
+            rm -rf /tmp/arc && mkdir -p /tmp/arc/snapshots/$D && cp data/*.json /tmp/arc/snapshots/$D/ 2>/dev/null || true
+            if git ls-remote --exit-code origin archive >/dev/null 2>&1; then
+              git fetch -q origin archive && git checkout -q -B archive FETCH_HEAD
+            else
+              git checkout -q --orphan archive && git rm -rf -q . 2>/dev/null || true
+            fi
+            mkdir -p snapshots && cp -r /tmp/arc/snapshots/$D snapshots/ && git add snapshots
+            git commit -qm "snapshot $D" && git push -q origin archive || true
+            git checkout -q -f "${{ github.sha }}" || true
+          fi
+
+      - name: Assembla il sito
+        if: steps.mode.outputs.mode != 'discover'
+        run: |
+          rm -rf _site && mkdir -p _site
+          for d in viz embed assets vendor data config; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.mode.outputs.mode != 'discover'
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.mode != 'discover'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
