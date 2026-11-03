@@ -80,12 +80,7 @@ jobs:
 
       - name: Recupera lo stato precedente dal sito Pages
         if: steps.mode.outputs.mode != 'discover'
-        run: |
-          mkdir -p data/races
-          BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data"
-          for f in summary.json timeline.json normalized.json calls_log.json quality.json fetch_state.json; do
-            curl -fsSL --max-time 30 -A "RadarQN-midterms-2026" "$BASE/$f" -o "data/$f" || { rm -f "data/$f"; echo "stato precedente assente: $f"; }
-          done
+        run: python3 scripts/restore_state.py "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" data
 
       - name: Aggiorna i dati
         if: steps.mode.outputs.mode != 'discover'

@@ -308,6 +308,10 @@ def finish(args, cfg, races, metas, aggregates, prev, fstate, calls_cfg, acfg, o
         fs.update({"last_attempt": iso(now), "last_ok": iso(now), "last_status": "ok", "error": None})
     if args.dry_run:
         print_report(summary, quality, events, out_dir)
+    rdir = os.path.join(out_dir, "races")
+    if os.path.isdir(rdir):  # indice dei dettagli di gara: serve a ripristinarli dal sito Pages al giro successivo
+        ids = sorted(f[:-5] for f in os.listdir(rdir) if f.endswith(".json") and f != "index.json")
+        write_json(os.path.join(rdir, "index.json"), {"updated": iso(real_now or now), "ids": ids})
     write_json(os.path.join(out_dir, "summary.json"), summary)
     write_json(os.path.join(out_dir, "normalized.json"), norm)
     write_json(os.path.join(out_dir, "timeline.json"), tl[-MAX_TIMELINE:])
