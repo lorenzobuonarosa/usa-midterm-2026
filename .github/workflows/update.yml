@@ -120,31 +120,20 @@ jobs:
 
       - name: Copia dei dati sul branch data-preview (solo giri manuali, per controllo)
         if: steps.mode.outputs.mode != 'discover' && github.event_name != 'schedule'
-        run: |
-          git config user.name "radar-bot"; git config user.email "radar-bot@users.noreply.github.com"
-          rm -rf /tmp/dp && mkdir -p /tmp/dp && cp -r data/. /tmp/dp/ 2>/dev/null || true
-          git checkout -q --orphan data-preview-tmp && git rm -rf -q . 2>/dev/null || true
-          mkdir -p data && cp -r /tmp/dp/. data/ && git add data
-          git commit -qm "data-preview $(date -u +%FT%TZ)" && git push -q -f origin data-preview-tmp:data-preview || true
-          git checkout -q -f "${{ github.sha }}" || true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: scripts/publish_branch.sh data-preview data . || true
 
       - name: Snapshot giornaliero su branch archive
         if: steps.mode.outputs.mode == 'normal' && github.event_name == 'schedule'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           # una volta al giorno (primo giro dopo le 05:00 UTC)
           H=$(date -u +%H); M=$(date -u +%M)
           if [ "$H" = "05" ] && [ "$M" -lt 30 ] && [ -f data/summary.json ]; then
             D=$(date -u +%F)
-            git config user.name "radar-bot"; git config user.email "radar-bot@users.noreply.github.com"
-            rm -rf /tmp/arc && mkdir -p /tmp/arc/snapshots/$D && cp data/*.json /tmp/arc/snapshots/$D/ 2>/dev/null || true
-            if git ls-remote --exit-code origin archive >/dev/null 2>&1; then
-              git fetch -q origin archive && git checkout -q -B archive FETCH_HEAD
-            else
-              git checkout -q --orphan archive && git rm -rf -q . 2>/dev/null || true
-            fi
-            mkdir -p snapshots && cp -r /tmp/arc/snapshots/$D snapshots/ && git add snapshots
-            git commit -qm "snapshot $D" && git push -q origin archive || true
-            git checkout -q -f "${{ github.sha }}" || true
+            scripts/publish_branch.sh archive data "snapshots/$D" append || true
           fi
 
       - name: Assembla il sito
