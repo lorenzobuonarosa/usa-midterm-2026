@@ -8,3 +8,5 @@ data/*.json
 data/races/
 geo_work/
 geo_out/
+backtest_out/
+smoke_out/

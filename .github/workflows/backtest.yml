@@ -1,0 +1,21 @@
+name: backtest
+# Backtest facoltativo della regola di assegnazione automatica (race/{id}/history); risultato sul branch backtest
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/fetch_results.py --backtest
+      - name: Salva il risultato sul branch backtest
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: scripts/publish_branch.sh backtest backtest_out . || true
