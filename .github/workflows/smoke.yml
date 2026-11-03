@@ -1,0 +1,23 @@
+name: smoke
+# Prova con browser headless sul sito Pages pubblicato; screenshot e rapporto sul branch smoke
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install --no-save playwright@1.49.1 && npx playwright install --with-deps chromium
+      - name: Prova sul sito pubblicato
+        run: node tests/browser/smoke.js "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" smoke_out
+      - name: Salva il risultato sul branch smoke
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: scripts/publish_branch.sh smoke smoke_out . || true
