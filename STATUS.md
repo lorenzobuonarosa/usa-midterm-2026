@@ -16,6 +16,13 @@ Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lore
 - **Cron e calendario**: il workflow gira ogni 15 minuti; lo script decide (`config/schedule.json`): nessun giro automatico prima delle 23:00 UTC del 3 novembre (**mezzanotte italiana**); poi **ogni 15 minuti fino alle 07:00 UTC (08:00 italiane)**; poi **ogni 30 minuti** fino al 6 novembre 00:00 UTC; poi una volta al giorno. Verificato con test di calendario; il primo giro pianificato vero sarà quello di mezzanotte (GitHub può ritardare i cron di diversi minuti).
 - Incorporamento nel sito QN (lo verifichi tu con la pagina di prova).
 
+## Catena di rilanci (notte del 3-4 novembre)
+- **Problema:** il cron di GitHub (`*/15`) in pratica fa partire un giro solo ogni ~50-60 minuti (osservato: 19:45, 21:19, 22:14, 23:02 UTC), perché i giri pianificati sono "al meglio possibile".
+- **Soluzione:** a fine di ogni giro di `update`, un job `chain` avvia il workflow `chain.yml` (workflow_dispatch con il permesso del repository, nessuna chiave); `chain` calcola con `scripts/next_run.py` l'attesa fino al prossimo multiplo di 15 minuti (30 dalle 07:00 UTC) e rilancia `update` (mode=normal, il calendario è ignorato perché è un giro "manuale"). Il cron resta come riserva. `chain.yml` ha anche il trigger `workflow_run` per i giri avviati da persone. Si ferma da solo dopo il 6 novembre 00:00 UTC.
+- **Lezione:** `workflow_run` non scatta per i giri avviati dal bot con GITHUB_TOKEN: il primo tentativo (solo `workflow_run`) si è fermato dopo un rilancio (23:30 UTC ok, 23:45 mancato). Corretto a 23:50 UTC facendo avviare `chain` direttamente da `update`.
+- **Se si ferma:** il cron di GitHub riparte da solo (più lento). Per riavviare la catena a mano: Actions → chain → Run workflow, oppure Actions → update → Run workflow.
+- Un promemoria orario (minuto 12) controlla fino alle 09:30 UTC e rilancia `update` se l'ultimo giro ha più di 35 minuti.
+
 ## Lista dei distretti su mobile: scroll e altezza fissa (3 novembre, sera)
 - Sotto i 500 px: vista a **10 righe**; area dei risultati con altezza massima fissa (830 px) che scorre in verticale e orizzontale; intestazione della tabella fissa; "Mostra altri 10" aggiunge righe dentro l'area (altezza dell'embed stabile, 1.410-1.450 px).
 - **Scroll di riserva** in tutti gli embed: se l'iframe è più basso del contenuto (altezza fissa nel CMS, script assente, indirizzo aperto direttamente) l'embed diventa scorrevole. Prima, con `html`/`body` su `overflow: hidden`, la parte sotto era irraggiungibile.
