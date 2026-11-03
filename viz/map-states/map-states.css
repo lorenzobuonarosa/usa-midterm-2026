@@ -4,17 +4,17 @@
 .map-wrap { position: relative; width: 100%; aspect-ratio: 960 / 600; min-height: 220px; }
 .map-wrap svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
 .st { stroke: #fff; stroke-width: .8; cursor: pointer; transition: fill .3s; }
-.st:hover, .st:focus-visible { stroke: var(--c-text); stroke-width: 1.6; outline: none; }
+.st:focus-visible { outline: none; }
 .st.sel { stroke: var(--c-text); stroke-width: 1.8; }
 .st-label { font-size: 10px; font-weight: 700; fill: var(--c-text); pointer-events: none; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: rgba(255,255,255,.75); stroke-width: 2.5px; }
 .st-label.on-dark { fill: #fff; stroke: none; }
 .st-check { font-size: 9px; fill: var(--c-text); pointer-events: none; text-anchor: middle; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--c-muted); margin-top: 8px; align-items: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--c-muted); margin-top: 18px; align-items: center; }
 .legend .grp { display: inline-flex; align-items: center; gap: 4px; }
 .legend i { width: 18px; height: 10px; display: inline-block; border: 1px solid var(--c-border); }
 .legend i.d1{background:var(--c-dem-1)} .legend i.d2{background:var(--c-dem-2)} .legend i.d3{background:var(--c-dem-3)} .legend i.dc{background:var(--c-dem)}
 .legend i.r1{background:var(--c-rep-1)} .legend i.r2{background:var(--c-rep-2)} .legend i.r3{background:var(--c-rep-3)} .legend i.rc{background:var(--c-rep)}
 .legend i.n{background:var(--c-none)}
-.map-note { font-size: 12px; color: var(--c-muted); margin: 6px 0 0; }
+.map-note { font-size: 12px; color: var(--c-muted); margin: 14px 0 0; }
 .badge { display: inline-block; font-size: 11px; padding: 1px 6px; border: 1px solid var(--c-border); border-radius: 999px; color: var(--c-muted); }
 @media (max-width: 469px) { .tabs button { padding: 0 12px; } }

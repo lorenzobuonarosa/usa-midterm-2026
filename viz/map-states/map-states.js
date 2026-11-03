@@ -30,17 +30,20 @@ function draw() {
   wrap.innerHTML = '';
   const svg = d3.select(wrap).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'group').attr('aria-label', 'Mappa degli stati USA');
   const g = svg.append('g');
+  const hl = svg.append('path').attr('class', 'hover-outline');  // contorno completo dello stato sotto il puntatore
   const labels = svg.append('g');
   features.forEach(f => {
     const st = FIPS_ABBR[f.id]; const rs = racesFor(tab, st); const r = primaryRace(rs);
     const p = g.append('path').attr('class', 'st').attr('d', path(f)).attr('fill', rs.length ? fillFor(r) : 'var(--c-none)')
       .attr('tabindex', 0).attr('role', 'button')
       .attr('aria-label', `${STATE_NAMES[f.id]}: ${rs.length ? rs.map(x => `${x.name}, ${statusText(x)}`).join('; ') : 'nessuna gara in palio'}`);
-    const show = (ev) => { showTip(f, rs, ev, p.node()); };
+    const outline = () => hl.attr('d', path(f)).style('display', 'block');
+    const clear = () => hl.style('display', 'none');
+    const show = (ev) => { outline(); showTip(f, rs, ev, p.node()); };
     p.on('mouseenter', show).on('mousemove', (ev) => tip.move(...pos(ev)))
-      .on('mouseleave', () => tip.hide())
-      .on('focus', (ev) => { const b = p.node().getBoundingClientRect(); showTip(f, rs, { clientX: b.x + b.width / 2, clientY: b.y + b.height / 2 }); })
-      .on('blur', () => tip.hide())
+      .on('mouseleave', () => { tip.hide(); clear(); })
+      .on('focus', (ev) => { outline(); const b = p.node().getBoundingClientRect(); showTip(f, rs, { clientX: b.x + b.width / 2, clientY: b.y + b.height / 2 }); })
+      .on('blur', () => { tip.hide(); clear(); })
       .on('click', (ev) => { ev.stopPropagation(); showTip(f, rs, ev); })
       .on('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); const b = p.node().getBoundingClientRect(); showTip(f, rs, { clientX: b.x + b.width / 2, clientY: b.y + b.height / 2 }); } });
     // sigla solo dove c'è spazio
@@ -54,7 +57,7 @@ function draw() {
       }
     }
   });
-  svg.on('click', () => tip.hide());
+  svg.on('click', () => { tip.hide(); hl.style('display', 'none'); });
 }
 
 function pos(ev) {

@@ -116,8 +116,8 @@ function renderTable(list) {
       <td>${candNames(r, 'D')}</td><td>${candNames(r, 'R')}</td><td class="c-oth">${candNames(r, 'O')}</td>
       <td>${leadCell(r)}</td></tr>${open ? `<tr class="detail"><td colspan="6">${detail(r)}</td></tr>` : ''}`;
   }).join('');
-  return `<table class="hl"><colgroup><col style="width:26%"><col style="width:9%"><col style="width:17%"><col style="width:17%"><col class="c-oth" style="width:12%"><col style="width:19%"></colgroup>
-  <thead><tr><th scope="col">Distretto</th><th scope="col">Scrutinato</th><th scope="col" class="d">Democratico</th><th scope="col" class="r">Repubblicano</th><th scope="col" class="o c-oth">Altri</th><th scope="col">In testa / Eletto</th></tr></thead><tbody>${rows}</tbody></table>`;
+  return `<p class="scroll-hint">Scorri la tabella in orizzontale →</p><div class="tbl-wrap" tabindex="0" role="region" aria-label="Tabella dei distretti, scorribile in orizzontale"><table class="hl"><colgroup><col style="width:23%"><col style="width:12%"><col style="width:17%"><col style="width:17%"><col class="c-oth" style="width:12%"><col style="width:19%"></colgroup>
+  <thead><tr><th scope="col">Distretto</th><th scope="col">Scrutinato</th><th scope="col" class="d">Democratico</th><th scope="col" class="r">Repubblicano</th><th scope="col" class="o c-oth">Altri</th><th scope="col">In testa / Eletto</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function renderCards(list) {

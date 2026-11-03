@@ -10,7 +10,7 @@ const app = document.getElementById('app');
 const FIPS_ABBR = {"01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","12":"FL","13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME","24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY"};
 const STATE_NAME = {"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"};
 
-let summary, topo, tip, byGeoid = new Map(), features = [], zoomed = null, svg, g, zoom, projPath, W = 0, H = 0;
+let hl, summary, topo, tip, byGeoid = new Map(), features = [], zoomed = null, svg, g, zoom, projPath, W = 0, H = 0;
 
 function pos(ev) { const r = document.body.getBoundingClientRect(); return [ev.clientX - r.left, ev.clientY - r.top]; }
 
@@ -38,16 +38,15 @@ function draw() {
   g = svg.append('g');
   g.selectAll('path.dist').data(features).join('path').attr('class', 'dist').attr('d', projPath)
     .attr('fill', f => fillFor(byGeoid.get(f.id)))
-    .on('mouseenter', (ev, f) => showTip(ev, f)).on('mousemove', (ev) => tip.move(...pos(ev))).on('mouseleave', () => tip.hide())
+    .on('mouseenter', (ev, f) => { hl.attr('d', projPath(f)).style('display', 'block'); showTip(ev, f); }).on('mousemove', (ev) => tip.move(...pos(ev))).on('mouseleave', () => { tip.hide(); hl.style('display', 'none'); })
     .on('click', (ev, f) => { ev.stopPropagation(); if (zoomed) { showTip(ev, f); } else { zoomTo(FIPS_ABBR[f.id.slice(0, 2)]); } });
-  // bordi degli stati più marcati di quelli dei distretti
-  const states = topojson.mesh(topo, topo.objects.districts, (a, b) => a === b || a.id.slice(0, 2) !== b.id.slice(0, 2));
-  g.append('path').attr('class', 'st-border').attr('d', projPath(states));
+  // contorno completo del distretto sotto il puntatore (sopra tutti gli altri, così include i lati in comune)
+  hl = g.append('path').attr('class', 'hover-outline');
   zoom = d3.zoom().scaleExtent([1, 12])
     .filter(ev => ev.type === 'wheel' ? (ev.ctrlKey || ev.metaKey) : (ev.type.startsWith('touch') ? ev.touches && ev.touches.length >= 2 : !ev.button))
     .on('zoom', (ev) => { g.attr('transform', ev.transform); });
   svg.call(zoom).on('dblclick.zoom', null);
-  svg.on('click', () => tip.hide());
+  svg.on('click', () => { tip.hide(); hl.style('display', 'none'); });
   if (zoomed) zoomTo(zoomed, false);
 }
 

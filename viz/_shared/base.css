@@ -24,7 +24,7 @@ button, [role="tab"], select, input, summary { min-height: 44px; }
 /* Note e avvisi sotto ogni dataviz */
 .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--c-border); font-size: 12px; color: var(--c-muted); }
 .foot p { margin: 0 0 4px; }
-.notice { margin: 0 0 12px; padding: 8px 12px; border-radius: 6px; font-size: 13px; background: var(--c-none); color: var(--c-text); border: 1px solid var(--c-border); }
+.notice { margin: 18px 0 12px; padding: 10px 14px; border-radius: 6px; font-size: 13px; background: var(--c-none); color: var(--c-text); border: 1px solid var(--c-border); }
 .notice.warn { background: var(--c-warn-bg); color: var(--c-warn); border-color: #E8D49A; }
 .empty { padding: 32px 16px; text-align: center; color: var(--c-muted); border: 1px dashed var(--c-border); border-radius: 8px; }
 
@@ -39,3 +39,6 @@ button, [role="tab"], select, input, summary { min-height: 44px; }
 .tip .t-race + .t-race { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--c-border); }
 .party-tag { font-weight: 700; margin-right: 6px; }
 .party-D { color: var(--c-dem-text); } .party-R { color: var(--c-rep-text); } .party-I, .party-O { color: var(--c-ind-text); }
+
+/* Contorno di evidenziazione al passaggio: disegnato sopra tutti gli altri poligoni, così si vede per intero (anche i lati in comune) */
+.hover-outline { fill: none; stroke: var(--c-text); stroke-width: 2.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; display: none; }
