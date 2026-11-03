@@ -1,21 +1,12 @@
 {
-  "_nota": "Parametri di civicAPI scoperti in Fase 0 (docs/discovery.md). Tre ricerche in blocco, nessun filtro sul tipo di gara oltre a quelle elencate.",
+  "_nota": "Parametri di civicAPI scoperti in Fase 0 (docs/discovery.md). Senato e governatori: una ricerca ciascuno (startDate/endDate). Camera: UNA richiesta alla gara aggregata 87524, che contiene i 435 distretti (region_results, con election_id = id della gara del distretto).",
   "base": "https://civicapi.org/api/v2",
   "timeout_seconds": 180,
   "pause_seconds": 0.4,
   "max_details_per_run": 450,
   "queries": [
     {
-      "chamber": "house",
-      "params": {
-        "type": "US House",
-        "limit": 1000,
-        "country": "US",
-        "startDate": "2026-11-03",
-        "endDate": "2026-11-03"
-      }
-    },
-    {
+      "kind": "search",
       "chamber": "senate",
       "params": {
         "type": "US Senate",
@@ -26,6 +17,7 @@
       }
     },
     {
+      "kind": "search",
       "chamber": "governor",
       "params": {
         "type": "Governor",
@@ -34,6 +26,12 @@
         "startDate": "2026-11-03",
         "endDate": "2026-11-03"
       }
+    },
+    {
+      "kind": "aggregate_house",
+      "chamber": "house",
+      "race_id": 87524
     }
-  ]
+  ],
+  "max_auto_key_races": 100
 }

@@ -116,3 +116,32 @@ def base_status(race):
         if top <= 50 and pr >= 50:
             return "runoff_possible"
     return "leading" if pr > 0 else "counting"
+
+
+HOUSE_SLUG = re.compile(r"^([a-z]{2})-(\d+|al)$")
+
+
+def normalize_house_region(slug, reg):
+    """La Camera del 3 novembre è UNA gara aggregata (id 87524) con 435 regioni (una per distretto).
+    Ogni regione ha `election_id`: è l'id della gara del singolo distretto, che usiamo come id della gara."""
+    m = HOUSE_SLUG.match(slug or "")
+    if not m or reg.get("election_id") is None:
+        return None
+    st = m.group(1).upper()
+    if st not in STATES or st == "DC":
+        return None
+    dd = "00" if (m.group(2) == "al" or st in AT_LARGE) else m.group(2).zfill(2)
+    cands = normalize_candidates(reg.get("candidates"))
+    raw = reg.get("candidates") or []
+    total = sum(int(c.get("votes") or 0) for c in raw)
+    pr = reg.get("percent_reporting")
+    race = {
+        "id": str(reg["election_id"]), "chamber": "house", "state": st, "state_name": STATES[st][0], "district": dd,
+        "geoid": geoid(st, dd), "name": display_name("house", st, dd, reg.get("name"), False), "election_name": reg.get("name"),
+        "special": False, "region": STATE_REGION.get(st), "rcv": st in RCV_STATES,
+        "percent_reporting": float(pr) if pr is not None else None, "total_votes": total, "candidates": cands, "flags": [],
+        "unopposed": len(cands) == 1,
+    }
+    race["winners_flagged"] = sum(1 for c in cands if c["api_winner"])
+    compute_lead(race)
+    return race

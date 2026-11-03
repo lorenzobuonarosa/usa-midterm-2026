@@ -2,7 +2,7 @@
 import os, random, time, tempfile, shutil
 from . import config as cfgmod
 from .client import Client, ApiError
-from .normalize import normalize_race, compute_lead, base_status, party_code
+from .normalize import normalize_race, normalize_house_region, compute_lead, base_status, party_code
 from .counties import process_detail
 from .calls import apply_calls, eval_auto
 from .build import build_summary, build_quality, timeline_row
@@ -84,8 +84,13 @@ def run(args, cfg, issues):
         return fail_round(fstate, prev, now, f"ricerca in blocco fallita: {e}", out_dir, dry)
 
     races = {}
-    for rr in raw:
+    raw_search, raw_house = raw
+    for rr in raw_search:
         r = normalize_race(rr)
+        if r:
+            races[r["id"]] = r
+    for slug, reg in raw_house:
+        r = normalize_house_region(slug, reg)
         if r:
             races[r["id"]] = r
     mark_extras(races)
@@ -144,8 +149,17 @@ def protect_from_regression(races, prev_races, checks):
 
 
 def fetch_bulk(client, ccfg):
-    raw, aggregates = [], []
+    """Restituisce (gare grezze già normalizzabili, aggregati di controllo).
+    - ricerche per Senato e governatori (una richiesta ciascuna);
+    - Camera: UNA sola richiesta alla gara aggregata, con le 435 regioni (distretti)."""
+    raw, aggregates, house = [], [], []
     for q in ccfg.get("queries", []):
+        if q.get("kind") == "aggregate_house":
+            d = client.race(q["race_id"])
+            for slug, reg in (d.get("region_results") or {}).items():
+                house.append((slug, reg))
+            aggregates.append({"type": "US House", "province": "US", "id": q["race_id"], "candidates": d.get("candidates") or []})
+            continue
         res = client.search(q["params"])
         items = res.get("races", res if isinstance(res, list) else [])
         for it in items:
@@ -153,14 +167,15 @@ def fetch_bulk(client, ccfg):
                 aggregates.append(it)
             else:
                 raw.append(it)
-    return raw, aggregates
+    return (raw, house), aggregates
 
 
 def fetch_details(client, races, metas, cfg, acfg, calls_cfg, now, out_dir, checks, ccfg):
     key_ids = resolve_key_ids(races, cfg.get("key_races") or {})
-    for r in races.values():  # aggiunte automatiche: margine < 5 punti e scrutinio >= 20%
-        if r["margin_pct"] is not None and r["margin_pct"] < 5 and (r.get("percent_reporting") or 0) >= 20:
-            key_ids.add(r["id"])
+    close = sorted((r for r in races.values() if r["margin_pct"] is not None and r["margin_pct"] < 5 and (r.get("percent_reporting") or 0) >= 20),
+                   key=lambda r: r["margin_pct"])  # aggiunte automatiche: margine < 5 punti e scrutinio >= 20%
+    for r in close[: ccfg.get("max_auto_key_races", 100)]:
+        key_ids.add(r["id"])
     manual = {str(c["race_id"]) for c in calls_cfg.get("calls", [])}
     hold = {str(x) for x in calls_cfg.get("hold", [])}
     cands = []
@@ -308,7 +323,7 @@ def aggregate_check(summary, aggregates):
     out = []
     for a in aggregates:
         cs = {c.get("party"): c.get("seats") for c in a.get("candidates", []) if c.get("seats") is not None}
-        key = {"US Senate": "senate", "Governor": "governors"}.get(a.get("type"))
+        key = {"US Senate": "senate", "Governor": "governors", "US House": "house"}.get(a.get("type"))
         if not key or not cs:
             continue
         ch = summary["chambers"][key]
