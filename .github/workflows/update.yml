@@ -28,6 +28,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: write
 
 concurrency:
   group: radar-update
@@ -164,3 +165,17 @@ jobs:
           curl -sS -I -A "RadarQN-midterms-2026" "$URL" | tee /tmp/headers.txt || true
           { echo '### Intestazioni di '"$URL"; echo '```'; cat /tmp/headers.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           if grep -qi '^x-frame-options' /tmp/headers.txt; then echo "ATTENZIONE: X-Frame-Options presente"; else echo "OK: nessun X-Frame-Options"; fi
+
+  # Catena di rilanci: a fine giro si avvia `chain`, che aspetta il prossimo multiplo di 15 (poi 30) minuti e rilancia `update`.
+  # Si avvia da qui (workflow_dispatch con il permesso del repository) perché `workflow_run` NON scatta per i giri avviati così.
+  chain:
+    needs: [build, deploy]
+    if: ${{ always() && needs.build.outputs.mode != 'discover' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Avvia la catena
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run chain.yml --ref main
