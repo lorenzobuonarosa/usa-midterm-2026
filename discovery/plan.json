@@ -1,231 +1,66 @@
 [
  {
-  "name": "docs_bundle",
-  "path": "https://www.civicapi.org/assets/index-BLrhAH3t.js",
+  "name": "house_nov3",
+  "path": "/race/search",
+  "params": {
+   "type": "US House",
+   "limit": 1000,
+   "country": "US",
+   "startDate": "2026-11-03",
+   "endDate": "2026-11-03"
+  }
+ },
+ {
+  "name": "senate_nov3",
+  "path": "/race/search",
+  "params": {
+   "type": "US Senate",
+   "limit": 200,
+   "country": "US",
+   "startDate": "2026-11-03",
+   "endDate": "2026-11-03"
+  }
+ },
+ {
+  "name": "gov_nov3",
+  "path": "/race/search",
+  "params": {
+   "type": "Governor",
+   "limit": 200,
+   "country": "US",
+   "startDate": "2026-11-03",
+   "endDate": "2026-11-03"
+  }
+ },
+ {
+  "name": "agg_house_87524",
+  "path": "/race/87524",
   "params": {}
  },
  {
-  "name": "house_general",
-  "path": "/race/search",
+  "name": "agg_house_87524_testdata",
+  "path": "/race/87524",
   "params": {
-   "country": "US",
-   "type": "US House",
-   "election_type": "General",
-   "limit": 2000
+   "testdata": ""
   }
  },
  {
-  "name": "senate_general",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "US Senate",
-   "election_type": "General",
-   "limit": 500
-  }
- },
- {
-  "name": "gov_statewide",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "election_type": "Statewide",
-   "limit": 500
-  }
- },
- {
-  "name": "senate_statewide",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "US Senate",
-   "election_type": "Statewide",
-   "limit": 500
-  }
- },
- {
-  "name": "house_statewide",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "US House",
-   "election_type": "Statewide",
-   "limit": 50
-  }
- },
- {
-  "name": "dt_full_ts",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "limit": 3,
-   "election_date": "2026-11-03T05:00:00.000Z"
-  }
- },
- {
-  "name": "dt_electionDate_ts",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "limit": 3,
-   "electionDate": "2026-11-03T05:00:00.000Z"
-  }
- },
- {
-  "name": "dt_after",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "limit": 3,
-   "after": "2026-11-01"
-  }
- },
- {
-  "name": "dt_start",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "limit": 3,
-   "start_date": "2026-11-01",
-   "end_date": "2026-11-04"
-  }
- },
- {
-  "name": "dt_from",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "limit": 3,
-   "date_from": "2026-11-01"
-  }
- },
- {
-  "name": "dt_scope",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "limit": 3,
-   "election_scope": "General"
-  }
- },
- {
-  "name": "wy_house",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "province": "WY",
-   "type": "US House",
-   "limit": 20
-  }
- },
- {
-  "name": "ak_all",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "province": "AK",
-   "type": "US House",
-   "limit": 20
-  }
- },
- {
-  "name": "fl_senate",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "province": "FL",
-   "type": "US Senate",
-   "limit": 20
-  }
- },
- {
-  "name": "oh_senate",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "province": "OH",
-   "type": "US Senate",
-   "limit": 20
-  }
- },
- {
-  "name": "me_senate",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "province": "ME",
-   "type": "US Senate",
-   "limit": 20
-  }
- },
- {
-  "name": "detail_87526_OK_senate",
+  "name": "ok_senate_testdata",
   "path": "/race/87526",
+  "params": {
+   "testdata": ""
+  }
+ },
+ {
+  "name": "hist_snapshot_light",
+  "path": "/race/83266/history/2026-06-16T23:29:04.977Z",
+  "params": {
+   "light": ""
+  }
+ },
+ {
+  "name": "hist_snapshot_full",
+  "path": "/race/83266/history/2026-06-17T01:05:18.202Z",
   "params": {}
- },
- {
-  "name": "detail_87528_US_senate_agg",
-  "path": "/race/87528",
-  "params": {}
- },
- {
-  "name": "detail_87535_US_gov_agg",
-  "path": "/race/87535",
-  "params": {}
- },
- {
-  "name": "detail_87088_GA_gov",
-  "path": "/race/87088",
-  "params": {}
- },
- {
-  "name": "hist_83266_raw",
-  "path": "/race/83266/history",
-  "params": {
-   "raw": "true"
-  }
- },
- {
-  "name": "hist_83266_unfiltered",
-  "path": "/race/83266/history",
-  "params": {
-   "filtered": "false"
-  }
- },
- {
-  "name": "td_1",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "election_type": "Statewide",
-   "limit": 3,
-   "testdata": "1"
-  }
- },
- {
-  "name": "td_2",
-  "path": "/race/search",
-  "params": {
-   "country": "US",
-   "type": "Governor",
-   "election_type": "Statewide",
-   "limit": 3,
-   "test_data": "true"
-  }
- },
- {
-  "name": "meta_dates_2026_11",
-  "path": "/getElectionDates",
-  "params": {
-   "year": "2026"
-  }
  }
 ]
