@@ -12,9 +12,9 @@ export function renderFooter(el, summary, { showAutoNote = false } = {}) {
   const ageMin = fetched ? (now - fetched) / 60000 : null;
   const stale = !before && (m.status === 'stale' || (ageMin != null && ageMin > STALE_MIN));
   let html = '';
-  if (before) {
-    html += `<p class="notice">Gli aggiornamenti automatici partono alle 07:00 del 4 novembre.</p>`;
-  } else if (stale) {
+  // Prima dell'avvio degli aggiornamenti automatici (meta.auto_updates_from) l'avviso di dato vecchio non si mostra;
+  // la nota "gli aggiornamenti partono alle 07:00" è stata tolta su richiesta.
+  if (stale) {
     html += `<p class="notice warn" role="status">Attenzione: i dati potrebbero non essere aggiornati (ultimo aggiornamento alle ${fmtTime(m.fetched_at)}).</p>`;
   }
   const upd = m.fetched_at ? `Risultati non ufficiali, aggiornati alle ${fmtTime(m.fetched_at)}` : 'Risultati non ufficiali';
