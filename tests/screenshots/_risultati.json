@@ -1,0 +1,915 @@
+{
+ "failures": 0,
+ "results": [
+  {
+   "name": "balance@1200: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1200 / 1200"
+  },
+  {
+   "name": "balance@1200: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@1200: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 560, contenuto 560"
+  },
+  {
+   "name": "balance@1200: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@1200: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@1000: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1000 / 1000"
+  },
+  {
+   "name": "balance@1000: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@1000: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 577, contenuto 577"
+  },
+  {
+   "name": "balance@1000: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@1000: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@999: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 999 / 999"
+  },
+  {
+   "name": "balance@999: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@999: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 756, contenuto 756"
+  },
+  {
+   "name": "balance@999: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@999: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@768: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 768 / 768"
+  },
+  {
+   "name": "balance@768: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@768: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 773, contenuto 773"
+  },
+  {
+   "name": "balance@768: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@768: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@470: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 470 / 470"
+  },
+  {
+   "name": "balance@470: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@470: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 857, contenuto 857"
+  },
+  {
+   "name": "balance@470: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@470: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@469: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 469 / 469"
+  },
+  {
+   "name": "balance@469: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@469: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 988, contenuto 988"
+  },
+  {
+   "name": "balance@469: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@469: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@375: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 375 / 375"
+  },
+  {
+   "name": "balance@375: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@375: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 1091, contenuto 1091"
+  },
+  {
+   "name": "balance@375: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@375: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@320: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 320 / 320"
+  },
+  {
+   "name": "balance@320: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "balance@320: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 1108, contenuto 1108"
+  },
+  {
+   "name": "balance@320: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance@320: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@1200: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1200 / 1200"
+  },
+  {
+   "name": "map-states@1200: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@1200: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 996, contenuto 996"
+  },
+  {
+   "name": "map-states@1200: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@1200: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":200,\"t\":429,\"r\":416.359375,\"b\":508.28125,\"W\":1200,\"H\":995.765625}"
+  },
+  {
+   "name": "map-states@1200: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@1000: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1000 / 1000"
+  },
+  {
+   "name": "map-states@1000: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@1000: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 871, contenuto 871"
+  },
+  {
+   "name": "map-states@1000: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@1000: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":171,\"t\":371,\"r\":387.359375,\"b\":450.28125,\"W\":1000,\"H\":870.765625}"
+  },
+  {
+   "name": "map-states@1000: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@999: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 999 / 999"
+  },
+  {
+   "name": "map-states@999: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@999: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 871, contenuto 871"
+  },
+  {
+   "name": "map-states@999: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@999: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":171,\"t\":371,\"r\":387.359375,\"b\":450.28125,\"W\":999,\"H\":870.140625}"
+  },
+  {
+   "name": "map-states@999: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@768: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 768 / 768"
+  },
+  {
+   "name": "map-states@768: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@768: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 726, contenuto 726"
+  },
+  {
+   "name": "map-states@768: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@768: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":137,\"t\":305,\"r\":353.359375,\"b\":384.28125,\"W\":768,\"H\":725.765625}"
+  },
+  {
+   "name": "map-states@768: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@470: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 470 / 470"
+  },
+  {
+   "name": "map-states@470: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@470: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 596, contenuto 596"
+  },
+  {
+   "name": "map-states@470: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@470: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":93,\"t\":219,\"r\":309.359375,\"b\":298.28125,\"W\":470,\"H\":595.90625}"
+  },
+  {
+   "name": "map-states@470: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@469: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 469 / 469"
+  },
+  {
+   "name": "map-states@469: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@469: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 596, contenuto 596"
+  },
+  {
+   "name": "map-states@469: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@469: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":93,\"t\":219,\"r\":309.359375,\"b\":298.28125,\"W\":469,\"H\":595.28125}"
+  },
+  {
+   "name": "map-states@469: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@375: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 375 / 375"
+  },
+  {
+   "name": "map-states@375: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@375: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 578, contenuto 578"
+  },
+  {
+   "name": "map-states@375: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@375: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":80,\"t\":192,\"r\":296.359375,\"b\":271.28125,\"W\":375,\"H\":577.140625}"
+  },
+  {
+   "name": "map-states@375: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@320: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 320 / 320"
+  },
+  {
+   "name": "map-states@320: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-states@320: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 617, contenuto 617"
+  },
+  {
+   "name": "map-states@320: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states@320: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":72,\"t\":176,\"r\":288.359375,\"b\":255.28125,\"W\":320,\"H\":616.734375}"
+  },
+  {
+   "name": "map-states@320: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@1200: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1200 / 1200"
+  },
+  {
+   "name": "house-list@1200: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@1200: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 2237, contenuto 2237"
+  },
+  {
+   "name": "house-list@1200: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@1200: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@1000: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1000 / 1000"
+  },
+  {
+   "name": "house-list@1000: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@1000: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 2416, contenuto 2416"
+  },
+  {
+   "name": "house-list@1000: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@1000: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@999: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 999 / 999"
+  },
+  {
+   "name": "house-list@999: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@999: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 2031, contenuto 2031"
+  },
+  {
+   "name": "house-list@999: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@999: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@768: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 768 / 768"
+  },
+  {
+   "name": "house-list@768: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@768: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 2079, contenuto 2079"
+  },
+  {
+   "name": "house-list@768: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@768: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@470: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 470 / 470"
+  },
+  {
+   "name": "house-list@470: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@470: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 3046, contenuto 3046"
+  },
+  {
+   "name": "house-list@470: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@470: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@469: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 469 / 469"
+  },
+  {
+   "name": "house-list@469: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@469: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 5382, contenuto 5382"
+  },
+  {
+   "name": "house-list@469: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@469: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@375: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 375 / 375"
+  },
+  {
+   "name": "house-list@375: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@375: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 5538, contenuto 5538"
+  },
+  {
+   "name": "house-list@375: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@375: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@320: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 320 / 320"
+  },
+  {
+   "name": "house-list@320: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "house-list@320: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 6005, contenuto 6005"
+  },
+  {
+   "name": "house-list@320: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list@320: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@1200: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1200 / 1200"
+  },
+  {
+   "name": "map-house@1200: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@1200: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 1072, contenuto 1072"
+  },
+  {
+   "name": "map-house@1200: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@1200: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":724,\"t\":274,\"r\":1004,\"b\":409.921875,\"W\":1200,\"H\":1071.765625}"
+  },
+  {
+   "name": "map-house@1200: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@1000: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 1000 / 1000"
+  },
+  {
+   "name": "map-house@1000: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@1000: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 947, contenuto 947"
+  },
+  {
+   "name": "map-house@1000: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@1000: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":605,\"t\":241,\"r\":885,\"b\":376.921875,\"W\":1000,\"H\":946.765625}"
+  },
+  {
+   "name": "map-house@1000: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@999: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 999 / 999"
+  },
+  {
+   "name": "map-house@999: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@999: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 947, contenuto 947"
+  },
+  {
+   "name": "map-house@999: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@999: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":604,\"t\":240,\"r\":884,\"b\":375.921875,\"W\":999,\"H\":946.140625}"
+  },
+  {
+   "name": "map-house@999: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@768: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 768 / 768"
+  },
+  {
+   "name": "map-house@768: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@768: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 802, contenuto 802"
+  },
+  {
+   "name": "map-house@768: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@768: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":467,\"t\":203,\"r\":747,\"b\":338.921875,\"W\":768,\"H\":801.765625}"
+  },
+  {
+   "name": "map-house@768: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@470: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 470 / 470"
+  },
+  {
+   "name": "map-house@470: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@470: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 672, contenuto 672"
+  },
+  {
+   "name": "map-house@470: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@470: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":136,\"t\":154,\"r\":416,\"b\":289.921875,\"W\":470,\"H\":671.90625}"
+  },
+  {
+   "name": "map-house@470: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@469: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 469 / 469"
+  },
+  {
+   "name": "map-house@469: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@469: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 666, contenuto 666"
+  },
+  {
+   "name": "map-house@469: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@469: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":135,\"t\":153,\"r\":415,\"b\":288.921875,\"W\":469,\"H\":665.28125}"
+  },
+  {
+   "name": "map-house@469: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@375: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 375 / 375"
+  },
+  {
+   "name": "map-house@375: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@375: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 667, contenuto 667"
+  },
+  {
+   "name": "map-house@375: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@375: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":79,\"t\":174,\"r\":359,\"b\":309.921875,\"W\":375,\"H\":666.34375}"
+  },
+  {
+   "name": "map-house@375: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@320: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": "scrollWidth 320 / 320"
+  },
+  {
+   "name": "map-house@320: postMessage di altezza inviato",
+   "ok": true,
+   "extra": "2 messaggi"
+  },
+  {
+   "name": "map-house@320: altezza iframe = altezza contenuto",
+   "ok": true,
+   "extra": "iframe 722, contenuto 722"
+  },
+  {
+   "name": "map-house@320: nessun 100vh (altezza non legata alla finestra)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house@320: tooltip visibile e dentro l'iframe",
+   "ok": true,
+   "extra": "{\"l\":34,\"t\":165,\"r\":314,\"b\":300.921875,\"W\":320,\"H\":721.09375}"
+  },
+  {
+   "name": "map-house@320: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "integrazione: altezze iniziali corrette (due iframe)",
+   "ok": true,
+   "extra": "{\"a\":678,\"b\":2491}"
+  },
+  {
+   "name": "integrazione: cambio scheda (Senato -> Governatori) mantiene altezza coerente",
+   "ok": true,
+   "extra": "{\"a\":678,\"b\":2491}"
+  },
+  {
+   "name": "integrazione: apertura riga espansa cambia l'altezza e resta coerente",
+   "ok": true,
+   "extra": "2491 -> 2869"
+  },
+  {
+   "name": "integrazione: \"Mostra altri 25\" aumenta l'altezza e resta coerente",
+   "ok": true,
+   "extra": "2869 -> 5090"
+  },
+  {
+   "name": "integrazione: filtro di ricerca riduce l'altezza e resta coerente",
+   "ok": true,
+   "extra": "2869 -> 2542"
+  },
+  {
+   "name": "integrazione: nessun errore in console",
+   "ok": true,
+   "extra": ""
+  }
+ ]
+}

@@ -26,7 +26,7 @@ function draw() {
   const proj = d3.geoAlbersUsa().fitSize([W, H], { type: 'FeatureCollection', features });
   const path = d3.geoPath(proj);
   const small = W < 470;
-  const minLabel = small ? 34 : 22;
+  const minDim = small ? 22 : 16, minMax = small ? 44 : 28;
   wrap.innerHTML = '';
   const svg = d3.select(wrap).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'group').attr('aria-label', 'Mappa degli stati USA');
   const g = svg.append('g');
@@ -45,7 +45,7 @@ function draw() {
       .on('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); const b = p.node().getBoundingClientRect(); showTip(f, rs, { clientX: b.x + b.width / 2, clientY: b.y + b.height / 2 }); } });
     // sigla solo dove c'è spazio
     const b = path.bounds(f); const w = b[1][0] - b[0][0], h = b[1][1] - b[0][1];
-    if (Math.min(w, h) >= minLabel * 0.55 && Math.max(w, h) >= minLabel) {
+    if (Math.min(w, h) >= minDim && Math.max(w, h) >= minMax) {
       const c = path.centroid(f);
       if (isFinite(c[0])) {
         const dark = r && r.called;

@@ -3,3 +3,8 @@ __pycache__/
 node_modules/
 _site/
 .DS_Store
+# dati generati: in repo solo il segnaposto (i JSON si producono nella Action e si pubblicano su Pages)
+data/*.json
+data/races/
+geo_work/
+geo_out/
