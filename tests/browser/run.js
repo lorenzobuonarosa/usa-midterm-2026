@@ -125,6 +125,22 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     ok('iframe fisso 700 px senza script: contenuto scorrevole nell\'iframe', fx.ov === 'auto' && fx.sh > fx.ch, JSON.stringify(fx));
     await c3.close();
   }
+  // ---- Suggerimenti nella ricerca della lista
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1200, height: 900 } });
+    const page = await ctx.newPage(); const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto(`http://localhost:${port}/viz/house-list/index.html`); await page.waitForTimeout(2000);
+    await page.click('#q'); await page.keyboard.type('c'); await page.waitForTimeout(250);
+    const labels = await page.$$eval('#sug li .sl', e => e.map(x => x.textContent));
+    ok('ricerca: "c" suggerisce California (e altri stati) per primi', labels[0] === 'California' && labels.includes('Colorado'), labels.slice(0, 4).join(', '));
+    await page.click(`#sug-${labels.indexOf('California')}`); await page.waitForTimeout(300);
+    ok('ricerca: scegliere un suggerimento filtra (52 su 435)', /52 su 435/.test(await page.textContent('#matches')));
+    await page.fill('#q', ''); await page.keyboard.type('tex'); await page.keyboard.press('ArrowDown'); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
+    ok('ricerca: tastiera (freccia + Invio) -> Texas, 38 su 435', /38 su 435/.test(await page.textContent('#matches')));
+    ok('ricerca: nessun errore', errors.length === 0, errors.join('|'));
+    await ctx.close();
+  }
   await browser.close(); server.close();
   fs.writeFileSync(path.join(SHOTS, '_risultati.json'), JSON.stringify({ failures, results }, null, 1));
   console.log(`\n${results.length - failures}/${results.length} controlli superati`);

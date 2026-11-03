@@ -144,6 +144,65 @@ function renderResults() {
   el.innerHTML = h;
 }
 
+// ---- Suggerimenti nel campo di ricerca (es. "c" -> California, Colorado, Connecticut…)
+let sugActive = -1, sugItems = [];
+function buildSuggestions(qRaw) {
+  const q = norm(qRaw).trim();
+  if (!q) return [];
+  const out = [], seen = new Set();
+  const add = (it) => { const k = it.type + '|' + it.value; if (!seen.has(k) && out.length < 8) { seen.add(k); out.push(it); } };
+  // stati: nome che inizia con q, poi parola del nome che inizia con q (es. "york" -> New York), poi sigla uguale a q
+  const sts = new Map();
+  races.forEach(r => { const s = sts.get(r.state) || { abbr: r.state, name: r.state_name || r.state, n: 0 }; s.n++; sts.set(r.state, s); });
+  const arr = [...sts.values()].sort((a, b) => a.name.localeCompare(b.name));
+  arr.filter(s => norm(s.name).startsWith(q)).forEach(s => add({ type: 'stato', value: s.name, label: s.name, sub: `Stato · ${s.n} ${s.n === 1 ? 'distretto' : 'distretti'}` }));
+  arr.filter(s => norm(s.name).split(/\s+/).some(w => w.startsWith(q))).forEach(s => add({ type: 'stato', value: s.name, label: s.name, sub: `Stato · ${s.n} ${s.n === 1 ? 'distretto' : 'distretti'}` }));
+  arr.filter(s => s.abbr.toLowerCase() === q).forEach(s => add({ type: 'stato', value: s.name, label: s.name, sub: `Stato · ${s.abbr}` }));
+  // candidati: una parola del nome inizia con q
+  const names = new Map();
+  races.forEach(r => (r.candidates || []).forEach(c => {
+    if (!c.name || names.has(c.name)) return;
+    if (norm(c.name).split(/[\s.,-]+/).some(w => w.startsWith(q))) names.set(c.name, { c, r });
+  }));
+  [...names.values()].sort((a, b) => a.c.name.localeCompare(b.c.name)).slice(0, 6)
+    .forEach(({ c, r }) => add({ type: 'candidato', value: c.name, label: c.name, sub: `Candidato · ${r.name.replace(/at-large/i, '(collegio unico)')} · ${c.party || '?'}` }));
+  return out;
+}
+function boldPrefix(label, qRaw) {
+  const q = norm(qRaw).trim(); const n = norm(label);
+  const m = q ? n.match(new RegExp('(^|[\\s.,-])' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))) : null;  // inizio di parola
+  const i = m ? m.index + m[1].length : -1;
+  if (i < 0 || !q) return esc(label);
+  return esc(label.slice(0, i)) + '<b>' + esc(label.slice(i, i + q.length)) + '</b>' + esc(label.slice(i + q.length));
+}
+function bindSuggest(reset) {
+  const input = document.getElementById('q'), ul = document.getElementById('sug');
+  const close = () => { ul.hidden = true; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); sugActive = -1; };
+  const render = () => {
+    sugItems = buildSuggestions(input.value); sugActive = -1;
+    if (!sugItems.length) { close(); return; }
+    ul.innerHTML = sugItems.map((s, i) => `<li role="option" id="sug-${i}" data-i="${i}" aria-selected="false"><span class="sl">${boldPrefix(s.label, input.value)}</span><span class="ss">${esc(s.sub)}</span></li>`).join('');
+    ul.hidden = false; input.setAttribute('aria-expanded', 'true');
+  };
+  const setActive = (i) => {
+    ul.querySelectorAll('li').forEach((li, k) => li.setAttribute('aria-selected', String(k === i)));
+    sugActive = i;
+    if (i >= 0) { input.setAttribute('aria-activedescendant', 'sug-' + i); const li = document.getElementById('sug-' + i); if (li && li.scrollIntoView) li.scrollIntoView({ block: 'nearest' }); } else input.removeAttribute('aria-activedescendant');
+  };
+  const choose = (i) => { const s = sugItems[i]; if (!s) return; input.value = s.value; f.q = s.value; close(); reset(); input.focus(); };
+  input.addEventListener('input', render);
+  input.addEventListener('focus', () => { if (input.value) render(); });
+  input.addEventListener('blur', () => setTimeout(close, 120));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (ul.hidden) render(); if (sugItems.length) setActive((sugActive + 1) % sugItems.length); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (sugItems.length) setActive((sugActive - 1 + sugItems.length) % sugItems.length); }
+    else if (e.key === 'Enter') { if (sugActive >= 0 && !ul.hidden) { e.preventDefault(); choose(sugActive); } else close(); }
+    else if (e.key === 'Escape') { if (!ul.hidden) { e.preventDefault(); close(); } }
+  });
+  // pointerdown: funziona con mouse e tocco e non fa perdere il focus al campo prima della scelta
+  ul.addEventListener('pointerdown', (e) => { const li = e.target.closest('li'); if (li) { e.preventDefault(); choose(+li.dataset.i); } });
+}
+
 function shell() {
   const opt = (v, t, cur) => `<option value="${v}"${cur === v ? ' selected' : ''}>${t}</option>`;
   const small = window.innerWidth < 470;
@@ -155,7 +214,7 @@ function shell() {
   <details class="filters" id="filters"${small ? '' : ' open'}>
     <summary>Filtri e ordinamento</summary>
     <div class="f-grid">
-      <label class="field f-search">Cerca<input id="q" type="search" placeholder="Distretto, stato o candidato" autocomplete="off"></label>
+      <label class="field f-search">Cerca<input id="q" type="search" placeholder="Distretto, stato o candidato" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sug"><ul id="sug" class="sug" role="listbox" aria-label="Suggerimenti" hidden></ul></label>
       <label class="field">Regione<select id="region">${opt('', 'Tutte', '')}${Object.entries(REGIONS).map(([k, v]) => opt(k, v, '')).join('')}</select></label>
       <label class="field">Ordina per<select id="sort">${opt('district', 'Distretto', 'district')}${opt('margin', 'Margine', '')}${opt('reporting', 'Scrutinio', '')}${opt('close', 'Chiusura dei seggi', '')}</select></label>
       <label class="field">Margine (punti)<select id="margin">${opt('', 'Tutti', '')}${opt('lt2', 'Meno di 2', '')}${opt('2-5', '2-5', '')}${opt('5-10', '5-10', '')}${opt('gt10', 'Oltre 10', '')}</select></label>
@@ -173,6 +232,7 @@ function bind() {
   const on = (id, ev, fn) => document.getElementById(id).addEventListener(ev, fn);
   const reset = () => { shown = pageSize(); renderResults(); };
   on('q', 'input', (e) => { f.q = e.target.value; reset(); });
+  bindSuggest(reset);
   ['region', 'sort', 'margin', 'rep', 'lead'].forEach(id => on(id, 'change', (e) => { f[id] = e.target.value; reset(); }));
   app.addEventListener('click', (e) => {
     const t = e.target.closest('button'); if (!t) return;

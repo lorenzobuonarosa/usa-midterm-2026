@@ -6,7 +6,14 @@
 .filters { margin-top: 12px; border: 1px solid var(--c-border); border-radius: 10px; padding: 12px; }
 .filters > summary { display: none; }
 .f-grid { display: grid; gap: 10px; grid-template-columns: 1fr 1fr 1fr; }
-.f-grid .f-search { grid-column: 1 / -1; }
+.f-grid .f-search { grid-column: 1 / -1; position: relative; }
+.sug { position: absolute; left: 0; right: 0; top: 100%; z-index: 30; margin: 4px 0 0; padding: 4px; list-style: none; max-height: 360px; overflow: auto;
+  background: #fff; border: 1px solid var(--c-border-strong); border-radius: 8px; color: var(--c-text); }
+.sug[hidden] { display: none; }
+.sug li { display: flex; flex-direction: column; justify-content: center; min-height: 44px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.sug li[aria-selected="true"], .sug li:hover { background: var(--c-none); }
+.sug .sl b { font-weight: 700; }
+.sug .ss { font-size: 12px; color: var(--c-muted); }
 .field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--c-muted); min-width: 0; }
 .field input, .field select { font: inherit; font-size: 14px; color: var(--c-text); border: 1px solid var(--c-border); border-radius: 6px; padding: 0 10px; background: #fff; min-width: 0; width: 100%; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }

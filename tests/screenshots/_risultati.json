@@ -955,6 +955,26 @@
    "name": "iframe fisso 700 px senza script: contenuto scorrevole nell'iframe",
    "ok": true,
    "extra": "{\"ov\":\"auto\",\"sh\":2053,\"ch\":700}"
+  },
+  {
+   "name": "ricerca: \"c\" suggerisce California (e altri stati) per primi",
+   "ok": true,
+   "extra": "California, Colorado, Connecticut, North Carolina"
+  },
+  {
+   "name": "ricerca: scegliere un suggerimento filtra (52 su 435)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "ricerca: tastiera (freccia + Invio) -> Texas, 38 su 435",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "ricerca: nessun errore",
+   "ok": true,
+   "extra": ""
   }
  ]
 }
