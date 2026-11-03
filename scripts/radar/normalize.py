@@ -1,5 +1,6 @@
 """Normalizzazione delle gare civicAPI: partiti, leader, margine, stato, chiavi di collegamento."""
 import re
+from .util import to_int, to_float, to_bool
 from .constants import STATES, STATE_REGION, AT_LARGE, RCV_STATES, CHAMBER_OF_TYPE, ELECTION_DATE
 
 WRITE_IN = re.compile(r"write[\s-]*in|scattering|none of the above", re.I)
@@ -17,7 +18,7 @@ def party_code(p):
 
 
 def is_write_in(c):
-    return bool(WRITE_IN.search(c.get("name") or ""))
+    return bool(WRITE_IN.search(str(c.get("name") or "")))
 
 
 def parse_district(province, district):
@@ -42,13 +43,13 @@ def rank(cands):
 
 def normalize_candidates(raw):
     out = []
-    for c in raw or []:
-        if is_write_in(c):
+    for c in (raw if isinstance(raw, list) else []):
+        if not isinstance(c, dict) or is_write_in(c):
             continue
         out.append({"name": c.get("name"), "party": party_code(c.get("party")), "party_name": c.get("party"),
-                    "votes": int(c.get("votes") or 0), "percent": float(c.get("percent") or 0),
-                    "incumbent": bool(c.get("incumbent")) if "incumbent" in c else None,
-                    "api_winner": bool(c.get("winner"))})
+                    "votes": max(0, to_int(c.get("votes"))), "percent": to_float(c.get("percent"), 0.0),
+                    "incumbent": to_bool(c.get("incumbent")) if "incumbent" in c else None,
+                    "api_winner": to_bool(c.get("winner"))})
     out.sort(key=lambda c: c["votes"], reverse=True)
     return out
 
@@ -77,9 +78,9 @@ def normalize_race(raw, now_iso=None):
     if chamber == "house" and dd is None:
         return None
     cands = normalize_candidates(raw.get("candidates"))
-    total = sum(c["votes"] for c in cands) + sum(int(c.get("votes") or 0) for c in (raw.get("candidates") or []) if is_write_in(c))
+    total = sum(c["votes"] for c in cands) + sum(max(0, to_int(c.get("votes"))) for c in (raw.get("candidates") or []) if isinstance(c, dict) and is_write_in(c))
     pr = raw.get("percent_reporting")
-    pr = float(pr) if pr is not None else None
+    pr = to_float(pr, None)
     race = {
         "id": str(raw["id"]), "chamber": chamber, "state": prov, "state_name": STATES[prov][0], "district": dd,
         "geoid": geoid(prov, dd) if chamber == "house" else None,
@@ -132,14 +133,14 @@ def normalize_house_region(slug, reg):
         return None
     dd = "00" if (m.group(2) == "al" or st in AT_LARGE) else m.group(2).zfill(2)
     cands = normalize_candidates(reg.get("candidates"))
-    raw = reg.get("candidates") or []
-    total = sum(int(c.get("votes") or 0) for c in raw)
+    raw = [c for c in (reg.get("candidates") or []) if isinstance(c, dict)]
+    total = sum(max(0, to_int(c.get("votes"))) for c in raw)
     pr = reg.get("percent_reporting")
     race = {
         "id": str(reg["election_id"]), "chamber": "house", "state": st, "state_name": STATES[st][0], "district": dd,
         "geoid": geoid(st, dd), "name": display_name("house", st, dd, reg.get("name"), False), "election_name": reg.get("name"),
         "special": False, "region": STATE_REGION.get(st), "rcv": st in RCV_STATES,
-        "percent_reporting": float(pr) if pr is not None else None, "total_votes": total, "candidates": cands, "flags": [],
+        "percent_reporting": to_float(pr, None), "total_votes": total, "candidates": cands, "flags": [],
         "unopposed": len(cands) == 1,
     }
     race["winners_flagged"] = sum(1 for c in cands if c["api_winner"])

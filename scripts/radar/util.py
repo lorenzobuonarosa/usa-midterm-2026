@@ -47,3 +47,40 @@ def write_json(path, obj, indent=None):
 
 def log(*a):
     print(*a, file=sys.stderr, flush=True)
+
+
+# ---- parsing tollerante: i dati possono arrivare come numeri, stringhe con virgole/punti, "45,5%", None, ecc.
+import math, re as _re
+
+
+def to_float(v, default=None):
+    if v is None or isinstance(v, bool):
+        return default if v is None else float(v)
+    if isinstance(v, (int, float)):
+        return float(v) if math.isfinite(v) else default
+    s = str(v).strip().replace("\u00a0", "").replace(" ", "").replace("%", "")
+    if not s or s in ("-", "—", "–", "null", "None", "NaN", "n/a", "N/A"):
+        return default
+    if "," in s and "." not in s:
+        s = s.replace(",", "") if _re.fullmatch(r"-?\d{1,3}(,\d{3})+", s) else s.replace(",", ".")  # 1,234 (migliaia) oppure 12,5 (decimale)
+    elif "," in s and "." in s:
+        s = s.replace(",", "") if s.rfind(".") > s.rfind(",") else s.replace(".", "").replace(",", ".")
+    elif s.count(".") > 1:
+        s = s.replace(".", "")  # 1.234.567
+    try:
+        x = float(s)
+    except ValueError:
+        return default
+    return x if math.isfinite(x) else default
+
+
+def to_int(v, default=0):
+    x = to_float(v, None)
+    return default if x is None else int(round(x))
+
+
+def to_bool(v):
+    """True/False tollerante: accetta true/"true"/1/"yes"; "false"/"0"/""/None sono False (bool("false") sarebbe True)."""
+    if isinstance(v, str):
+        return v.strip().lower() in ("true", "1", "yes", "y", "t")
+    return bool(v)

@@ -11,8 +11,8 @@ from radar.util import parse_iso, read_json
 FAILS = []
 
 
-def check(cond, msg):
-    print(("  ok  " if cond else "  FAIL"), msg)
+def check(cond, msg, extra=""):
+    print(("  ok  " if cond else "  FAIL"), msg, ("| " + extra) if (extra and not cond) else "")
     if not cond:
         FAILS.append(msg)
 
@@ -120,6 +120,47 @@ def run():
     check(not due, "salta se troppo presto")
     due, *_ = decide(parse_iso("2026-11-07T10:00:00Z"), SCHED, parse_iso("2026-11-07T09:55:00Z"), False)
     check(not due, "dopo il 6 novembre: una volta al giorno")
+    # --- formati inattesi: numeri come stringhe, virgole, percentuali con %, valori mancanti
+    from radar.util import to_int, to_float, to_bool
+    from radar.normalize import normalize_house_region
+    check(to_int("1,234") == 1234 and to_int("1.234.567") == 1234567 and to_int(" 12 ") == 12 and to_int(None) == 0 and to_int("abc") == 0 and to_int(12.0) == 12 and to_int("—") == 0,
+          "to_int: virgole, punti, spazi, None, testo")
+    check(to_float("45,5%") == 45.5 and to_float("45.5") == 45.5 and to_float("1,234") == 1234.0 and to_float("") is None and to_float("x", 7) == 7,
+          "to_float: virgola decimale, %, vuoto")
+    check(to_bool("false") is False and to_bool("true") is True and to_bool(0) is False and to_bool(None) is False, "to_bool: la stringa 'false' è falsa")
+    messy = mk(pr="85%", cands=[("A", "Democratic", 600), ("B", "Republican", 380)])
+    messy["candidates"][0]["votes"] = "600,000"; messy["candidates"][1]["votes"] = "380,000"; messy["candidates"][0]["percent"] = "61,2%"
+    messy["candidates"][0]["winner"] = "false"; messy["candidates"].append(None); messy["candidates"].append({"name": None, "party": None, "votes": None})
+    rm = normalize_race(messy)
+    check(rm and rm["total_votes"] == 980000 and rm["leader"]["name"] == "A" and rm["percent_reporting"] == 85.0 and rm["winners_flagged"] == 0,
+          "gara con voti '600,000', percentuali '61,2%', winner 'false', candidati nulli: letta correttamente")
+    check(normalize_race(mk(cands=None, pr=None)) is not None, "gara senza candidati né scrutinio: non solleva eccezioni")
+    check(normalize_house_region("al-01", {"election_id": 5, "name": "x", "percent_reporting": "40", "candidates": [{"name": "A", "party": "Democratic", "votes": "1,000"}, "rotto"]}) is not None,
+          "distretto con elementi non validi: letto")
+    cs, ck = process_detail({"candidates": [{"name": "A", "votes": "10"}], "region_results": {"a": {"fips": "1", "candidates": [{"name": "A", "votes": "1,0", "winner": "false"}]}, "b": None, "c": {"candidates": None}}})
+    check(ck["counties"] == 2, "contee con valori sporchi: nessuna eccezione")
+    # pipeline intera con dati sporchi iniettati in alcune gare
+    import subprocess, tempfile, urllib.parse
+    fxp = os.path.join(ROOT, "tests", "fixtures", "night_sim.json")
+    if os.path.exists(fxp):
+        fx = json.load(open(fxp))
+        n = 0
+        for k, v in fx.items():
+            if k.startswith("/race/search"):
+                for r in v["races"][:6]:
+                    if r["province"] != "US":
+                        r["percent_reporting"] = "78,5%"; r["candidates"][0]["votes"] = "1,2x4"; r["candidates"][1]["percent"] = None; n += 1
+                v["races"][7]["candidates"] = "non una lista"
+                v["races"].append("stringa al posto di una gara"); v["races"].append({"id": 1})
+            elif k == "/race/87524":
+                for i, (slug, reg) in enumerate(list(v["region_results"].items())[:30]):
+                    if i % 3 == 0: reg["candidates"] = None
+                    elif i % 3 == 1: reg["percent_reporting"] = "n/d"; reg["candidates"][0]["votes"] = "1,234"
+                    else: v["region_results"][slug] = "rotto"
+        tf = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False); json.dump(fx, tf); tf.close()
+        out = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "fetch_results.py"), "--dry-run", "--force", "--fixture", tf.name], capture_output=True, text=True)
+        check(out.returncode == 0 and "OK:" in out.stdout + out.stderr, "giro completo con dati sporchi iniettati: termina bene (exit 0)", (out.stderr or "")[-200:])
+        os.unlink(tf.name)
     print("\nEsito:", "TUTTO OK" if not FAILS else f"{len(FAILS)} test falliti")
     return 0 if not FAILS else 1
 

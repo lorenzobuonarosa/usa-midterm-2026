@@ -16,6 +16,12 @@ Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lore
 - **Cron delle 07:00**: il workflow gira ogni 30 minuti; prima delle 06:00 UTC del 4 novembre lo script salta il giro (verificato con test di calendario). Non verificato dal vivo (la prima occasione è domattina).
 - Incorporamento nel sito QN (lo verifichi tu con la pagina di prova).
 
+## Irrobustimento ai formati inattesi (3 novembre, sera)
+- Numeri come stringhe o con separatori (`"1,234"`, `"1.234.567"`, `"45,5%"`), valori nulli, `winner: "false"`, candidati o gare non validi: letti con parser tolleranti (`to_int`, `to_float`, `to_bool` in `scripts/radar/util.py`).
+- Una gara illeggibile viene scartata e si tiene il suo dato precedente (voce `gare_scartate_formato_inatteso` in `quality.json`); un errore su una gara non ferma più il giro. Lo stesso per i dettagli di contea e per le assegnazioni (un'assegnazione esistente non si toglie per un errore di lettura).
+- Errore inatteso nel giro: il job **non fallisce** (exit 0), i dati precedenti restano, `meta.status = "stale"` e annotazione `::error::` nel log; il sito resta pubblicato.
+- Test: 43 controlli interni, compreso un giro completo con dati sporchi iniettati in decine di gare.
+
 ## Modifiche al frontend richieste da Lorenzo (3 novembre, pomeriggio)
 - Tabella dei distretti: sotto i 500 px scorre in orizzontale in un contenitore (820 px sotto i 500, 700 px tra 500 e 999) con avviso "Scorri la tabella in orizzontale".
 - Contorno completo al passaggio (stato in `map-states`, distretto in `map-house`) con un tracciato sovrapposto (`.hover-outline`), non più bordo del singolo poligono.

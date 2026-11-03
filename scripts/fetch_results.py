@@ -36,8 +36,14 @@ def main(argv=None):
     except Exception as e:  # mai un errore non gestito che lasci dati a metà: i file si scrivono in modo atomico solo alla fine
         import traceback
         traceback.print_exc()
-        log("ERRORE INATTESO: i dati precedenti restano invariati.")
-        return 1
+        log("ERRORE INATTESO: i dati precedenti restano invariati (status stale).")
+        print(f"::error::Errore inatteso nel giro dati: {e}")
+        if not a.dry_run:
+            try:
+                pipeline.crash_stale(str(e))
+            except Exception:
+                pass
+        return 0  # il job non fallisce: il sito resta pubblicato con gli ultimi dati buoni
 
 
 if __name__ == "__main__":

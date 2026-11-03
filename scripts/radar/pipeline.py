@@ -8,7 +8,7 @@ from .calls import apply_calls, eval_auto
 from .build import build_summary, build_quality, timeline_row
 from .constants import EXPECTED
 from .schedule import decide, jitter
-from .util import ROOT, utcnow, iso, parse_iso, read_json, write_json, log
+from .util import ROOT, utcnow, iso, parse_iso, read_json, write_json, log, to_float, to_bool
 
 DATA = os.path.join(ROOT, "data")
 MAX_TIMELINE = 3000
@@ -85,14 +85,26 @@ def run(args, cfg, issues):
 
     races = {}
     raw_search, raw_house = raw
+    bad = []
     for rr in raw_search:
-        r = normalize_race(rr)
-        if r:
-            races[r["id"]] = r
+        try:
+            r = normalize_race(rr)
+            if r:
+                races[r["id"]] = r
+        except Exception as e:  # una gara con dati in formato inatteso non ferma il giro
+            bad.append({"race_id": str(rr.get("id") if isinstance(rr, dict) else "?"), "errore": str(e)})
     for slug, reg in raw_house:
-        r = normalize_house_region(slug, reg)
-        if r:
-            races[r["id"]] = r
+        try:
+            r = normalize_house_region(slug, reg)
+            if r:
+                races[r["id"]] = r
+        except Exception as e:
+            bad.append({"race_id": str((reg or {}).get("election_id") if isinstance(reg, dict) else slug), "slug": slug, "errore": str(e)})
+    if bad:
+        for b in bad[:20]:
+            log("gara scartata (formato inatteso):", b)
+        quality_checks.append({"name": "gare_scartate_formato_inatteso", "status": "warn",
+                               "detail": f"{len(bad)} gare non lette; si tiene il dato precedente", "gare": bad[:60]})
     mark_extras(races)
     prev_races = prev.get("races", {})
     if len(prev_races) >= 100 and len(races) < 0.8 * len(prev_races):
@@ -161,13 +173,16 @@ def fetch_bulk(client, ccfg):
     for q in ccfg.get("queries", []):
         if q.get("kind") == "aggregate_house":
             d = client.race(q["race_id"])
-            for slug, reg in (d.get("region_results") or {}).items():
+            rr = d.get("region_results") if isinstance(d, dict) and isinstance(d.get("region_results"), dict) else {}
+            for slug, reg in rr.items():
                 house.append((slug, reg))
-            aggregates.append({"type": "US House", "province": "US", "id": q["race_id"], "candidates": d.get("candidates") or []})
+            aggregates.append({"type": "US House", "province": "US", "id": q["race_id"], "candidates": d.get("candidates") if isinstance(d.get("candidates"), list) else []})
             continue
         res = client.search(q["params"])
-        items = res.get("races", res if isinstance(res, list) else [])
+        items = res.get("races", []) if isinstance(res, dict) else (res if isinstance(res, list) else [])
         for it in items:
+            if not isinstance(it, dict):
+                continue
             if it.get("province") == "US":
                 aggregates.append(it)
             else:
@@ -218,18 +233,16 @@ def fetch_details(client, races, metas, cfg, acfg, calls_cfg, now, out_dir, chec
                 break
             continue
         r = races.get(rid)
-        metas[rid] = {"last_updated": d.get("last_updated"), "is_disputed": bool(d.get("is_disputed")), "polls_close": d.get("polls_close"),
-                      "polls_open": d.get("polls_open"), "percent_reporting_exact": d.get("percent_reporting"), "test_data": d.get("test_data"),
-                      "stamp": [r["total_votes"], r.get("percent_reporting")], "fetched_at": iso(now)}
-        done += 1
-        if rid in key_ids:
-            counties, chk = process_detail(d)
-            fips_ok = sum(1 for c in counties if c["fips"] in geo_ids) if geo_ids else None
-            chk["fips_in_topojson"] = fips_ok
-            chk["map_ok"] = bool(counties) and fips_ok == len(counties)
-            write_json(os.path.join(out_dir, "races", f"{rid}.json"), {"id": rid, "name": r["name"], "state": r["state"], "updated": d.get("last_updated"),
-                                                                       "percent_reporting": d.get("percent_reporting"), "check": chk, "counties": counties})
-            key_summaries.append({"race_id": rid, "name": r["name"], **{k: chk[k] for k in ("counties", "winner_flags_corrected", "sum_matches_state", "fips_in_topojson", "map_ok")}})
+        try:
+            metas[rid] = {"last_updated": d.get("last_updated"), "is_disputed": to_bool(d.get("is_disputed")), "polls_close": d.get("polls_close"),
+                          "polls_open": d.get("polls_open"), "percent_reporting_exact": to_float(d.get("percent_reporting"), None), "test_data": d.get("test_data"),
+                          "stamp": [r["total_votes"], r.get("percent_reporting")], "fetched_at": iso(now)}
+            done += 1
+            if rid in key_ids:
+                _write_key_detail(d, rid, r, out_dir, geo_ids, key_summaries)
+        except Exception as e:  # dettaglio in formato inatteso: si salta questa gara
+            log(f"dettaglio {rid} in formato inatteso, saltato: {e}")
+            metas.pop(rid, None)
     if key_summaries:
         bad = [k for k in key_summaries if not k["sum_matches_state"] and k["counties"]]
         nomap = [k for k in key_summaries if k["counties"] and not k["map_ok"]]
@@ -237,6 +250,18 @@ def fetch_details(client, races, metas, cfg, acfg, calls_cfg, now, out_dir, chec
         if nomap:
             checks.append({"name": "contee_agganciate_al_topojson", "status": "warn", "detail": f"{len(nomap)} gare senza mappa per contea (chiavi non agganciate): si mostra la tabella", "gare": nomap})
     return {"details_fetched": done, "key_races": len(key_ids)}
+
+
+
+def _write_key_detail(d, rid, r, out_dir, geo_ids, key_summaries):
+    """Dettaglio per contea di una gara chiave: vincitore ricalcolato, controlli, file data/races/<id>.json."""
+    counties, chk = process_detail(d)
+    fips_ok = sum(1 for c in counties if c["fips"] in geo_ids) if geo_ids else None
+    chk["fips_in_topojson"] = fips_ok
+    chk["map_ok"] = bool(counties) and fips_ok == len(counties)
+    write_json(os.path.join(out_dir, "races", f"{rid}.json"), {"id": rid, "name": r["name"], "state": r["state"], "updated": d.get("last_updated"),
+                                                               "percent_reporting": d.get("percent_reporting"), "check": chk, "counties": counties})
+    key_summaries.append({"race_id": rid, "name": r["name"], **{k: chk[k] for k in ("counties", "winner_flags_corrected", "sum_matches_state", "fips_in_topojson", "map_ok")}})
 
 
 _COUNTY_IDS = None
@@ -354,3 +379,10 @@ def print_report(summary, quality, events, out_dir):
     for ch in quality["checks"]:
         print("  [", ch["status"], "]", ch["name"], "-", ch["detail"])
     print("eventi di assegnazione:", len(events))
+
+
+def crash_stale(reason):
+    """Errore inatteso: si tengono i dati precedenti, status stale, il job NON deve fallire (così il sito resta pubblicato)."""
+    now = utcnow()
+    fstate = read_json(os.path.join(DATA, "fetch_state.json"), {}) or {}
+    fail_round(fstate, {}, now, f"errore inatteso: {reason}", DATA, False)

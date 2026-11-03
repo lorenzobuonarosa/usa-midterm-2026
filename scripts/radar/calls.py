@@ -2,7 +2,7 @@
 
 Il campo `winner` di civicAPI NON si usa per assegnare: è registrato solo come `civicapi_winner`.
 """
-from .util import parse_iso, iso
+from .util import parse_iso, iso, log
 from .normalize import base_status
 
 
@@ -68,7 +68,7 @@ def apply_calls(races, prev_calls, calls_cfg, acfg, metas, now, stale):
         e.update(kw)
         events.append(e)
 
-    for rid, race in races.items():
+    def process(rid, race):
         prev = prev_calls.get(rid)
         civ = [c["name"] for c in race["candidates"] if c["api_winner"]]
         race["civicapi_winner"] = civ[0] if len(civ) == 1 else (civ or None)
@@ -122,4 +122,20 @@ def apply_calls(races, prev_calls, calls_cfg, acfg, metas, now, stale):
             ev("revocata", race, method="manual", candidate=prev.get("winner"), party=prev.get("party"),
                percent_reporting=race.get("percent_reporting"), margin_votes=race.get("margin_votes"),
                missing_votes_est=None, reason="rimossa da calls.json")
+    for rid, race in races.items():
+        try:
+            process(rid, race)
+        except Exception as e:  # una gara con dati anomali non deve fermare le altre
+            log(f"[assegnazioni] errore sulla gara {rid} ({race.get('name')}): {e}")
+            prev = prev_calls.get(rid)
+            if prev:  # non si toglie un'assegnazione esistente per un errore di lettura
+                new_calls[rid] = prev; race["called"] = prev; race["status"] = "called"
+            else:
+                race["called"] = None
+                try:
+                    race["status"] = base_status(race)
+                except Exception:
+                    race["status"] = "not_started"
+            if "errore_dati" not in race.setdefault("flags", []):
+                race["flags"].append("errore_dati")
     return new_calls, events, conflicts
