@@ -1,28 +1,54 @@
 # STATUS – Radar QN midterm 2026
 
-Ultimo aggiornamento: 2026-11-03 16:45 (ora italiana)
+Ultimo aggiornamento: 3 novembre 2026, ~17:10 (ora italiana). Sito: https://lorenzobuonarosa.github.io/usa-midterm-2026/
 
 ## Fatto e verificato
-- Repository clonato; accessi controllati (vedi sotto).
-- `vendor/` con D3 7.9.0 e topojson-client 3.1.0 (copie locali).
+- **Pages**: deploy via Actions funzionante (nessuna impostazione da rifare). Verifica con richiesta reale dal runner: `viz/_test/` risponde 200, **nessun `X-Frame-Options`**, `cache-control: max-age=600`.
+- **Esplorazione civicAPI** (3 giri su GitHub Actions, perché il proxy dell'ambiente blocca civicapi.org): filtri data = `startDate`/`endDate`; Senato 35 (33 + 2 speciali FL e OH), governatori 36, Camera 435 (dentro la gara aggregata `87524`, una sola richiesta). Dettaglio in `docs/discovery.md`.
+- **Pipeline** (`scripts/fetch_results.py`, `scripts/radar/`): giro reale con `--force` riuscito su civicAPI (435/35/36 gare, 435 su 435 distretti abbinati, confronto con le aggregate di civicAPI coerente). Test interni: 32/32 (`--selftest`), compresi: 80 contee con `winner` sbagliato corrette sulla gara 83266, somma contee = totale statale, regola automatica (tutte le condizioni), revoca, freschezza, manuale/hold, Georgia, Alaska/Maine, calendario.
+- **Serata simulata** (voti inventati, `tests/make_fixture.py night`): pipeline completa senza errori.
+- **Geodati**: confini ufficiali Census TIGER2026 del 120° Congresso (435 distretti, 905 KB, 435/435 GEOID). Stati con mappe cambiate: AL, CA, FL, LA, MO, NC, OH, TN, TX, UT (`docs/geo-sources.md`). Nessun ripiego a cartogramma necessario.
+- **Dataviz** `balance`, `map-states`, `house-list`, `map-house`, `viz/all`: test con Chromium headless su 1200/1000/999/768/470/469/375/320 px: **182/182 controlli** (nessuno scroll orizzontale, `postMessage` di altezza coerente con l'altezza reale, tooltip dentro l'iframe, nessun errore in console, nessun 100vh) più integrazione con due iframe e un solo `parent.js` (cambio scheda, riga espansa, "Mostra altri 25", filtro). Screenshot in `tests/screenshots/`. I test locali usano dati simulati.
 
 ## Fatto ma non verificato
-- `embed/parent.js`, `viz/_shared/embed-height.js`, `viz/_test/`, `.github/workflows/update.yml` (primo deploy in corso).
-- `scripts/discover.py` e `discovery/plan.json` (giro 1 di esplorazione).
+- **Il sito pubblicato con dati reali** non è stato aperto da un browser: dal sandbox `github.io` è bloccato. Workflow `smoke` (Actions → smoke) lo fa girare con Chromium sul sito vero e salva screenshot sul branch `smoke`.
+- **Backtest** della regola automatica (workflow `backtest`, branch `backtest` → `docs/auto_calls_backtest.md`): solo gare di giugno/maggio; vedi il file se presente.
+- **Cron delle 07:00**: il workflow gira ogni 30 minuti; prima delle 06:00 UTC del 4 novembre lo script salta il giro (verificato con test di calendario). Non verificato dal vivo (la prima occasione è domattina).
+- Incorporamento nel sito QN (lo verifichi tu con la pagina di prova).
 
-## Manca
-- Pipeline dati, frontend, test, documentazione (tutte le fasi 0-4).
+## Manca / non fatto
+- Nessun embed disegna le contee (non richiesto): i dati per contea delle gare chiave sono in `data/races/<id>.json`.
+- `config/key_races.json` è **parziale**: CBS non era raggiungibile. Senato: le 11 gare indicate da CBS (non 9); Camera: ~30 dei 42 distretti, ricostruiti da riepiloghi di ricerca. Le gare con margine < 5 punti e ≥ 20% di scrutinio si aggiungono comunque in automatico (max 100).
+- `baseline.json` **non** verificato con senate.gov / NGA (non raggiungibili). I valori del mockup coincidono con le gare aggregate di civicAPI (Senato D 34 con gli Ind., R 31; governatori D 6, R 8) e con il calendario elettorale.
+- `config/polls_close.json`: orari consueti di chiusura per stato, da verificare (il dettaglio della gara ha la precedenza).
 
 ## Problemi aperti
-- `civicapi.org` bloccato dal proxy dell'ambiente (403): esplorazione tramite GitHub Action (branch `discovery`).
-- `*.github.io`, `www2.census.gov`, `cdn.jsdelivr.net`, `unpkg.com` bloccati dal proxy: non posso verificare Pages dal sandbox.
-- Token `gh` non valido: si usano i tool GitHub MCP e `git`.
+1. **Regola "dato non più vecchio di 3 ore"**: una gara finita smette di aggiornare `last_updated`, quindi dopo 3 ore dalla fine non può più essere assegnata in automatico (all'avvio delle 07:00 italiane = 01:00 ET molte gare dell'Est saranno già "vecchie"). Un'assegnazione già fatta **non** viene revocata per la sola età del dato (scelta mia, vedi sotto). Soglie non toccate.
+2. **Missouri**: il Census ha la nuova mappa, ma alcune fonti riportano contestazioni sulla sua entrata in vigore: da controllare prima di pubblicare la mappa dei distretti.
+3. Le Action pianificate possono ritardare di diversi minuti; con la cache di Pages (10 min) il ritardo percepito può arrivare a 10-20 minuti oltre i 30.
+4. Node 20 è dichiarato deprecato dalle azioni `actions/*@v4` (solo un avviso nei log).
 
 ## Scelte prese al posto di Lorenzo
-- Font: Inter.
-- Lavoro direttamente su `main` (autorizzato).
+- **Font: Inter** (cifre tabulari native).
+- Lavoro direttamente su `main` (autorizzato). Branch di servizio: `discovery`, `discovery-geo`, `geo-build`, `data-preview`, `smoke`, `backtest`, `archive` (creati solo da workflow).
+- **Camera dalla gara aggregata 87524** (una richiesta per 435 distretti); id della gara di distretto = `election_id`.
+- Revoca dell'assegnazione automatica: per scrutinio/margine/leader/contestazione/più vincitori/GA/AK-ME; **non** per la sola età del dato (altrimenti una gara chiusa e corretta verrebbe revocata dopo 3 ore).
+- Le gare senza avversari sono contate tra le assegnazioni automatiche (nota "Include N assegnazioni automatiche").
+- `runoff_possible` in Georgia solo con scrutinio ≥ 50% (sotto, il flag sarebbe rumore), ma l'assegnazione automatica è comunque bloccata se nessuno supera il 50%.
+- Write-in esclusi dall'elenco candidati (i loro voti restano nel totale).
+- Cartogramma non necessario: ho confini ufficiali per tutti gli stati.
+- Il campo `calls.json` accetta `race_id` come stringa o numero; il nome del vincitore deve coincidere con quello nel dato.
+- Pagine di servizio senza collegamenti: `viz/_test/`, `viz/_test/host.html`.
+- Branch `data-preview`: copia pubblica dei JSON dopo ogni giro manuale (solo per controllo).
 
 ## Da fare per Lorenzo alle 11
-- Compilare `config/calls.json` per le gare combattute.
-- Controllare `config/baseline.json`.
-- Controllare le assegnazioni automatiche in `data/calls_log.json`.
+1. Compilare `config/calls.json` per le gare combattute (dal sito di GitHub: matita → Commit; in 2 minuti le assegnazioni compaiono).
+2. Controllare `config/baseline.json` (Senato 32 D + 2 Ind + 31 R non in palio; governatori 6 D + 8 R) con senate.gov e NGA.
+3. Controllare le assegnazioni automatiche in `data/calls_log.json` (`https://lorenzobuonarosa.github.io/usa-midterm-2026/data/calls_log.json`) e, se serve, mettere in `hold` le gare dubbie.
+4. Completare `config/key_races.json` con la lista completa CBS (42 distretti).
+5. Verificare la mappa del Missouri e gli orari in `config/polls_close.json`.
+6. Dire a me/al team quando fermare il polling giornaliero (dopo il 6 novembre).
+
+## Cose da sapere
+- Pagina di prova per il CMS: `https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/_test/`; snippet pronti in `docs/embed.md` (nota `frame-src` per il team QN).
+- Per rigenerare i dati a mano: Actions → update → Run workflow → `force`.
