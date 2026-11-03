@@ -16,8 +16,8 @@ const OUT = process.argv[3] || 'smoke_out';
     page.on('pageerror', e => errs.push(e.message));
     const failedReq = []; page.on('requestfailed', r => failedReq.push(r.url()));
     page.on('response', r => { if (r.status() >= 400) failedReq.push(r.status() + ' ' + r.url()); });
-    await page.goto(BASE + '/viz/all/', { waitUntil: 'networkidle', timeout: 60000 });
-    await page.waitForTimeout(3000);
+    await page.goto(BASE + '/viz/all/', { waitUntil: 'load', timeout: 60000 });
+    await page.waitForTimeout(5000);
     for (const f of await page.$$('iframe')) { await f.scrollIntoViewIfNeeded(); await page.waitForTimeout(1200); }
     await page.waitForTimeout(1500);
     const frames = await page.$$('iframe');
