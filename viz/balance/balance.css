@@ -9,6 +9,7 @@
 .nums .side.r { align-items: flex-end; text-align: right; }
 .nums .pname { font-size: 13px; font-weight: 600; }
 .nums .big { font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
+.nums .small { font-size: 12px; color: var(--c-muted); margin-top: 4px; white-space: nowrap; }
 .nums .mid { text-align: center; font-size: 13px; color: var(--c-ind-text); padding-bottom: 6px; }
 .nums .mid b { font-weight: 700; }
 .bar { position: relative; display: flex; height: 28px; margin-top: 12px; background: var(--c-none); border-radius: 3px; overflow: visible; }
@@ -17,6 +18,7 @@
 .bar .seg.d1 { background: var(--c-dem); } .bar .seg.d2 { background: var(--c-dem-1); }
 .bar .seg.r1 { background: var(--c-rep); } .bar .seg.r2 { background: var(--c-rep-1); }
 .bar .seg.i1 { background: var(--c-ind); }
+.bar .seg.i2 { background: color-mix(in srgb, var(--c-ind) 40%, var(--c-bg)); }
 .bar .tick { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--c-text); transform: translateX(-1px); }
 .tick-label { position: relative; height: 22px; font-size: 12px; color: var(--c-muted); }
 .tick-label span { position: absolute; transform: translateX(-50%); white-space: nowrap; top: 6px; }

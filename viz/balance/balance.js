@@ -21,11 +21,14 @@ function panel(def, c) {
   const dSolid = v(nu, 'D') + v(ca, 'D');
   const rSolid = v(nu, 'R') + v(ca, 'R');
   const iSolid = v(nu, 'I') + v(ca, 'I');
-  const dLead = v(le, 'D'), rLead = v(le, 'R');
+  const dLead = v(le, 'D'), rLead = v(le, 'R'), iLead = v(le, 'I');
+  // Numeri consolidati: seggi assegnati (anche non in palio) + seggi in cui il partito è in testa. Corrispondono alla lunghezza colorata della barra.
+  const dTot = dSolid + dLead, rTot = rSolid + rLead, iTot = iSolid + iLead;
+  const sub = (solid, lead) => lead ? `<span class="small num">di cui ${fmtInt(solid)} assegnati</span>` : '<span class="small">&nbsp;</span>';
   const pct = (n) => (100 * n / total).toFixed(3) + '%';
   const maj = c.majority;
-  const label = `${def.title}: democratici ${dSolid} assegnati${dLead ? `, ${dLead} in testa` : ''}; repubblicani ${rSolid} assegnati${rLead ? `, ${rLead} in testa` : ''}` +
-    (def.ind ? `; indipendenti ${iSolid}` : '') + (maj ? `; soglia per il controllo ${maj}` : '');
+  const label = `${def.title}: democratici ${dTot}${dLead ? ` (${dSolid} assegnati, ${dLead} in testa)` : ''}; repubblicani ${rTot}${rLead ? ` (${rSolid} assegnati, ${rLead} in testa)` : ''}` +
+    (def.ind ? `; indipendenti ${iTot}` : '') + (maj ? `; soglia per il controllo ${maj}` : '');
   const auto = c.auto_calls || 0;
   const showAuto = def.key === 'governors' || auto > 0;
   return `
@@ -33,13 +36,14 @@ function panel(def, c) {
     <h2 id="h-${def.key}">${def.title}</h2>
     <div class="sub">${def.up(c)}</div>
     <div class="nums">
-      <div class="side"><span class="pname dem-text">Democratici</span><span class="big num dem-text">${fmtInt(dSolid)}</span></div>
-      ${def.ind ? `<div class="mid">Ind. <b class="num">${fmtInt(iSolid)}</b></div>` : ''}
-      <div class="side r"><span class="pname rep-text">Repubblicani</span><span class="big num rep-text">${fmtInt(rSolid)}</span></div>
+      <div class="side"><span class="pname dem-text">Democratici</span><span class="big num dem-text">${fmtInt(dTot)}</span>${sub(dSolid, dLead)}</div>
+      ${def.ind ? `<div class="mid">Ind. <b class="num">${fmtInt(iTot)}</b></div>` : ''}
+      <div class="side r"><span class="pname rep-text">Repubblicani</span><span class="big num rep-text">${fmtInt(rTot)}</span>${sub(rSolid, rLead)}</div>
     </div>
     <div class="bar" role="img" aria-label="${label}">
       <div class="seg d1" style="width:${pct(dSolid)}"></div>
       ${def.ind ? `<div class="seg i1" style="width:${pct(iSolid)}"></div>` : ''}
+      ${def.ind && iLead ? `<div class="seg i2" style="width:${pct(iLead)}"></div>` : ''}
       <div class="seg d2" style="width:${pct(dLead)}"></div>
       <div class="grow"></div>
       <div class="seg r2" style="width:${pct(rLead)}"></div>
@@ -63,7 +67,7 @@ async function main() {
   app.innerHTML = `
     <header class="bal-head">
       <h1>Equilibrio dei poteri</h1>
-      <p>Prima dello spoglio i seggi non in palio sono già assegnati; quelli in palio restano aperti finché le gare non vengono assegnate.</p>
+      <p>I totali sommano i seggi già assegnati (compresi quelli non in palio) e quelli in cui il partito è in testa; sotto ogni totale, il dettaglio degli assegnati.</p>
     </header>
     <div class="bal-grid">${panels}</div>
     <div class="legend" aria-label="Legenda">

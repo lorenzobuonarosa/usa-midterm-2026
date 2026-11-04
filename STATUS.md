@@ -2,6 +2,10 @@
 
 Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lorenzobuonarosa.github.io/usa-midterm-2026/
 
+## Numeri consolidati e tema scuro (4 novembre)
+- `balance` e riepilogo di `map-house`: il numero grande ora è **assegnati + in testa** (coincide con la parte colorata della barra); sotto, "di cui N assegnati". In `map-house` "non assegnati" è diventato "ancora aperti" (non assegnati e senza leader). Il Senato conta anche gli indipendenti in testa (segmento grigio chiaro).
+- **Tema scuro automatico** (`prefers-color-scheme`), forzabile con `?theme=dark|light`; palette in `config/branding.json` (`colorsDark`), valori di riserva in `viz/_shared/base.css`. I colori di branding non sono più stili inline ma regole CSS (`branding.js`). Test: 230/230.
+
 ## Fatto e verificato
 - **Pages**: deploy via Actions funzionante (nessuna impostazione da rifare). Verifica con richiesta reale dal runner: `viz/_test/` risponde 200, **nessun `X-Frame-Options`**, `cache-control: max-age=600`.
 - **Esplorazione civicAPI** (3 giri su GitHub Actions, perché il proxy dell'ambiente blocca civicapi.org): filtri data = `startDate`/`endDate`; Senato 35 (33 + 2 speciali FL e OH), governatori 36, Camera 435 (dentro la gara aggregata `87524`, una sola richiesta). Dettaglio in `docs/discovery.md`.

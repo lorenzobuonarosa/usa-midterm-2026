@@ -5,7 +5,30 @@
   --c-ind: #7A828E; --c-ind-text: #4B5260; --c-other: #9AA1AB;
   --c-none: #EEF0F3; --c-border: #D5D9DF; --c-border-strong: #8A919C;
   --c-text: #1A1D23; --c-muted: #5B6470; --c-bg: #FFFFFF; --c-warn: #8A5A00; --c-warn-bg: #FFF6DD; --c-accent: #1E4080;
+  --c-surface: #FAFBFC; --c-star: #C58B00; --c-halo: rgba(255,255,255,.75); --c-on-accent: #FFFFFF; --c-on-solid: #FFFFFF; --c-warn-border: #E8D49A;
+  color-scheme: light;
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+/* Tema scuro automatico (prefers-color-scheme) o forzato con ?theme=dark / ?theme=light. Valori di riserva: la fonte è config/branding.json (colorsDark). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-dem: #2FB4F5; --c-dem-text: #8FD3FA; --c-dem-1: #1C4A63; --c-dem-2: #2A7DA8; --c-dem-3: #2796D6;
+    --c-rep: #F0454C; --c-rep-text: #FF9A9F; --c-rep-1: #5C2A2E; --c-rep-2: #A33C42; --c-rep-3: #D2383F;
+    --c-ind: #8B93A0; --c-ind-text: #B7BEC9; --c-other: #6B7380;
+    --c-none: #2C323C; --c-border: #343A44; --c-border-strong: #5C6573;
+    --c-text: #E8EAEE; --c-muted: #9EA7B3; --c-bg: #14171C; --c-warn: #F2C46B; --c-warn-bg: #33290F; --c-accent: #8FD3FA;
+    --c-surface: #1B1F26; --c-star: #F2B632; --c-halo: rgba(20,23,28,.75); --c-on-accent: #0E1116; --c-on-solid: #FFFFFF; --c-warn-border: #5B4A1E;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --c-dem: #2FB4F5; --c-dem-text: #8FD3FA; --c-dem-1: #1C4A63; --c-dem-2: #2A7DA8; --c-dem-3: #2796D6;
+  --c-rep: #F0454C; --c-rep-text: #FF9A9F; --c-rep-1: #5C2A2E; --c-rep-2: #A33C42; --c-rep-3: #D2383F;
+  --c-ind: #8B93A0; --c-ind-text: #B7BEC9; --c-other: #6B7380;
+  --c-none: #2C323C; --c-border: #343A44; --c-border-strong: #5C6573;
+  --c-text: #E8EAEE; --c-muted: #9EA7B3; --c-bg: #14171C; --c-warn: #F2C46B; --c-warn-bg: #33290F; --c-accent: #8FD3FA;
+  --c-surface: #1B1F26; --c-star: #F2B632; --c-halo: rgba(20,23,28,.75); --c-on-accent: #0E1116; --c-on-solid: #FFFFFF; --c-warn-border: #5B4A1E;
+  color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
 /* Nessun 100vh/100vw: l'altezza segue il contenuto. html e body senza overflow visibile. */
@@ -28,11 +51,11 @@ button, [role="tab"], select, input, summary { min-height: 44px; }
 .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--c-border); font-size: 12px; color: var(--c-muted); }
 .foot p { margin: 0 0 4px; }
 .notice { margin: 18px 0 12px; padding: 10px 14px; border-radius: 6px; font-size: 13px; background: var(--c-none); color: var(--c-text); border: 1px solid var(--c-border); }
-.notice.warn { background: var(--c-warn-bg); color: var(--c-warn); border-color: #E8D49A; }
+.notice.warn { background: var(--c-warn-bg); color: var(--c-warn); border-color: var(--c-warn-border); }
 .empty { padding: 32px 16px; text-align: center; color: var(--c-muted); border: 1px dashed var(--c-border); border-radius: 8px; }
 
 /* Tooltip: posizionato dentro l'area dell'iframe (vedi tooltip.js) */
-.tip { position: absolute; z-index: 20; max-width: 280px; pointer-events: none; background: #fff; border: 1px solid var(--c-border-strong);
+.tip { position: absolute; z-index: 20; max-width: 280px; pointer-events: none; background: var(--c-bg); color: var(--c-text); border: 1px solid var(--c-border-strong);
   border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.35; box-shadow: 0 1px 4px rgba(0,0,0,.12); display: none; }
 .tip .t-kicker { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--c-muted); display: flex; justify-content: space-between; gap: 12px; }
 .tip .t-title { font-weight: 600; font-size: 14px; margin: 2px 0 4px; }

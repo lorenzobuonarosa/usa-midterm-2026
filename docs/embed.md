@@ -51,6 +51,9 @@ Sotto i 500 px la lista dei distretti mostra **10 righe alla volta** in un'area 
 - Su desktop e tablet non serve altezza fissa: lascia l'adattamento automatico (snippet senza l'attributo).
 - A fine corsa dell'area scorrevole, il gesto passa alla pagina (niente "trappola" di scroll).
 
+## Tema chiaro / scuro
+Gli embed seguono in automatico il tema del dispositivo del lettore (`prefers-color-scheme`): sfondo scuro e palette dedicata se il telefono o il browser è in modalità scura, chiaro altrimenti. Per forzare un tema aggiungi `?theme=dark` o `?theme=light` all'indirizzo dell'iframe (es. `.../viz/balance/?theme=dark`). Nota: l'iframe legge l'impostazione del dispositivo, non un eventuale interruttore del tema interno al sito QN. Le palette stanno in `config/branding.json` (`colors` = chiaro, `colorsDark` = scuro).
+
 ## Cosa fa `parent.js`
 - IIFE senza globali, nessun CSS iniettato.
 - Accetta solo messaggi con `event.origin` uguale all'origine da cui è servito lo script stesso, con forma `{source: 'radar-midterm', type: 'height', height: <intero>}`.

@@ -28,5 +28,14 @@
   <section><iframe src="../house-list/" title="Lista dei distretti della Camera" loading="lazy" style="min-height:520px"></iframe></section>
 </main>
 <script src="../../embed/parent.js"></script>
+<script>
+  /* ?theme=dark|light sulla pagina si inoltra agli iframe (altrimenti seguono il tema del dispositivo) */
+  (function () {
+    var t = new URLSearchParams(location.search).get('theme');
+    if (t !== 'dark' && t !== 'light') return;
+    document.documentElement.setAttribute('data-theme', t);
+    document.querySelectorAll('iframe').forEach(function (f) { f.src = f.getAttribute('src') + '?theme=' + t; });
+  })();
+</script>
 </body>
 </html>

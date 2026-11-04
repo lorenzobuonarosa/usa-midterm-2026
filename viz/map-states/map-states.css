@@ -1,13 +1,13 @@
 .tabs { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--c-border); border-radius: 999px; margin-bottom: 12px; }
 .tabs button { border: 0; background: transparent; padding: 0 16px; border-radius: 999px; cursor: pointer; color: var(--c-muted); font-weight: 500; min-width: 44px; }
-.tabs button[aria-selected="true"] { background: var(--c-accent); color: #fff; }
+.tabs button[aria-selected="true"] { background: var(--c-accent); color: var(--c-on-accent); }
 .map-wrap { position: relative; width: 100%; aspect-ratio: 960 / 600; min-height: 220px; }
 .map-wrap svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
-.st { stroke: #fff; stroke-width: .8; cursor: pointer; transition: fill .3s; }
+.st { stroke: var(--c-bg); stroke-width: .8; cursor: pointer; transition: fill .3s; }
 .st, .st:focus, .st:focus-visible, .st:active { outline: none; -webkit-tap-highlight-color: transparent; }  /* niente riquadro del browser: l'evidenziazione è il solo contorno dello stato */
 .st.sel { stroke: var(--c-text); stroke-width: 1.8; }
-.st-label { font-size: 10px; font-weight: 700; fill: var(--c-text); pointer-events: none; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: rgba(255,255,255,.75); stroke-width: 2.5px; }
-.st-label.on-dark { fill: #fff; stroke: none; }
+.st-label { font-size: 10px; font-weight: 700; fill: var(--c-text); pointer-events: none; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--c-halo); stroke-width: 2.5px; }
+.st-label.on-dark { fill: var(--c-on-solid); stroke: none; }
 .st-check { font-size: 9px; fill: var(--c-text); pointer-events: none; text-anchor: middle; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--c-muted); margin-top: 18px; align-items: center; }
 .legend .grp { display: inline-flex; align-items: center; gap: 4px; }

@@ -53,7 +53,7 @@ function draw() {
       if (isFinite(c[0])) {
         const dark = r && r.called;
         const t = labels.append('text').attr('class', 'st-label' + (dark ? ' on-dark' : '')).attr('x', c[0]).attr('y', c[1]).text(st);
-        if (r && r.called) labels.append('text').attr('class', 'st-check').attr('x', c[0]).attr('y', c[1] + 11).text(r.called.method === 'manual' ? '✓' : '✓*').style('fill', '#fff');
+        if (r && r.called) labels.append('text').attr('class', 'st-check').attr('x', c[0]).attr('y', c[1] + 11).text(r.called.method === 'manual' ? '✓' : '✓*').style('fill', 'var(--c-on-solid)');
       }
     }
   });
@@ -78,7 +78,7 @@ const pctText = (rs) => { const r = primaryRace(rs); const p = r.percent_reporti
 
 function renderNote() {
   const rcv = tab === 'senate' ? ['AK', 'ME'] : ['AK'];
-  document.getElementById('mapnote').innerHTML = 'Tinta più scura = margine più ampio. ' + rcv.map(a => `<span class="badge">${a}</span>`).join(' ') +
+  document.getElementById('mapnote').innerHTML = 'Tinta più intensa = margine più ampio. ' + rcv.map(a => `<span class="badge">${a}</span>`).join(' ') +
     ' voto ordinato per preferenze (prime preferenze): i conteggi sono solo prime preferenze.';
 }
 

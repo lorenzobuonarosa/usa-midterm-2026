@@ -141,6 +141,44 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     ok('ricerca: nessun errore', errors.length === 0, errors.join('|'));
     await ctx.close();
   }
+  // ---- Tema scuro automatico (prefers-color-scheme) e override ?theme=
+  for (const embed of EMBEDS) {
+    for (const [scheme, q, expectDark] of [['dark', '', true], ['light', '', false], ['dark', '?theme=light', false], ['light', '?theme=dark', true]]) {
+      const ctx = await browser.newContext({ viewport: { width: 1000, height: 900 }, colorScheme: scheme });
+      const page = await ctx.newPage(); const errors = [];
+      page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+      page.on('pageerror', e => errors.push(e.message));
+      await page.goto(`http://localhost:${port}/viz/${embed}/index.html${q}`);
+      await page.waitForFunction(() => document.body.innerText.length > 80 && !/Caricamento/.test(document.body.innerText), null, { timeout: 15000 }).catch(() => {});
+      await page.waitForTimeout(900);
+      const th = await page.evaluate(() => {
+        const lum = (c) => { const m = c.match(/\d+/g).map(Number); return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; };
+        const cs = getComputedStyle(document.body);
+        return { bg: lum(cs.backgroundColor), fg: lum(cs.color), bgs: cs.backgroundColor };
+      });
+      const tag = `${embed}: schema ${scheme}${q} -> ${expectDark ? 'scuro' : 'chiaro'}`;
+      ok(tag, expectDark ? (th.bg < 0.15 && th.fg > 0.6) : (th.bg > 0.9 && th.fg < 0.3), JSON.stringify(th));
+      ok(`${tag}: nessun errore`, errors.length === 0, errors.join('|'));
+      if (scheme === 'dark' && !q) await page.screenshot({ path: path.join(SHOTS, `dark-${embed}.png`), fullPage: true });
+      await ctx.close();
+    }
+  }
+  // ---- Balance: il numero grande = barra colorata (assegnati + in testa) e dettaglio "di cui"
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1000, height: 900 } });
+    const page = await ctx.newPage();
+    await page.goto(`http://localhost:${port}/viz/balance/index.html`);
+    await page.waitForSelector('.panel .big', { timeout: 15000 });
+    const rows = await page.$$eval('.panel', ps => ps.map(p => {
+      const w = (s) => { const e = p.querySelector(s); return e ? parseFloat(e.style.width) : 0; };
+      const bar = p.querySelector('.bar'); const tot = p.querySelector('.bar').getBoundingClientRect().width;
+      const seats = { Camera: 435, Senato: 100, Governatori: 50 }[p.querySelector('h2').textContent];
+      const num = (s) => Number((p.querySelector(s) || {}).textContent.replace(/\D/g, '')) || 0;
+      return { t: p.querySelector('h2').textContent, d: num('.side:not(.r) .big'), r: num('.side.r .big'), dBar: Math.round((w('.d1') + w('.d2')) * seats / 100), rBar: Math.round((w('.r1') + w('.r2')) * seats / 100), sub: (p.querySelector('.side .small') || {}).textContent };
+    }));
+    for (const x of rows) ok(`balance ${x.t}: numeri grandi = lunghezza barre (D ${x.d}/${x.dBar}, R ${x.r}/${x.rBar})`, Math.abs(x.d - x.dBar) <= 1 && Math.abs(x.r - x.rBar) <= 1, x.sub);
+    await ctx.close();
+  }
   await browser.close(); server.close();
   fs.writeFileSync(path.join(SHOTS, '_risultati.json'), JSON.stringify({ failures, results }, null, 1));
   console.log(`\n${results.length - failures}/${results.length} controlli superati`);

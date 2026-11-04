@@ -23,7 +23,7 @@ function tally() {
   });
   const ch = (summary.chambers && summary.chambers.house) || {};
   const total = ch.up || races.length || 435;
-  const undecided = total - c.D - c.R - c.O;
+  const undecided = total - c.D - c.R - c.O - l.D - l.R - l.O;
   return { c, l, undecided, maj: ch.majority || 218 };
 }
 
@@ -85,9 +85,9 @@ function resetZoom() {
 function renderTally() {
   const t = tally();
   document.getElementById('tally').innerHTML = `
-    <div class="side"><span class="lbl dem-text">Democratici</span><span class="big num dem-text">${fmtInt(t.c.D)}</span><span class="small num">${t.l.D ? fmtInt(t.l.D) + ' in testa' : '&nbsp;'}</span></div>
-    <div class="mid"><b class="num">${fmtInt(t.undecided)}</b> non assegnati · <b class="num">${fmtInt(t.maj)}</b> per il controllo</div>
-    <div class="side r"><span class="lbl rep-text">Repubblicani</span><span class="big num rep-text">${fmtInt(t.c.R)}</span><span class="small num">${t.l.R ? fmtInt(t.l.R) + ' in testa' : '&nbsp;'}</span></div>`;
+    <div class="side"><span class="lbl dem-text">Democratici</span><span class="big num dem-text">${fmtInt(t.c.D + t.l.D)}</span><span class="small num">${t.l.D ? 'di cui ' + fmtInt(t.c.D) + ' assegnati' : '&nbsp;'}</span></div>
+    <div class="mid"><b class="num">${fmtInt(t.undecided)}</b> ancora aperti · <b class="num">${fmtInt(t.maj)}</b> per il controllo</div>
+    <div class="side r"><span class="lbl rep-text">Repubblicani</span><span class="big num rep-text">${fmtInt(t.c.R + t.l.R)}</span><span class="small num">${t.l.R ? 'di cui ' + fmtInt(t.c.R) + ' assegnati' : '&nbsp;'}</span></div>`;
 }
 
 async function main() {
