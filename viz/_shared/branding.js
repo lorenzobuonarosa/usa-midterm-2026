@@ -12,6 +12,18 @@ const MAP = {
 
 export let branding = null;
 
+// Tema dalla pagina ospite (embed/parent.js): segue l'interruttore del tema del sito. Con ?theme= nell'indirizzo resta quello forzato.
+let themeForced = false;
+try { const t = new URLSearchParams(location.search).get('theme'); themeForced = t === 'dark' || t === 'light'; } catch (e) { /* niente */ }
+if (!themeForced && window.parent !== window) {
+  window.addEventListener('message', (ev) => {
+    const d = ev.data;
+    if (ev.source !== window.parent || !d || d.source !== 'radar-midterm-host' || d.type !== 'theme') return;
+    if (d.theme === 'dark' || d.theme === 'light') document.documentElement.setAttribute('data-theme', d.theme);
+  });
+  try { window.parent.postMessage({ source: 'radar-midterm', type: 'hello' }, '*'); } catch (e) { /* nessun genitore */ }
+}
+
 // Tema: segue il tema del sistema/browser del lettore (prefers-color-scheme); ?theme=dark o ?theme=light lo forza.
 function applyThemeOverride() {
   try {

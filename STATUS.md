@@ -4,7 +4,7 @@ Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lore
 
 ## Numeri consolidati e tema scuro (4 novembre)
 - `balance` e riepilogo di `map-house`: il numero grande ora è **assegnati + in testa** (coincide con la parte colorata della barra); sotto, "di cui N assegnati". In `map-house` "non assegnati" è diventato "ancora aperti" (non assegnati e senza leader). Il Senato conta anche gli indipendenti in testa (segmento grigio chiaro).
-- **Tema scuro automatico** (`prefers-color-scheme`), forzabile con `?theme=dark|light`; palette in `config/branding.json` (`colorsDark`), valori di riserva in `viz/_shared/base.css`. I colori di branding non sono più stili inline ma regole CSS (`branding.js`). Test: 230/230.
+- **Tema scuro automatico** (`prefers-color-scheme`), forzabile con `?theme=dark|light`; con `parent.js` segue l'interruttore del tema del sito QN (rilevato dallo sfondo attorno all'iframe, postMessage `radar-midterm-host`); palette in `config/branding.json` (`colorsDark`), valori di riserva in `viz/_shared/base.css`. I colori di branding non sono più stili inline ma regole CSS (`branding.js`). Test: 236/236.
 
 ## Fatto e verificato
 - **Pages**: deploy via Actions funzionante (nessuna impostazione da rifare). Verifica con richiesta reale dal runner: `viz/_test/` risponde 200, **nessun `X-Frame-Options`**, `cache-control: max-age=600`.

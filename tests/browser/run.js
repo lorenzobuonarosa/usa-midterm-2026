@@ -179,6 +179,26 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     for (const x of rows) ok(`balance ${x.t}: numeri grandi = lunghezza barre (D ${x.d}/${x.dBar}, R ${x.r}/${x.rBar})`, Math.abs(x.d - x.dBar) <= 1 && Math.abs(x.r - x.rBar) <= 1, x.sub);
     await ctx.close();
   }
+  // ---- Tema dalla pagina ospite (interruttore del sito QN): parent.js lo comunica agli iframe
+  for (const [os, hostBg, expect] of [['dark', '#ffffff', 'light'], ['light', '#101418', 'dark']]) {
+    const ctx = await browser.newContext({ viewport: { width: 1000, height: 900 }, colorScheme: os });
+    const page = await ctx.newPage(); const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.route('**/host_theme.html', r => r.fulfill({ contentType: 'text/html', body: `<style>body{margin:0;background:${hostBg}}iframe{width:100%;border:0;display:block;height:600px}</style><div id=w><iframe id=a src="/viz/balance/index.html"></iframe></div><script src="/embed/parent.js"></script>` }));
+    await page.goto(`http://localhost:${port}/host_theme.html`);
+    await page.waitForTimeout(2500);
+    const fr = await (await page.$('#a')).contentFrame();
+    const bg = () => fr.evaluate(() => { const m = getComputedStyle(document.body).backgroundColor.match(/\d+/g).map(Number); return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; });
+    const l1 = await bg();
+    ok(`tema ospite: dispositivo ${os}, pagina ${expect === 'dark' ? 'scura' : 'chiara'} -> embed ${expect === 'dark' ? 'scuro' : 'chiaro'}`, expect === 'dark' ? l1 < 0.15 : l1 > 0.9, `luminanza ${l1.toFixed(2)}`);
+    // cambio dal vivo (interruttore del sito): l'embed segue entro qualche secondo
+    await page.evaluate((c) => { document.body.style.background = c; }, expect === 'dark' ? '#ffffff' : '#101418');
+    await page.waitForTimeout(2500);
+    const l2 = await bg();
+    ok(`tema ospite: cambio dal vivo -> embed ${expect === 'dark' ? 'chiaro' : 'scuro'}`, expect === 'dark' ? l2 > 0.9 : l2 < 0.15, `luminanza ${l2.toFixed(2)}`);
+    ok('tema ospite: nessun errore', errors.length === 0, errors.join('|'));
+    await ctx.close();
+  }
   await browser.close(); server.close();
   fs.writeFileSync(path.join(SHOTS, '_risultati.json'), JSON.stringify({ failures, results }, null, 1));
   console.log(`\n${results.length - failures}/${results.length} controlli superati`);
