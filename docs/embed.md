@@ -76,6 +76,15 @@ Altezze misurate a 320-1000 px di larghezza (compreso l'avviso "dati non aggiorn
 <iframe class="rq rq-list" src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/house-list/" title="Midterm USA 2026: risultati per distretto" loading="lazy"></iframe>
 ```
 
+**Versione C – due misure (mobile / desktop) senza `<style>`, tutto nell'attributo `style`:** sotto i 420 px di larghezza vale l'altezza da telefono, sopra i 500 px quella da desktop, in mezzo una transizione. Usa `clamp()` di CSS (browser moderni).
+```html
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/balance/" title="Midterm USA 2026: equilibrio dei poteri" loading="lazy" style="width:100%;border:0;display:block;height:clamp(930px,calc(1240px - 3.9*(100vw - 420px)),1240px)"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/map-states/" title="Midterm USA 2026: mappa degli stati" loading="lazy" style="width:100%;border:0;display:block;height:clamp(700px,calc(700px + 2.75*(100vw - 420px)),920px)"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/map-house/" title="Midterm USA 2026: mappa dei distretti della Camera" loading="lazy" style="width:100%;border:0;display:block;height:clamp(800px,calc(800px + 2.6*(100vw - 420px)),1010px)"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/house-list/" title="Midterm USA 2026: risultati per distretto" loading="lazy" style="width:100%;border:0;display:block;height:clamp(1520px,calc(1520px + 11.6*(100vw - 420px)),2450px)"></iframe>
+```
+Misure: telefono 1240 / 700 / 800 / 1520 px; desktop 930 / 920 / 1010 / 2450 px (balance, map-states, map-house, house-list). Verificato a 320-1400 px.
+
 ## Tema chiaro / scuro
 - **Con `parent.js` nella pagina** (consigliato): gli embed seguono il tema della pagina QN, compreso l'interruttore "Tema del sito" (Sistema / Chiaro / Scuro). `parent.js` guarda il colore di sfondo attorno all'iframe, ricava chiaro o scuro e lo comunica agli iframe via postMessage; il cambio dal vivo si vede entro ~2 secondi.
 - **Senza `parent.js`** (o aprendo l'embed da solo): segue il tema del dispositivo (`prefers-color-scheme`).
