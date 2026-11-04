@@ -51,6 +51,31 @@ Sotto i 500 px la lista dei distretti mostra **10 righe alla volta** in un'area 
 - Su desktop e tablet non serve altezza fissa: lascia l'adattamento automatico (snippet senza l'attributo).
 - A fine corsa dell'area scorrevole, il gesto passa alla pagina (niente "trappola" di scroll).
 
+## Senza script, con altezza fissa (nuova piattaforma)
+Nessuno `parent.js`: ogni iframe ha un'altezza fissa. Se l'iframe è più basso del contenuto, l'embed scorre al suo interno (nulla resta irraggiungibile).
+Senza lo script il tema chiaro/scuro segue solo il dispositivo del lettore (non l'interruttore del sito).
+Altezze misurate a 320-1000 px di larghezza (compreso l'avviso "dati non aggiornati", quindi con dati freschi c'è un po' di margine in più).
+
+**Versione A – solo attributi (una sola altezza, sempre sicura):**
+```html
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/balance/" title="Midterm USA 2026: equilibrio dei poteri tra Camera, Senato e governatori" loading="lazy" style="width:100%;height:1240px;border:0;display:block"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/map-states/" title="Midterm USA 2026: mappa degli stati, Senato e governatori" loading="lazy" style="width:100%;height:920px;border:0;display:block"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/map-house/" title="Midterm USA 2026: mappa dei 435 distretti della Camera" loading="lazy" style="width:100%;height:1010px;border:0;display:block"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/house-list/" title="Midterm USA 2026: risultati per distretto della Camera" loading="lazy" style="width:100%;height:1520px;border:0;display:block"></iframe>
+```
+**Versione B – con un blocco `<style>` (altezze diverse su mobile e desktop, meno spazio vuoto):** se la piattaforma accetta `<style>` nell'HTML, incolla una volta il blocco e usa le classi.
+```html
+<style>
+.rq{width:100%;border:0;display:block}
+.rq-balance{height:1240px}.rq-states{height:700px}.rq-house{height:800px}.rq-list{height:1520px}
+@media (min-width:500px){.rq-balance{height:930px}.rq-states{height:920px}.rq-house{height:1010px}.rq-list{height:2450px}}
+</style>
+<iframe class="rq rq-balance" src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/balance/" title="Midterm USA 2026: equilibrio dei poteri" loading="lazy"></iframe>
+<iframe class="rq rq-states" src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/map-states/" title="Midterm USA 2026: mappa degli stati" loading="lazy"></iframe>
+<iframe class="rq rq-house" src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/map-house/" title="Midterm USA 2026: mappa dei distretti della Camera" loading="lazy"></iframe>
+<iframe class="rq rq-list" src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/house-list/" title="Midterm USA 2026: risultati per distretto" loading="lazy"></iframe>
+```
+
 ## Tema chiaro / scuro
 - **Con `parent.js` nella pagina** (consigliato): gli embed seguono il tema della pagina QN, compreso l'interruttore "Tema del sito" (Sistema / Chiaro / Scuro). `parent.js` guarda il colore di sfondo attorno all'iframe, ricava chiaro o scuro e lo comunica agli iframe via postMessage; il cambio dal vivo si vede entro ~2 secondi.
 - **Senza `parent.js`** (o aprendo l'embed da solo): segue il tema del dispositivo (`prefers-color-scheme`).
