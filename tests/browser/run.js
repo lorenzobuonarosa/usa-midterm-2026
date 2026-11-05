@@ -235,8 +235,8 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     const sen = await page.evaluate(() => [...document.querySelectorAll('#panel-senate iframe')].map(f => ({ t: f.contentDocument.body.innerText, tabs: f.contentDocument.getElementById('tabs').offsetHeight, bar: f.contentDocument.querySelectorAll('.bar, table.hl').length, ab: f.contentDocument.querySelector('path.st').getAttribute('aria-label') })));
     ok(`combined@${w}: Senato = solo mappa degli stati (senza schede interne, barra o tabella)`, sen.length === 1 && sen[0].tabs === 0 && sen[0].bar === 0 && /Tinta più intensa/.test(sen[0].t) && /AK/.test(sen[0].t));
     await page.click('#tab-governors'); await page.waitForTimeout(500);
-    const gov = await page.evaluate(() => [...document.querySelectorAll('#panel-governors iframe')].map(f => ({ t: f.contentDocument.body.innerText, src: f.getAttribute('src') })));
-    ok(`combined@${w}: Governatori = mappa degli stati dei governatori`, gov.length === 1 && /tab=governor/.test(gov[0].src) && /Tinta più intensa/.test(gov[0].t) && !/\bME\b.*voto ordinato/.test(gov[0].t.replace(/\n/g, ' ')));
+    const gov = await page.evaluate(() => [...document.querySelectorAll('#panel-governors iframe')].map(f => ({ t: f.contentDocument.body.innerText, src: f.getAttribute('src'), note: f.contentDocument.getElementById('mapnote').innerText })));
+    ok(`combined@${w}: Governatori = mappa degli stati dei governatori (nota solo con AK)`, gov.length === 1 && /tab=governor/.test(gov[0].src) && /Tinta più intensa/.test(gov[0].t) && /AK/.test(gov[0].note) && !/ME/.test(gov[0].note), gov[0].note.slice(0, 50));
     ok(`combined@${w}: un solo piè di pagina (fonte civicAPI)`, (await page.evaluate(() => (document.body.innerText.match(/Fonte: civicAPI/g) || []).length)) === 1);
     ok(`combined@${w}: nessun errore`, errors.length === 0, errors.slice(0, 3).join('|'));
     if (w === 390 || w === 1000) { await page.click('#tab-house'); await page.waitForTimeout(1500); await page.screenshot({ path: path.join(SHOTS, `combined-${w}.png`), fullPage: true }); }
