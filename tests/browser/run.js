@@ -207,7 +207,7 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
     await page.goto(`http://localhost:${port}/viz/combined/index.html`);
     await page.waitForSelector('#tab-house', { timeout: 15000 });
-    const expectFrames = { house: 3, senate: 2, governors: 2 };
+    const expectFrames = { house: 1, senate: 1, governors: 1 };
     for (const k of ['house', 'senate', 'governors']) {
       await page.click(`#tab-${k}`); await page.waitForTimeout(3200);
       const st = await page.evaluate((key) => {
@@ -227,13 +227,16 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
       ok(`${tag}: piè di pagina dei figli nascosto (uno solo, quello unico)`, st.foots.every(f => f === 0));
       ok(`${tag}: nessuno scroll orizzontale`, st.sw);
     }
-    // contenuti specifici
+    // contenuti specifici: solo mappe (niente barra di equilibrio né tabella), senza schede interne
+    await page.click('#tab-house'); await page.waitForTimeout(500);
+    const hou = await page.evaluate(() => [...document.querySelectorAll('#panel-house iframe')].map(f => ({ t: f.contentDocument.body.innerText, svg: f.contentDocument.querySelectorAll('path.dist').length, bar: f.contentDocument.querySelectorAll('.bar, table.hl').length })));
+    ok(`combined@${w}: Camera = solo mappa dei distretti (435), senza barra né tabella`, hou.length === 1 && hou[0].svg >= 400 && hou[0].bar === 0 && /Zoom su uno stato/.test(hou[0].t), `distretti ${hou[0].svg}`);
     await page.click('#tab-senate'); await page.waitForTimeout(500);
-    const sen = await page.evaluate(() => { const fs = [...document.querySelectorAll('#panel-senate iframe')]; return fs.map(f => f.contentDocument.body.innerText); });
-    ok(`combined@${w}: Senato = solo pannello Senato + mappa (senza schede interne)`, /Senato/.test(sen[0]) && !/Governatori|Camera/.test(sen[0].replace(/Camera/g, '')) && !/Governatori\s*$/.test(sen[1].split('\n')[0]), sen[1].slice(0, 40).replace(/\n/g, ' '));
+    const sen = await page.evaluate(() => [...document.querySelectorAll('#panel-senate iframe')].map(f => ({ t: f.contentDocument.body.innerText, tabs: f.contentDocument.getElementById('tabs').offsetHeight, bar: f.contentDocument.querySelectorAll('.bar, table.hl').length, ab: f.contentDocument.querySelector('path.st').getAttribute('aria-label') })));
+    ok(`combined@${w}: Senato = solo mappa degli stati (senza schede interne, barra o tabella)`, sen.length === 1 && sen[0].tabs === 0 && sen[0].bar === 0 && /Tinta più intensa/.test(sen[0].t) && /AK/.test(sen[0].t));
     await page.click('#tab-governors'); await page.waitForTimeout(500);
-    const gov = await page.evaluate(() => [...document.querySelectorAll('#panel-governors iframe')].map(f => f.contentDocument.body.innerText));
-    ok(`combined@${w}: Governatori = pannello Governatori + mappa governatori`, /Governatori/.test(gov[0]) && /Tinta più intensa/.test(gov[1]));
+    const gov = await page.evaluate(() => [...document.querySelectorAll('#panel-governors iframe')].map(f => ({ t: f.contentDocument.body.innerText, src: f.getAttribute('src') })));
+    ok(`combined@${w}: Governatori = mappa degli stati dei governatori`, gov.length === 1 && /tab=governor/.test(gov[0].src) && /Tinta più intensa/.test(gov[0].t) && !/\bME\b.*voto ordinato/.test(gov[0].t.replace(/\n/g, ' ')));
     ok(`combined@${w}: un solo piè di pagina (fonte civicAPI)`, (await page.evaluate(() => (document.body.innerText.match(/Fonte: civicAPI/g) || []).length)) === 1);
     ok(`combined@${w}: nessun errore`, errors.length === 0, errors.slice(0, 3).join('|'));
     if (w === 390 || w === 1000) { await page.click('#tab-house'); await page.waitForTimeout(1500); await page.screenshot({ path: path.join(SHOTS, `combined-${w}.png`), fullPage: true }); }

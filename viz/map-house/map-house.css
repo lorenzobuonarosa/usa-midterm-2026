@@ -25,6 +25,6 @@
 .legend i.n{background:var(--c-none)}
 @media (max-width: 469px) { .tally .big { font-size: 28px; } }
 
-/* modalità combinata: il riepilogo è già nel pannello sopra, il titolo nella scheda */
-html[data-combo] .tally, html[data-combo] .mh-head h1 { display: none; }
+/* modalità combinata: il titolo è già nella scheda del selettore */
+html[data-combo] .mh-head h1 { display: none; }
 html[data-combo] .mh-head { justify-content: flex-end; }

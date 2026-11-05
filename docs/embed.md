@@ -37,18 +37,17 @@ Tutte e quattro insieme, per provare: `https://lorenzobuonarosa.github.io/usa-mi
 Pagina di prova con altezza variabile (non collegata da altre pagine): `…/viz/_test/`.
 
 ## Dataviz unica con selettore (Camera / Senato / Governatori)
-Un solo iframe: in alto un selettore, sotto la vista scelta.
-- **Camera**: equilibrio e totali, mappa dei 435 distretti, lista dei distretti.
-- **Senato**: equilibrio e totali, mappa degli stati (Senato).
-- **Governatori**: equilibrio e totali, mappa degli stati (governatori).
+Un solo iframe: in alto un selettore, sotto la **mappa** della vista scelta (le stesse mappe degli embed singoli, senza barra di equilibrio né tabella).
+- **Camera**: mappa dei 435 distretti (zoom su uno stato, riepilogo D/R).
+- **Senato**: mappa degli stati con i seggi del Senato.
+- **Governatori**: mappa degli stati con le gare dei governatori.
 
-Dentro usa gli stessi embed di prima (stessa grafica e stessi dati), in modalità `?combo=1` (un solo piè di pagina, niente titoli doppi). Si può aprire su una vista precisa con `?view=camera`, `?view=senato` o `?view=governatori`. Accetta anche `?theme=dark|light`.
+Dentro usa gli stessi embed delle mappe, in modalità `?combo=1` (un solo piè di pagina, schede interne nascoste). Si apre su una vista precisa con `?view=camera`, `?view=senato` o `?view=governatori`. Accetta anche `?theme=dark|light`.
 
 ```html
-<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/combined/" title="Midterm USA 2026: Camera, Senato e governatori" loading="lazy" style="width:100%;border:0;display:block;height:1500px"></iframe>
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/combined/" title="Midterm USA 2026: mappe di Camera, Senato e governatori" loading="lazy" style="width:100%;border:0;display:block;height:clamp(780px,calc(780px + 0.7*(100vw - 420px)),1070px)"></iframe>
 ```
-- **Altezza**: con `parent.js` l'iframe segue la vista scelta (cambia da sola cambiando scheda). Senza script l'altezza è fissa: il contenuto cresce o cala da una scheda all'altra (Senato e Governatori ~950-1230 px; Camera ~2200-3500 px con la lista), e se l'iframe è più basso del contenuto l'embed scorre al suo interno. Altezza fissa consigliata: **1500 px** (nessuna scheda tagliata fuori, la Camera scorre dentro).
-- Per un'altezza diversa su telefono e desktop senza script: `height:clamp(1100px,calc(1100px + 2*(100vw - 420px)),1500px)`.
+- **Altezza**: con `parent.js` segue la scheda scelta. Senza script: telefono ~780 px (Camera) / ~690 px (Senato, Governatori); desktop ~1070 px (Camera) / ~910 px (Senato, Governatori). La formula `clamp()` sopra usa 780 px su telefono e 1070 px su desktop (copre la scheda più alta, in quelle più basse resta un po' di spazio sotto). Altezza unica più semplice: `height:1070px`.
 
 ## Altezza fissa (per la lista dei distretti su mobile)
 

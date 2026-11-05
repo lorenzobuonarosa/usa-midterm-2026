@@ -1,5 +1,5 @@
-// Dataviz unica: un selettore (Camera / Senato / Governatori) e, per ogni vista, gli embed esistenti
-// (equilibrio, mappa, lista) in iframe della stessa origine, in modalità combinata (?combo=1: senza piè di pagina né titoli doppi).
+// Dataviz unica: un selettore (Camera / Senato / Governatori) e, per ogni vista, la mappa esistente
+// (distretti della Camera, stati per Senato, stati per governatori) in iframe della stessa origine, in modalità combinata (?combo=1: senza piè di pagina né titoli doppi).
 // Gli iframe si adattano al contenuto con lo stesso postMessage di altezza degli altri embed; l'altezza totale è
 // comunicata alla pagina ospite come per ogni embed (con parent.js) oppure l'embed scorre al suo interno (altezza fissa).
 import { startHeightReporting, scheduleHeight } from '../_shared/embed-height.js';
@@ -12,14 +12,10 @@ const QS = new URLSearchParams(location.search);
 
 const VIEWS = [
   { key: 'house', label: 'Camera', slug: ['camera', 'house'], frames: [
-    { path: '../balance/', q: 'panel=house', title: 'Camera: equilibrio e totali' },
-    { path: '../map-house/', q: '', title: 'Mappa dei 435 distretti della Camera' },
-    { path: '../house-list/', q: '', title: 'Camera: risultati per distretto' }] },
+    { path: '../map-house/', q: '', title: 'Mappa dei 435 distretti della Camera' }] },
   { key: 'senate', label: 'Senato', slug: ['senato', 'senate'], frames: [
-    { path: '../balance/', q: 'panel=senate', title: 'Senato: equilibrio e totali' },
     { path: '../map-states/', q: 'tab=senate', title: 'Mappa degli stati: Senato' }] },
   { key: 'governors', label: 'Governatori', slug: ['governatori', 'governors'], frames: [
-    { path: '../balance/', q: 'panel=governors', title: 'Governatori: equilibrio e totali' },
     { path: '../map-states/', q: 'tab=governor', title: 'Mappa degli stati: governatori' }] }
 ];
 
