@@ -59,7 +59,7 @@
   {
    "name": "balance@999: postMessage di altezza inviato",
    "ok": true,
-   "extra": "3 messaggi"
+   "extra": "2 messaggi"
   },
   {
    "name": "balance@999: altezza iframe = altezza contenuto",
@@ -1187,14 +1187,14 @@
    "extra": ""
   },
   {
-   "name": "combined@1000 house: 3 embed caricati con contenuto",
+   "name": "combined@1000 house: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "211,647,3275"
+   "extra": "759"
   },
   {
    "name": "combined@1000 house: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 292,733,2277 contenuto 292,733,2277"
+   "extra": "iframe 842 contenuto 842"
   },
   {
    "name": "combined@1000 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1212,14 +1212,14 @@
    "extra": ""
   },
   {
-   "name": "combined@1000 senate: 2 embed caricati con contenuto",
+   "name": "combined@1000 senate: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "353,376"
+   "extra": "376"
   },
   {
    "name": "combined@1000 senate: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 315,686 contenuto 315,686"
+   "extra": "iframe 686 contenuto 686"
   },
   {
    "name": "combined@1000 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1237,14 +1237,14 @@
    "extra": ""
   },
   {
-   "name": "combined@1000 governors: 2 embed caricati con contenuto",
+   "name": "combined@1000 governors: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "194,370"
+   "extra": "370"
   },
   {
    "name": "combined@1000 governors: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 270,686 contenuto 270,686"
+   "extra": "iframe 686 contenuto 686"
   },
   {
    "name": "combined@1000 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1257,14 +1257,19 @@
    "extra": ""
   },
   {
-   "name": "combined@1000: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "name": "combined@1000: Camera = solo mappa dei distretti (435), senza barra né tabella",
    "ok": true,
-   "extra": "AL ✓* AK AZ CO FL GA IN KS ME MA MN NJ N"
+   "extra": "distretti 435"
   },
   {
-   "name": "combined@1000: Governatori = pannello Governatori + mappa governatori",
+   "name": "combined@1000: Senato = solo mappa degli stati (senza schede interne, barra o tabella)",
    "ok": true,
    "extra": ""
+  },
+  {
+   "name": "combined@1000: Governatori = mappa degli stati dei governatori (nota solo con AK)",
+   "ok": true,
+   "extra": "Tinta più intensa = margine più ampio. AK voto ord"
   },
   {
    "name": "combined@1000: un solo piè di pagina (fonte civicAPI)",
@@ -1282,14 +1287,14 @@
    "extra": ""
   },
   {
-   "name": "combined@768 house: 3 embed caricati con contenuto",
+   "name": "combined@768 house: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "211,647,2876"
+   "extra": "759"
   },
   {
    "name": "combined@768 house: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 292,588,1940 contenuto 292,588,1940"
+   "extra": "iframe 697 contenuto 697"
   },
   {
    "name": "combined@768 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1307,14 +1312,14 @@
    "extra": ""
   },
   {
-   "name": "combined@768 senate: 2 embed caricati con contenuto",
+   "name": "combined@768 senate: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "353,370"
+   "extra": "370"
   },
   {
    "name": "combined@768 senate: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 332,557 contenuto 332,557"
+   "extra": "iframe 557 contenuto 557"
   },
   {
    "name": "combined@768 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1332,14 +1337,14 @@
    "extra": ""
   },
   {
-   "name": "combined@768 governors: 2 embed caricati con contenuto",
+   "name": "combined@768 governors: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "194,364"
+   "extra": "364"
   },
   {
    "name": "combined@768 governors: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 270,557 contenuto 270,557"
+   "extra": "iframe 557 contenuto 557"
   },
   {
    "name": "combined@768 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1352,14 +1357,19 @@
    "extra": ""
   },
   {
-   "name": "combined@768: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "name": "combined@768: Camera = solo mappa dei distretti (435), senza barra né tabella",
    "ok": true,
-   "extra": "AL ✓* AK AZ CO FL GA IN KS ME MA MN NJ N"
+   "extra": "distretti 435"
   },
   {
-   "name": "combined@768: Governatori = pannello Governatori + mappa governatori",
+   "name": "combined@768: Senato = solo mappa degli stati (senza schede interne, barra o tabella)",
    "ok": true,
    "extra": ""
+  },
+  {
+   "name": "combined@768: Governatori = mappa degli stati dei governatori (nota solo con AK)",
+   "ok": true,
+   "extra": "Tinta più intensa = margine più ampio. AK voto ord"
   },
   {
    "name": "combined@768: un solo piè di pagina (fonte civicAPI)",
@@ -1377,14 +1387,14 @@
    "extra": ""
   },
   {
-   "name": "combined@390 house: 3 embed caricati con contenuto",
+   "name": "combined@390 house: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "211,647,1619"
+   "extra": "759"
   },
   {
    "name": "combined@390 house: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 286,420,1214 contenuto 286,420,1214"
+   "extra": "iframe 511 contenuto 511"
   },
   {
    "name": "combined@390 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1402,14 +1412,14 @@
    "extra": ""
   },
   {
-   "name": "combined@390 senate: 2 embed caricati con contenuto",
+   "name": "combined@390 senate: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "353,298"
+   "extra": "298"
   },
   {
    "name": "combined@390 senate: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 343,420 contenuto 343,420"
+   "extra": "iframe 420 contenuto 420"
   },
   {
    "name": "combined@390 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1427,14 +1437,14 @@
    "extra": ""
   },
   {
-   "name": "combined@390 governors: 2 embed caricati con contenuto",
+   "name": "combined@390 governors: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "194,286"
+   "extra": "286"
   },
   {
    "name": "combined@390 governors: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 264,420 contenuto 264,420"
+   "extra": "iframe 420 contenuto 420"
   },
   {
    "name": "combined@390 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1447,14 +1457,19 @@
    "extra": ""
   },
   {
-   "name": "combined@390: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "name": "combined@390: Camera = solo mappa dei distretti (435), senza barra né tabella",
    "ok": true,
-   "extra": "AK AZ CO FL KS MN NC OK SD ✓* TX ✓* WY ✓"
+   "extra": "distretti 435"
   },
   {
-   "name": "combined@390: Governatori = pannello Governatori + mappa governatori",
+   "name": "combined@390: Senato = solo mappa degli stati (senza schede interne, barra o tabella)",
    "ok": true,
    "extra": ""
+  },
+  {
+   "name": "combined@390: Governatori = mappa degli stati dei governatori (nota solo con AK)",
+   "ok": true,
+   "extra": "Tinta più intensa = margine più ampio. AK voto ord"
   },
   {
    "name": "combined@390: un solo piè di pagina (fonte civicAPI)",
@@ -1472,14 +1487,14 @@
    "extra": ""
   },
   {
-   "name": "combined@320 house: 3 embed caricati con contenuto",
+   "name": "combined@320 house: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "211,647,1619"
+   "extra": "759"
   },
   {
    "name": "combined@320 house: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 303,420,1214 contenuto 303,420,1214"
+   "extra": "iframe 530 contenuto 530"
   },
   {
    "name": "combined@320 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1497,14 +1512,14 @@
    "extra": ""
   },
   {
-   "name": "combined@320 senate: 2 embed caricati con contenuto",
+   "name": "combined@320 senate: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "353,241"
+   "extra": "241"
   },
   {
    "name": "combined@320 senate: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 360,420 contenuto 360,420"
+   "extra": "iframe 420 contenuto 420"
   },
   {
    "name": "combined@320 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1522,14 +1537,14 @@
    "extra": ""
   },
   {
-   "name": "combined@320 governors: 2 embed caricati con contenuto",
+   "name": "combined@320 governors: 1 embed caricati con contenuto",
    "ok": true,
-   "extra": "194,235"
+   "extra": "235"
   },
   {
    "name": "combined@320 governors: altezza iframe = contenuto",
    "ok": true,
-   "extra": "iframe 281,420 contenuto 281,420"
+   "extra": "iframe 420 contenuto 420"
   },
   {
    "name": "combined@320 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
@@ -1542,14 +1557,19 @@
    "extra": ""
   },
   {
-   "name": "combined@320: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "name": "combined@320: Camera = solo mappa dei distretti (435), senza barra né tabella",
    "ok": true,
-   "extra": "AK FL OK TX ✓* CA MT ID ✓* NV Democratic"
+   "extra": "distretti 435"
   },
   {
-   "name": "combined@320: Governatori = pannello Governatori + mappa governatori",
+   "name": "combined@320: Senato = solo mappa degli stati (senza schede interne, barra o tabella)",
    "ok": true,
    "extra": ""
+  },
+  {
+   "name": "combined@320: Governatori = mappa degli stati dei governatori (nota solo con AK)",
+   "ok": true,
+   "extra": "Tinta più intensa = margine più ampio. AK voto ord"
   },
   {
    "name": "combined@320: un solo piè di pagina (fonte civicAPI)",
@@ -1579,12 +1599,12 @@
   {
    "name": "combined: ?theme=dark scuro anche negli iframe interni",
    "ok": true,
-   "extra": "0.09,0.09,0.09,0.09"
+   "extra": "0.09,0.09"
   },
   {
    "name": "combined: tema scuro della pagina ospite arriva fino agli iframe interni",
    "ok": true,
-   "extra": "0.09,0.09,0.09,0.09"
+   "extra": "0.09,0.09"
   }
  ]
 }
