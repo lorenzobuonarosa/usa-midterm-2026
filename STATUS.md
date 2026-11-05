@@ -2,6 +2,11 @@
 
 Ultimo aggiornamento: 3 novembre 2026, ~17:30 (ora italiana). Sito: https://lorenzobuonarosa.github.io/usa-midterm-2026/
 
+## Dataviz unica `viz/combined/` (5 novembre)
+- Selettore **Camera / Senato / Governatori** in un solo embed. Per vista usa gli embed esistenti in iframe della stessa origine con `?combo=1` (senza piè di pagina né titoli doppi): Camera = `balance?panel=house` + `map-house` + `house-list`; Senato = `balance?panel=senate` + `map-states?tab=senate`; Governatori = `balance?panel=governors` + `map-states?tab=governor`. Un solo piè di pagina (quello della pagina unica).
+- Le altezze degli iframe interni seguono il contenuto (postMessage), l'altezza totale va alla pagina ospite come per gli altri embed. Il tema (dispositivo, `?theme=`, interruttore del sito via `parent.js`) è inoltrato agli iframe interni. `?view=camera|senato|governatori` apre una vista.
+- Snippet e altezza fissa consigliata (1500 px) in `docs/embed.md`. Gli embed singoli restano invariati (nuovi parametri opzionali `combo`, `panel`, `tab`).
+
 ## Numeri consolidati e tema scuro (4 novembre)
 - `balance` e riepilogo di `map-house`: il numero grande ora è **assegnati + in testa** (coincide con la parte colorata della barra); sotto, "di cui N assegnati". In `map-house` "non assegnati" è diventato "ancora aperti" (non assegnati e senza leader). Il Senato conta anche gli indipendenti in testa (segmento grigio chiaro).
 - **Tema scuro automatico** (`prefers-color-scheme`), forzabile con `?theme=dark|light`; con `parent.js` segue l'interruttore del tema del sito QN (rilevato dallo sfondo attorno all'iframe, postMessage `radar-midterm-host`); palette in `config/branding.json` (`colorsDark`), valori di riserva in `viz/_shared/base.css`. I colori di branding non sono più stili inline ma regole CSS (`branding.js`). Test: 236/236.

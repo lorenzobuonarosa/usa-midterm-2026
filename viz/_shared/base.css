@@ -68,3 +68,7 @@ button, [role="tab"], select, input, summary { min-height: 44px; }
 
 /* Contorno di evidenziazione al passaggio: disegnato sopra tutti gli altri poligoni, così si vede per intero (anche i lati in comune) */
 .hover-outline { fill: none; stroke: var(--c-text); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; display: none; }
+
+/* Modalità combinata (?combo=1): niente piè di pagina (lo mostra la pagina unica), margini verticali ridotti */
+html[data-combo] #foot { display: none; }
+html[data-combo] .embed { padding-top: 8px; padding-bottom: 4px; }

@@ -63,13 +63,16 @@ async function main() {
   try { s = await loadSummary(); } catch (e) { renderError(app); return; }
   const ch = s.chambers;
   if (!ch) { renderError(app); return; }
-  const panels = PANELS.filter(p => ch[p.key]).map(p => panel(p, ch[p.key])).join('');
+  // ?panel=house|senate|governors: un solo pannello (usato dalla dataviz combinata)
+  const only = new URLSearchParams(location.search).get('panel');
+  const defs = PANELS.filter(p => ch[p.key] && (!only || p.key === only));
+  const panels = defs.map(p => panel(p, ch[p.key])).join('');
   app.innerHTML = `
     <header class="bal-head">
       <h1>Equilibrio dei poteri</h1>
       <p>I totali sommano i seggi già assegnati (compresi quelli non in palio) e quelli in cui il partito è in testa; sotto ogni totale, il dettaglio degli assegnati.</p>
     </header>
-    <div class="bal-grid">${panels}</div>
+    <div class="bal-grid${defs.length === 1 ? ' single' : ''}">${panels}</div>
     <div class="legend" aria-label="Legenda">
       <span class="k"><i class="a"></i>Assegnato</span>
       <span class="k"><i class="l"></i>In testa</span>

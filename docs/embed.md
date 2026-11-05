@@ -36,6 +36,20 @@ Senza JavaScript l'iframe resta usabile con l'altezza minima indicata.
 Tutte e quattro insieme, per provare: `https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/all/`.
 Pagina di prova con altezza variabile (non collegata da altre pagine): `…/viz/_test/`.
 
+## Dataviz unica con selettore (Camera / Senato / Governatori)
+Un solo iframe: in alto un selettore, sotto la vista scelta.
+- **Camera**: equilibrio e totali, mappa dei 435 distretti, lista dei distretti.
+- **Senato**: equilibrio e totali, mappa degli stati (Senato).
+- **Governatori**: equilibrio e totali, mappa degli stati (governatori).
+
+Dentro usa gli stessi embed di prima (stessa grafica e stessi dati), in modalità `?combo=1` (un solo piè di pagina, niente titoli doppi). Si può aprire su una vista precisa con `?view=camera`, `?view=senato` o `?view=governatori`. Accetta anche `?theme=dark|light`.
+
+```html
+<iframe src="https://lorenzobuonarosa.github.io/usa-midterm-2026/viz/combined/" title="Midterm USA 2026: Camera, Senato e governatori" loading="lazy" style="width:100%;border:0;display:block;height:1500px"></iframe>
+```
+- **Altezza**: con `parent.js` l'iframe segue la vista scelta (cambia da sola cambiando scheda). Senza script l'altezza è fissa: il contenuto cresce o cala da una scheda all'altra (Senato e Governatori ~950-1230 px; Camera ~2200-3500 px con la lista), e se l'iframe è più basso del contenuto l'embed scorre al suo interno. Altezza fissa consigliata: **1500 px** (nessuna scheda tagliata fuori, la Camera scorre dentro).
+- Per un'altezza diversa su telefono e desktop senza script: `height:clamp(1100px,calc(1100px + 2*(100vw - 420px)),1500px)`.
+
 ## Altezza fissa (per la lista dei distretti su mobile)
 
 Di norma `parent.js` adatta l'altezza dell'iframe al contenuto. Se in redazione serve un'**altezza fissa** (per esempio una colonna di layout che non deve cambiare), aggiungi l'attributo `data-radar-fixed-height` all'iframe: lo script lo lascia com'è.

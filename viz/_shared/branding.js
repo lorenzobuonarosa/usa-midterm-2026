@@ -12,6 +12,9 @@ const MAP = {
 
 export let branding = null;
 
+// Modalità "combinata" (viz/combined): l'embed è dentro la pagina unica, che mostra il suo piè di pagina e il selettore.
+try { if (new URLSearchParams(location.search).get('combo') === '1') document.documentElement.setAttribute('data-combo', '1'); } catch (e) { /* niente */ }
+
 // Tema dalla pagina ospite (embed/parent.js): segue l'interruttore del tema del sito. Con ?theme= nell'indirizzo resta quello forzato.
 let themeForced = false;
 try { const t = new URLSearchParams(location.search).get('theme'); themeForced = t === 'dark' || t === 'light'; } catch (e) { /* niente */ }

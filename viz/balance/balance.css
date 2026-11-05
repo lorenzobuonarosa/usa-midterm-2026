@@ -41,3 +41,8 @@
   .nums .big { font-size: 34px; }
   .bal-head h1 { font-size: 20px; }
 }
+
+/* un solo pannello (?panel=): sempre a tutta larghezza, senza filetto in alto; in modalità combinata niente titolo introduttivo */
+.bal-grid.single { grid-template-columns: minmax(0, 1fr); margin-top: 4px; }
+.bal-grid.single .panel { border-top: 0; padding-top: 8px; }
+html[data-combo] .bal-head { display: none; }

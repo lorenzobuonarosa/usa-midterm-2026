@@ -199,6 +199,77 @@ async function inFrame(page) { const h = await page.$('#f1'); return h.contentFr
     ok('tema ospite: nessun errore', errors.length === 0, errors.join('|'));
     await ctx.close();
   }
+  // ---- Dataviz unica (viz/combined): selettore Camera / Senato / Governatori
+  for (const w of [1000, 768, 390, 320]) {
+    const ctx = await browser.newContext({ viewport: { width: w, height: 900 } });
+    const page = await ctx.newPage(); const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+    await page.goto(`http://localhost:${port}/viz/combined/index.html`);
+    await page.waitForSelector('#tab-house', { timeout: 15000 });
+    const expectFrames = { house: 3, senate: 2, governors: 2 };
+    for (const k of ['house', 'senate', 'governors']) {
+      await page.click(`#tab-${k}`); await page.waitForTimeout(3200);
+      const st = await page.evaluate((key) => {
+        const panel = document.getElementById('panel-' + key);
+        const frames = [...panel.querySelectorAll('iframe')];
+        const hs = frames.map(f => Math.round(f.getBoundingClientRect().height));
+        const texts = frames.map(f => { try { return f.contentDocument.body.innerText; } catch (e) { return ''; } });
+        const sel = [...document.querySelectorAll('[role=tab]')].filter(b => b.getAttribute('aria-selected') === 'true').map(b => b.id);
+        const real = frames.map(f => { try { return Math.ceil(f.contentDocument.body.getBoundingClientRect().height); } catch (e) { return -1; } });
+        const foots = frames.map(f => { try { return f.contentDocument.querySelector('#foot').offsetHeight; } catch (e) { return -1; } });
+        return { n: frames.length, hs, real, texts, sel, vis: !panel.hidden, foots, sw: document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1 };
+      }, k);
+      const tag = `combined@${w} ${k}`;
+      ok(`${tag}: scheda attiva e pannello visibile`, st.sel.length === 1 && st.sel[0] === 'tab-' + k && st.vis);
+      ok(`${tag}: ${expectFrames[k]} embed caricati con contenuto`, st.n === expectFrames[k] && st.texts.every(t => t.length > 60 && !/Dati non disponibili|Caricamento…/.test(t)), st.texts.map(t => t.length).join(','));
+      ok(`${tag}: altezza iframe = contenuto`, st.hs.every((h, i) => Math.abs(h - st.real[i]) <= 3), `iframe ${st.hs} contenuto ${st.real}`);
+      ok(`${tag}: piè di pagina dei figli nascosto (uno solo, quello unico)`, st.foots.every(f => f === 0));
+      ok(`${tag}: nessuno scroll orizzontale`, st.sw);
+    }
+    // contenuti specifici
+    await page.click('#tab-senate'); await page.waitForTimeout(500);
+    const sen = await page.evaluate(() => { const fs = [...document.querySelectorAll('#panel-senate iframe')]; return fs.map(f => f.contentDocument.body.innerText); });
+    ok(`combined@${w}: Senato = solo pannello Senato + mappa (senza schede interne)`, /Senato/.test(sen[0]) && !/Governatori|Camera/.test(sen[0].replace(/Camera/g, '')) && !/Governatori\s*$/.test(sen[1].split('\n')[0]), sen[1].slice(0, 40).replace(/\n/g, ' '));
+    await page.click('#tab-governors'); await page.waitForTimeout(500);
+    const gov = await page.evaluate(() => [...document.querySelectorAll('#panel-governors iframe')].map(f => f.contentDocument.body.innerText));
+    ok(`combined@${w}: Governatori = pannello Governatori + mappa governatori`, /Governatori/.test(gov[0]) && /Tinta più intensa/.test(gov[1]));
+    ok(`combined@${w}: un solo piè di pagina (fonte civicAPI)`, (await page.evaluate(() => (document.body.innerText.match(/Fonte: civicAPI/g) || []).length)) === 1);
+    ok(`combined@${w}: nessun errore`, errors.length === 0, errors.slice(0, 3).join('|'));
+    if (w === 390 || w === 1000) { await page.click('#tab-house'); await page.waitForTimeout(1500); await page.screenshot({ path: path.join(SHOTS, `combined-${w}.png`), fullPage: true }); }
+    await ctx.close();
+  }
+  // tastiera, ?view= e tema inoltrato agli iframe
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1000, height: 900 }, colorScheme: 'light' });
+    const page = await ctx.newPage();
+    await page.goto(`http://localhost:${port}/viz/combined/index.html?view=senato`);
+    await page.waitForSelector('#tab-senate[aria-selected="true"]', { timeout: 15000 });
+    ok('combined: ?view=senato apre la scheda Senato', true);
+    await page.focus('#tab-senate'); await page.keyboard.press('ArrowRight'); await page.waitForTimeout(300);
+    ok('combined: freccia destra -> Governatori', await page.evaluate(() => document.getElementById('tab-governors').getAttribute('aria-selected') === 'true'));
+    await page.keyboard.press('Home'); await page.waitForTimeout(300);
+    ok('combined: Home -> Camera', await page.evaluate(() => document.getElementById('tab-house').getAttribute('aria-selected') === 'true'));
+    await ctx.close();
+    const c2 = await browser.newContext({ viewport: { width: 1000, height: 900 }, colorScheme: 'light' });
+    const p2 = await c2.newPage();
+    await p2.goto(`http://localhost:${port}/viz/combined/index.html?theme=dark`);
+    await p2.waitForSelector('#panel-house iframe', { timeout: 15000 }); await p2.waitForTimeout(3000);
+    const lums = await p2.evaluate(() => { const l = (c) => { const m = c.match(/\d+/g).map(Number); return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; };
+      return [l(getComputedStyle(document.body).backgroundColor), ...[...document.querySelectorAll('#panel-house iframe')].map(f => l(getComputedStyle(f.contentDocument.body).backgroundColor))]; });
+    ok('combined: ?theme=dark scuro anche negli iframe interni', lums.every(x => x < 0.15), lums.map(x => x.toFixed(2)).join(','));
+    await c2.close();
+    // tema dalla pagina ospite (interruttore del sito) -> pagina unica -> iframe interni
+    const c3 = await browser.newContext({ viewport: { width: 1000, height: 900 }, colorScheme: 'light' });
+    const p3 = await c3.newPage();
+    await p3.route('**/host_cb.html', r => r.fulfill({ contentType: 'text/html', body: '<style>body{margin:0;background:#101418}iframe{width:100%;border:0;display:block;height:900px}</style><iframe id=a src="/viz/combined/index.html"></iframe><script src="/embed/parent.js"></script>' }));
+    await p3.goto(`http://localhost:${port}/host_cb.html`); await p3.waitForTimeout(6000);
+    const fr = await (await p3.$('#a')).contentFrame();
+    const l3 = await fr.evaluate(() => { const l = (c) => { const m = c.match(/\d+/g).map(Number); return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; };
+      return [l(getComputedStyle(document.body).backgroundColor), ...[...document.querySelectorAll('#panel-house iframe')].map(f => l(getComputedStyle(f.contentDocument.body).backgroundColor))]; });
+    ok('combined: tema scuro della pagina ospite arriva fino agli iframe interni', l3.every(x => x < 0.15), l3.map(x => x.toFixed(2)).join(','));
+    await c3.close();
+  }
   await browser.close(); server.close();
   fs.writeFileSync(path.join(SHOTS, '_risultati.json'), JSON.stringify({ failures, results }, null, 1));
   console.log(`\n${results.length - failures}/${results.length} controlli superati`);

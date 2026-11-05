@@ -10,7 +10,10 @@ const app = document.getElementById('app');
 const TABS = [{ key: 'senate', label: 'Senato', kicker: 'SENATO' }, { key: 'governor', label: 'Governatori', kicker: 'GOVERNATORI' }];
 const FIPS_ABBR = {"01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","11":"DC","12":"FL","13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME","24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY"};
 const STATE_NAMES = {};
-let summary, topo, tab = 'senate', tip, features, selected = null;
+// ?tab=senate|governor preseleziona la scheda; con ?combo=1 le schede interne sono nascoste (le sostituisce il selettore della pagina unica)
+const QS = new URLSearchParams(location.search);
+const TAB_PARAM = TABS.some(t => t.key === QS.get('tab')) ? QS.get('tab') : null;
+let summary, topo, tab = TAB_PARAM || 'senate', tip, features, selected = null;
 
 function racesFor(key, st) { return (summary.races || []).filter(r => r.chamber === key && r.state === st); }
 
@@ -84,6 +87,7 @@ function renderNote() {
 
 function renderTabs() {
   const el = document.getElementById('tabs');
+  if (TAB_PARAM && QS.get('combo') === '1') { el.style.display = 'none'; return; }
   el.innerHTML = TABS.map(t => `<button role="tab" type="button" aria-selected="${t.key === tab}" data-k="${t.key}">${t.label}</button>`).join('');
   el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { tab = b.dataset.k; renderTabs(); renderNote(); draw(); tip.hide(); scheduleHeight(); }));
 }
