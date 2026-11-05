@@ -9,12 +9,12 @@
   {
    "name": "balance@1200: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@1200: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 582, contenuto 582"
+   "extra": "iframe 603, contenuto 603"
   },
   {
    "name": "balance@1200: nessun 100vh (altezza non legata alla finestra)",
@@ -34,12 +34,12 @@
   {
    "name": "balance@1000: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@1000: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 599, contenuto 599"
+   "extra": "iframe 619, contenuto 619"
   },
   {
    "name": "balance@1000: nessun 100vh (altezza non legata alla finestra)",
@@ -59,12 +59,12 @@
   {
    "name": "balance@999: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@999: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 778, contenuto 778"
+   "extra": "iframe 820, contenuto 820"
   },
   {
    "name": "balance@999: nessun 100vh (altezza non legata alla finestra)",
@@ -84,12 +84,12 @@
   {
    "name": "balance@768: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@768: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 795, contenuto 795"
+   "extra": "iframe 837, contenuto 837"
   },
   {
    "name": "balance@768: nessun 100vh (altezza non legata alla finestra)",
@@ -109,12 +109,12 @@
   {
    "name": "balance@470: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@470: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 862, contenuto 862"
+   "extra": "iframe 940, contenuto 940"
   },
   {
    "name": "balance@470: nessun 100vh (altezza non legata alla finestra)",
@@ -134,12 +134,12 @@
   {
    "name": "balance@469: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@469: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 1010, contenuto 1010"
+   "extra": "iframe 1108, contenuto 1108"
   },
   {
    "name": "balance@469: nessun 100vh (altezza non legata alla finestra)",
@@ -159,12 +159,12 @@
   {
    "name": "balance@375: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@375: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 1113, contenuto 1113"
+   "extra": "iframe 1176, contenuto 1176"
   },
   {
    "name": "balance@375: nessun 100vh (altezza non legata alla finestra)",
@@ -184,12 +184,12 @@
   {
    "name": "balance@320: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "balance@320: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 1130, contenuto 1130"
+   "extra": "iframe 1229, contenuto 1229"
   },
   {
    "name": "balance@320: nessun 100vh (altezza non legata alla finestra)",
@@ -209,7 +209,7 @@
   {
    "name": "map-states@1200: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@1200: altezza iframe = altezza contenuto",
@@ -239,7 +239,7 @@
   {
    "name": "map-states@1000: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@1000: altezza iframe = altezza contenuto",
@@ -269,7 +269,7 @@
   {
    "name": "map-states@999: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@999: altezza iframe = altezza contenuto",
@@ -299,7 +299,7 @@
   {
    "name": "map-states@768: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@768: altezza iframe = altezza contenuto",
@@ -329,12 +329,12 @@
   {
    "name": "map-states@470: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@470: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 636, contenuto 636"
+   "extra": "iframe 655, contenuto 655"
   },
   {
    "name": "map-states@470: nessun 100vh (altezza non legata alla finestra)",
@@ -344,7 +344,7 @@
   {
    "name": "map-states@470: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":93,\"t\":219,\"r\":309.359375,\"b\":298.28125,\"W\":470,\"H\":635.90625}"
+   "extra": "{\"l\":93,\"t\":219,\"r\":309.359375,\"b\":298.28125,\"W\":470,\"H\":654.09375}"
   },
   {
    "name": "map-states@470: nessun errore in console",
@@ -359,12 +359,12 @@
   {
    "name": "map-states@469: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@469: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 636, contenuto 636"
+   "extra": "iframe 654, contenuto 654"
   },
   {
    "name": "map-states@469: nessun 100vh (altezza non legata alla finestra)",
@@ -374,7 +374,7 @@
   {
    "name": "map-states@469: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":93,\"t\":219,\"r\":309.359375,\"b\":298.28125,\"W\":469,\"H\":635.28125}"
+   "extra": "{\"l\":93,\"t\":219,\"r\":309.359375,\"b\":298.28125,\"W\":469,\"H\":653.46875}"
   },
   {
    "name": "map-states@469: nessun errore in console",
@@ -389,7 +389,7 @@
   {
    "name": "map-states@375: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@375: altezza iframe = altezza contenuto",
@@ -419,12 +419,12 @@
   {
    "name": "map-states@320: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-states@320: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 680, contenuto 680"
+   "extra": "iframe 698, contenuto 698"
   },
   {
    "name": "map-states@320: nessun 100vh (altezza non legata alla finestra)",
@@ -434,7 +434,7 @@
   {
    "name": "map-states@320: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":72,\"t\":176,\"r\":288.359375,\"b\":255.28125,\"W\":320,\"H\":679.53125}"
+   "extra": "{\"l\":72,\"t\":176,\"r\":288.359375,\"b\":255.28125,\"W\":320,\"H\":697.71875}"
   },
   {
    "name": "map-states@320: nessun errore in console",
@@ -449,7 +449,7 @@
   {
    "name": "house-list@1200: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@1200: altezza iframe = altezza contenuto",
@@ -474,7 +474,7 @@
   {
    "name": "house-list@1000: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@1000: altezza iframe = altezza contenuto",
@@ -499,7 +499,7 @@
   {
    "name": "house-list@999: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@999: altezza iframe = altezza contenuto",
@@ -524,7 +524,7 @@
   {
    "name": "house-list@768: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@768: altezza iframe = altezza contenuto",
@@ -549,12 +549,12 @@
   {
    "name": "house-list@470: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@470: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 1291, contenuto 1291"
+   "extra": "iframe 1310, contenuto 1310"
   },
   {
    "name": "house-list@470: nessun 100vh (altezza non legata alla finestra)",
@@ -574,12 +574,12 @@
   {
    "name": "house-list@469: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@469: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 1333, contenuto 1333"
+   "extra": "iframe 1351, contenuto 1351"
   },
   {
    "name": "house-list@469: nessun 100vh (altezza non legata alla finestra)",
@@ -599,7 +599,7 @@
   {
    "name": "house-list@375: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@375: altezza iframe = altezza contenuto",
@@ -624,12 +624,12 @@
   {
    "name": "house-list@320: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "house-list@320: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 1427, contenuto 1427"
+   "extra": "iframe 1445, contenuto 1445"
   },
   {
    "name": "house-list@320: nessun 100vh (altezza non legata alla finestra)",
@@ -649,7 +649,7 @@
   {
    "name": "map-house@1200: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@1200: altezza iframe = altezza contenuto",
@@ -679,7 +679,7 @@
   {
    "name": "map-house@1000: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@1000: altezza iframe = altezza contenuto",
@@ -709,7 +709,7 @@
   {
    "name": "map-house@999: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@999: altezza iframe = altezza contenuto",
@@ -739,7 +739,7 @@
   {
    "name": "map-house@768: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@768: altezza iframe = altezza contenuto",
@@ -769,12 +769,12 @@
   {
    "name": "map-house@470: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@470: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 728, contenuto 728"
+   "extra": "iframe 763, contenuto 763"
   },
   {
    "name": "map-house@470: nessun 100vh (altezza non legata alla finestra)",
@@ -784,7 +784,7 @@
   {
    "name": "map-house@470: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":136,\"t\":154,\"r\":416,\"b\":289.921875,\"W\":470,\"H\":727.90625}"
+   "extra": "{\"l\":136,\"t\":154,\"r\":416,\"b\":289.921875,\"W\":470,\"H\":762.890625}"
   },
   {
    "name": "map-house@470: nessun errore in console",
@@ -799,12 +799,12 @@
   {
    "name": "map-house@469: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@469: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 722, contenuto 722"
+   "extra": "iframe 757, contenuto 757"
   },
   {
    "name": "map-house@469: nessun 100vh (altezza non legata alla finestra)",
@@ -814,7 +814,7 @@
   {
    "name": "map-house@469: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":135,\"t\":153,\"r\":415,\"b\":288.921875,\"W\":469,\"H\":721.28125}"
+   "extra": "{\"l\":135,\"t\":153,\"r\":415,\"b\":288.921875,\"W\":469,\"H\":756.265625}"
   },
   {
    "name": "map-house@469: nessun errore in console",
@@ -829,12 +829,12 @@
   {
    "name": "map-house@375: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@375: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 723, contenuto 723"
+   "extra": "iframe 740, contenuto 740"
   },
   {
    "name": "map-house@375: nessun 100vh (altezza non legata alla finestra)",
@@ -844,7 +844,7 @@
   {
    "name": "map-house@375: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":79,\"t\":174,\"r\":359,\"b\":309.921875,\"W\":375,\"H\":722.34375}"
+   "extra": "{\"l\":79,\"t\":174,\"r\":359,\"b\":309.921875,\"W\":375,\"H\":739.140625}"
   },
   {
    "name": "map-house@375: nessun errore in console",
@@ -859,12 +859,12 @@
   {
    "name": "map-house@320: postMessage di altezza inviato",
    "ok": true,
-   "extra": "2 messaggi"
+   "extra": "3 messaggi"
   },
   {
    "name": "map-house@320: altezza iframe = altezza contenuto",
    "ok": true,
-   "extra": "iframe 778, contenuto 778"
+   "extra": "iframe 797, contenuto 797"
   },
   {
    "name": "map-house@320: nessun 100vh (altezza non legata alla finestra)",
@@ -874,7 +874,7 @@
   {
    "name": "map-house@320: tooltip visibile e dentro l'iframe",
    "ok": true,
-   "extra": "{\"l\":34,\"t\":165,\"r\":314,\"b\":300.921875,\"W\":320,\"H\":777.09375}"
+   "extra": "{\"l\":34,\"t\":165,\"r\":314,\"b\":300.921875,\"W\":320,\"H\":796.921875}"
   },
   {
    "name": "map-house@320: nessun errore in console",
@@ -944,12 +944,12 @@
   {
    "name": "data-radar-fixed-height: l'iframe resta a 640 px",
    "ok": true,
-   "extra": "[2054,640,778]"
+   "extra": "[2054,640,820]"
   },
   {
    "name": "senza l'attributo l'altezza si adatta al contenuto",
    "ok": true,
-   "extra": "[2054,640,778]"
+   "extra": "[2054,640,820]"
   },
   {
    "name": "iframe fisso 700 px senza script: contenuto scorrevole nell'iframe",
@@ -975,6 +975,616 @@
    "name": "ricerca: nessun errore",
    "ok": true,
    "extra": ""
+  },
+  {
+   "name": "balance: schema dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "balance: schema dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance: schema light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "balance: schema light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance: schema dark?theme=light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "balance: schema dark?theme=light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance: schema light?theme=dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "balance: schema light?theme=dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states: schema dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "map-states: schema dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states: schema light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "map-states: schema light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states: schema dark?theme=light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "map-states: schema dark?theme=light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-states: schema light?theme=dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "map-states: schema light?theme=dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list: schema dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "house-list: schema dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list: schema light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "house-list: schema light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list: schema dark?theme=light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "house-list: schema dark?theme=light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "house-list: schema light?theme=dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "house-list: schema light?theme=dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house: schema dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "map-house: schema dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house: schema light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "map-house: schema light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house: schema dark?theme=light -> chiaro",
+   "ok": true,
+   "extra": "{\"bg\":0.9999999999999999,\"fg\":0.11292313725490197,\"bgs\":\"rgb(255, 255, 255)\"}"
+  },
+  {
+   "name": "map-house: schema dark?theme=light -> chiaro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "map-house: schema light?theme=dark -> scuro",
+   "ok": true,
+   "extra": "{\"bg\":0.08911058823529411,\"fg\":0.9171121568627452,\"bgs\":\"rgb(20, 23, 28)\"}"
+  },
+  {
+   "name": "map-house: schema light?theme=dark -> scuro: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "balance Camera: numeri grandi = lunghezza barre (D 203/203, R 219/219)",
+   "ok": true,
+   "extra": "di cui 56 assegnati"
+  },
+  {
+   "name": "balance Senato: numeri grandi = lunghezza barre (D 48/48, R 46/46)",
+   "ok": true,
+   "extra": "di cui 36 assegnati"
+  },
+  {
+   "name": "balance Governatori: numeri grandi = lunghezza barre (D 24/24, R 23/23)",
+   "ok": true,
+   "extra": "di cui 8 assegnati"
+  },
+  {
+   "name": "tema ospite: dispositivo dark, pagina chiara -> embed chiaro",
+   "ok": true,
+   "extra": "luminanza 1.00"
+  },
+  {
+   "name": "tema ospite: cambio dal vivo -> embed scuro",
+   "ok": true,
+   "extra": "luminanza 0.09"
+  },
+  {
+   "name": "tema ospite: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "tema ospite: dispositivo light, pagina scura -> embed scuro",
+   "ok": true,
+   "extra": "luminanza 0.09"
+  },
+  {
+   "name": "tema ospite: cambio dal vivo -> embed chiaro",
+   "ok": true,
+   "extra": "luminanza 1.00"
+  },
+  {
+   "name": "tema ospite: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 house: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 house: 3 embed caricati con contenuto",
+   "ok": true,
+   "extra": "211,647,3275"
+  },
+  {
+   "name": "combined@1000 house: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 292,733,2277 contenuto 292,733,2277"
+  },
+  {
+   "name": "combined@1000 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 house: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 senate: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 senate: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "353,376"
+  },
+  {
+   "name": "combined@1000 senate: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 315,686 contenuto 315,686"
+  },
+  {
+   "name": "combined@1000 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 senate: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 governors: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 governors: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "194,370"
+  },
+  {
+   "name": "combined@1000 governors: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 270,686 contenuto 270,686"
+  },
+  {
+   "name": "combined@1000 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000 governors: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "ok": true,
+   "extra": "AL ✓* AK AZ CO FL GA IN KS ME MA MN NJ N"
+  },
+  {
+   "name": "combined@1000: Governatori = pannello Governatori + mappa governatori",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000: un solo piè di pagina (fonte civicAPI)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@1000: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 house: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 house: 3 embed caricati con contenuto",
+   "ok": true,
+   "extra": "211,647,2876"
+  },
+  {
+   "name": "combined@768 house: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 292,588,1940 contenuto 292,588,1940"
+  },
+  {
+   "name": "combined@768 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 house: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 senate: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 senate: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "353,370"
+  },
+  {
+   "name": "combined@768 senate: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 332,557 contenuto 332,557"
+  },
+  {
+   "name": "combined@768 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 senate: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 governors: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 governors: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "194,364"
+  },
+  {
+   "name": "combined@768 governors: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 270,557 contenuto 270,557"
+  },
+  {
+   "name": "combined@768 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768 governors: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "ok": true,
+   "extra": "AL ✓* AK AZ CO FL GA IN KS ME MA MN NJ N"
+  },
+  {
+   "name": "combined@768: Governatori = pannello Governatori + mappa governatori",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768: un solo piè di pagina (fonte civicAPI)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@768: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 house: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 house: 3 embed caricati con contenuto",
+   "ok": true,
+   "extra": "211,647,1619"
+  },
+  {
+   "name": "combined@390 house: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 286,420,1214 contenuto 286,420,1214"
+  },
+  {
+   "name": "combined@390 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 house: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 senate: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 senate: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "353,298"
+  },
+  {
+   "name": "combined@390 senate: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 343,420 contenuto 343,420"
+  },
+  {
+   "name": "combined@390 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 senate: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 governors: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 governors: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "194,286"
+  },
+  {
+   "name": "combined@390 governors: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 264,420 contenuto 264,420"
+  },
+  {
+   "name": "combined@390 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390 governors: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "ok": true,
+   "extra": "AK AZ CO FL KS MN NC OK SD ✓* TX ✓* WY ✓"
+  },
+  {
+   "name": "combined@390: Governatori = pannello Governatori + mappa governatori",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390: un solo piè di pagina (fonte civicAPI)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@390: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 house: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 house: 3 embed caricati con contenuto",
+   "ok": true,
+   "extra": "211,647,1619"
+  },
+  {
+   "name": "combined@320 house: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 303,420,1214 contenuto 303,420,1214"
+  },
+  {
+   "name": "combined@320 house: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 house: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 senate: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 senate: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "353,241"
+  },
+  {
+   "name": "combined@320 senate: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 360,420 contenuto 360,420"
+  },
+  {
+   "name": "combined@320 senate: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 senate: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 governors: scheda attiva e pannello visibile",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 governors: 2 embed caricati con contenuto",
+   "ok": true,
+   "extra": "194,235"
+  },
+  {
+   "name": "combined@320 governors: altezza iframe = contenuto",
+   "ok": true,
+   "extra": "iframe 281,420 contenuto 281,420"
+  },
+  {
+   "name": "combined@320 governors: piè di pagina dei figli nascosto (uno solo, quello unico)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320 governors: nessuno scroll orizzontale",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320: Senato = solo pannello Senato + mappa (senza schede interne)",
+   "ok": true,
+   "extra": "AK FL OK TX ✓* CA MT ID ✓* NV Democratic"
+  },
+  {
+   "name": "combined@320: Governatori = pannello Governatori + mappa governatori",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320: un solo piè di pagina (fonte civicAPI)",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined@320: nessun errore",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined: ?view=senato apre la scheda Senato",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined: freccia destra -> Governatori",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined: Home -> Camera",
+   "ok": true,
+   "extra": ""
+  },
+  {
+   "name": "combined: ?theme=dark scuro anche negli iframe interni",
+   "ok": true,
+   "extra": "0.09,0.09,0.09,0.09"
+  },
+  {
+   "name": "combined: tema scuro della pagina ospite arriva fino agli iframe interni",
+   "ok": true,
+   "extra": "0.09,0.09,0.09,0.09"
   }
  ]
 }
