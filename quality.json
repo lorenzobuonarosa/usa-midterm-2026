@@ -1,0 +1,602 @@
+{
+ "generated_at": "2026-11-06T00:00:40Z",
+ "checks": [
+  {
+   "name": "dati_in_calo_o_mancanti",
+   "status": "warn",
+   "detail": "83 gare: tenuto il dato precedente",
+   "gare": [
+    {
+     "race_id": "87438",
+     "name": "Texas US Senate",
+     "problemi": [
+      "voti in calo (10014882 -> 9894840)"
+     ]
+    },
+    {
+     "race_id": "87283",
+     "name": "New Hampshire US Senate",
+     "problemi": [
+      "candidati scomparsi: No Name"
+     ]
+    },
+    {
+     "race_id": "87068",
+     "name": "Florida US Senate Special",
+     "problemi": [
+      "voti in calo (8272018 -> 8271813)"
+     ]
+    },
+    {
+     "race_id": "87477",
+     "name": "West Virginia US Senate",
+     "problemi": [
+      "voti in calo (456129 -> 456128)"
+     ]
+    },
+    {
+     "race_id": "87151",
+     "name": "Iowa US Senate",
+     "problemi": [
+      "voti in calo (1361162 -> 1360839)"
+     ]
+    },
+    {
+     "race_id": "87229",
+     "name": "Minnesota US Senate",
+     "problemi": [
+      "voti in calo (2831790 -> 2831771)"
+     ]
+    },
+    {
+     "race_id": "87472",
+     "name": "Virginia US Senate",
+     "problemi": [
+      "voti in calo (3570466 -> 3569099)"
+     ]
+    },
+    {
+     "race_id": "87302",
+     "name": "New Jersey US Senate",
+     "problemi": [
+      "candidati scomparsi: Gary Stout, Heier, Someone From Out of State, William Hunt"
+     ]
+    },
+    {
+     "race_id": "87026",
+     "name": "Connecticut Governor",
+     "problemi": [
+      "voti in calo (1288366 -> 1287557)"
+     ]
+    },
+    {
+     "race_id": "87476",
+     "name": "Tennessee Governor",
+     "problemi": [
+      "candidati scomparsi: Dave Seeman, Victor L. Scoggin"
+     ]
+    },
+    {
+     "race_id": "87152",
+     "name": "Iowa Governor",
+     "problemi": [
+      "scrutinio in calo (100.0 -> 99.0)"
+     ]
+    },
+    {
+     "race_id": "87329",
+     "name": "New York Governor",
+     "problemi": [
+      "voti in calo (17449009 -> 5872905)",
+      "scrutinio in calo (99.0 -> 84.0)"
+     ]
+    },
+    {
+     "race_id": "87230",
+     "name": "Minnesota Governor",
+     "problemi": [
+      "voti in calo (2830163 -> 2830141)"
+     ]
+    },
+    {
+     "race_id": "87503",
+     "name": "Vermont Governor",
+     "problemi": [
+      "voti in calo (309056 -> 309055)"
+     ]
+    },
+    {
+     "race_id": "87276",
+     "name": "Massachusetts Governor",
+     "problemi": [
+      "candidati scomparsi: James"
+     ]
+    },
+    {
+     "race_id": "87069",
+     "name": "Florida Governor",
+     "problemi": [
+      "voti in calo (8270692 -> 8261740)"
+     ]
+    },
+    {
+     "race_id": "86915",
+     "name": "Alaska at-large",
+     "problemi": [
+      "candidati scomparsi: James C. “Jim” McDermott"
+     ]
+    },
+    {
+     "race_id": "87023",
+     "name": "Connecticut 1",
+     "problemi": [
+      "voti in calo (253812 -> 253387)"
+     ]
+    },
+    {
+     "race_id": "87043",
+     "name": "Florida 4",
+     "problemi": [
+      "voti in calo (300991 -> 300932)"
+     ]
+    },
+    {
+     "race_id": "87044",
+     "name": "Florida 5",
+     "problemi": [
+      "voti in calo (333806 -> 333038)"
+     ]
+    },
+    {
+     "race_id": "87045",
+     "name": "Florida 6",
+     "problemi": [
+      "voti in calo (331558 -> 331241)"
+     ]
+    },
+    {
+     "race_id": "87053",
+     "name": "Florida 14",
+     "problemi": [
+      "voti in calo (300226 -> 299915)"
+     ]
+    },
+    {
+     "race_id": "87054",
+     "name": "Florida 15",
+     "problemi": [
+      "voti in calo (301091 -> 300641)"
+     ]
+    },
+    {
+     "race_id": "87058",
+     "name": "Florida 19",
+     "problemi": [
+      "voti in calo (325057 -> 325015)"
+     ]
+    },
+    {
+     "race_id": "87060",
+     "name": "Florida 21",
+     "problemi": [
+      "voti in calo (340788 -> 340657)"
+     ]
+    },
+    {
+     "race_id": "87063",
+     "name": "Florida 24",
+     "problemi": [
+      "voti in calo (204775 -> 204353)"
+     ]
+    },
+    {
+     "race_id": "87064",
+     "name": "Florida 25",
+     "problemi": [
+      "voti in calo (280610 -> 280416)"
+     ]
+    },
+    {
+     "race_id": "87065",
+     "name": "Florida 26",
+     "problemi": [
+      "voti in calo (231857 -> 229670)"
+     ]
+    },
+    {
+     "race_id": "87066",
+     "name": "Florida 27",
+     "problemi": [
+      "voti in calo (247859 -> 247832)"
+     ]
+    },
+    {
+     "race_id": "87067",
+     "name": "Florida 28",
+     "problemi": [
+      "voti in calo (236272 -> 236260)"
+     ]
+    },
+    {
+     "race_id": "87080",
+     "name": "Georgia 8",
+     "problemi": [
+      "candidati scomparsi: Kelly Etsi"
+     ]
+    },
+    {
+     "race_id": "87086",
+     "name": "Georgia 14",
+     "problemi": [
+      "candidati scomparsi: Andrew Underwood"
+     ]
+    },
+    {
+     "race_id": "87147",
+     "name": "Iowa 1",
+     "problemi": [
+      "scrutinio in calo (100.0 -> 99.0)"
+     ]
+    },
+    {
+     "race_id": "87150",
+     "name": "Iowa 4",
+     "problemi": [
+      "scrutinio in calo (100.0 -> 88.63)"
+     ]
+    },
+    {
+     "race_id": "87135",
+     "name": "Indiana 1",
+     "problemi": [
+      "voti in calo (214309 -> 201396)"
+     ]
+    },
+    {
+     "race_id": "87136",
+     "name": "Indiana 2",
+     "problemi": [
+      "voti in calo (189497 -> 183220)",
+      "scrutinio in calo (91.45 -> 88.42)"
+     ]
+    },
+    {
+     "race_id": "87139",
+     "name": "Indiana 5",
+     "problemi": [
+      "voti in calo (260327 -> 260318)"
+     ]
+    },
+    {
+     "race_id": "87142",
+     "name": "Indiana 8",
+     "problemi": [
+      "voti in calo (212709 -> 212534)"
+     ]
+    },
+    {
+     "race_id": "87171",
+     "name": "Kentucky 4",
+     "problemi": [
+      "candidati scomparsi: Mohammad Wael Ahmad"
+     ]
+    },
+    {
+     "race_id": "87221",
+     "name": "Minnesota 1",
+     "problemi": [
+      "voti in calo (326187 -> 326178)"
+     ]
+    },
+    {
+     "race_id": "87222",
+     "name": "Minnesota 2",
+     "problemi": [
+      "voti in calo (375226 -> 375225)"
+     ]
+    },
+    {
+     "race_id": "87224",
+     "name": "Minnesota 4",
+     "problemi": [
+      "voti in calo (336244 -> 336243)"
+     ]
+    },
+    {
+     "race_id": "87226",
+     "name": "Minnesota 6",
+     "problemi": [
+      "voti in calo (367348 -> 367344)"
+     ]
+    },
+    {
+     "race_id": "87228",
+     "name": "Minnesota 8",
+     "problemi": [
+      "voti in calo (359456 -> 359455)"
+     ]
+    },
+    {
+     "race_id": "87332",
+     "name": "North Carolina 1",
+     "problemi": [
+      "voti in calo (312730 -> 312703)"
+     ]
+    },
+    {
+     "race_id": "87337",
+     "name": "North Carolina 6",
+     "problemi": [
+      "voti in calo (273747 -> 273738)"
+     ]
+    },
+    {
+     "race_id": "87339",
+     "name": "North Carolina 8",
+     "problemi": [
+      "voti in calo (292040 -> 291899)"
+     ]
+    },
+    {
+     "race_id": "87257",
+     "name": "Nevada 2",
+     "problemi": [
+      "voti in calo (342621 -> 304506)",
+      "scrutinio in calo (99.0 -> 95.81)"
+     ]
+    },
+    {
+     "race_id": "87303",
+     "name": "New York 1",
+     "problemi": [
+      "voti in calo (895755 -> 298585)"
+     ]
+    },
+    {
+     "race_id": "87304",
+     "name": "New York 2",
+     "problemi": [
+      "voti in calo (729456 -> 243152)",
+      "scrutinio in calo (99.0 -> 80.68)"
+     ]
+    },
+    {
+     "race_id": "87305",
+     "name": "New York 3",
+     "problemi": [
+      "voti in calo (773688 -> 257896)",
+      "scrutinio in calo (99.0 -> 88.46)"
+     ]
+    },
+    {
+     "race_id": "87306",
+     "name": "New York 4",
+     "problemi": [
+      "voti in calo (778512 -> 259504)",
+      "scrutinio in calo (99.0 -> 90.66)"
+     ]
+    },
+    {
+     "race_id": "87307",
+     "name": "New York 5",
+     "problemi": [
+      "voti in calo (484254 -> 161418)"
+     ]
+    },
+    {
+     "race_id": "87308",
+     "name": "New York 6",
+     "problemi": [
+      "voti in calo (404247 -> 134749)"
+     ]
+    },
+    {
+     "race_id": "87309",
+     "name": "New York 7",
+     "problemi": [
+      "voti in calo (486654 -> 162218)"
+     ]
+    },
+    {
+     "race_id": "87310",
+     "name": "New York 8",
+     "problemi": [
+      "voti in calo (487212 -> 162404)"
+     ]
+    },
+    {
+     "race_id": "87311",
+     "name": "New York 9",
+     "problemi": [
+      "voti in calo (535395 -> 178465)"
+     ]
+    },
+    {
+     "race_id": "87312",
+     "name": "New York 10",
+     "problemi": [
+      "voti in calo (603360 -> 201120)"
+     ]
+    },
+    {
+     "race_id": "87313",
+     "name": "New York 11",
+     "problemi": [
+      "voti in calo (543948 -> 181316)"
+     ]
+    },
+    {
+     "race_id": "87314",
+     "name": "New York 12",
+     "problemi": [
+      "voti in calo (752343 -> 250781)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "somma_contee_vs_totale",
+   "status": "warn",
+   "detail": "109 su 114 gare chiave: somma delle contee = totale statale",
+   "gare": [
+    {
+     "race_id": "86916",
+     "name": "Alaska US Senate",
+     "counties": 72,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 28,
+     "map_ok": false
+    },
+    {
+     "race_id": "87187",
+     "name": "Maine 2",
+     "counties": 391,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 11,
+     "map_ok": false
+    },
+    {
+     "race_id": "87188",
+     "name": "Maine US Senate",
+     "counties": 513,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 16,
+     "map_ok": false
+    },
+    {
+     "race_id": "87283",
+     "name": "New Hampshire US Senate",
+     "counties": 326,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 10,
+     "map_ok": false
+    },
+    {
+     "race_id": "87284",
+     "name": "New Hampshire Governor",
+     "counties": 326,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 10,
+     "map_ok": false
+    }
+   ]
+  },
+  {
+   "name": "contee_agganciate_al_topojson",
+   "status": "warn",
+   "detail": "5 gare senza mappa per contea (chiavi non agganciate): si mostra la tabella",
+   "gare": [
+    {
+     "race_id": "86916",
+     "name": "Alaska US Senate",
+     "counties": 72,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 28,
+     "map_ok": false
+    },
+    {
+     "race_id": "87187",
+     "name": "Maine 2",
+     "counties": 391,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 11,
+     "map_ok": false
+    },
+    {
+     "race_id": "87188",
+     "name": "Maine US Senate",
+     "counties": 513,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 16,
+     "map_ok": false
+    },
+    {
+     "race_id": "87283",
+     "name": "New Hampshire US Senate",
+     "counties": 326,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 10,
+     "map_ok": false
+    },
+    {
+     "race_id": "87284",
+     "name": "New Hampshire Governor",
+     "counties": 326,
+     "winner_flags_corrected": 0,
+     "sum_matches_state": false,
+     "fips_in_topojson": 10,
+     "map_ok": false
+    }
+   ]
+  },
+  {
+   "name": "gare_trovate_house",
+   "status": "ok",
+   "detail": "trovate 435, attese 435"
+  },
+  {
+   "name": "gare_trovate_senate",
+   "status": "ok",
+   "detail": "trovate 35, attese 35"
+  },
+  {
+   "name": "gare_trovate_governor",
+   "status": "ok",
+   "detail": "trovate 36, attese 36"
+  },
+  {
+   "name": "abbinamento_distretti",
+   "status": "ok",
+   "detail": "435 su 435 distretti abbinati",
+   "senza_geometria": [],
+   "senza_gara": []
+  }
+ ],
+ "aggregate_check": [
+  {
+   "chamber": "senate",
+   "civicapi_seats": {
+    "Democratic": 54,
+    "Republican": 44
+   },
+   "nostri_assegnati": {
+    "D": 49,
+    "R": 41,
+    "I": 2
+   }
+  },
+  {
+   "chamber": "governors",
+   "civicapi_seats": {
+    "Democratic": 28,
+    "Republican": 20
+   },
+   "nostri_assegnati": {
+    "D": 21,
+    "R": 19,
+    "I": 0
+   }
+  },
+  {
+   "chamber": "house",
+   "civicapi_seats": {
+    "Democratic": 249,
+    "Republican": 156
+   },
+   "nostri_assegnati": {
+    "D": 214,
+    "R": 143,
+    "I": 0
+   }
+  }
+ ]
+}
